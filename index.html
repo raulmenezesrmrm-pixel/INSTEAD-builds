@@ -392,9 +392,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="wrap">
       <div class="section-head">
         <span class="label"><span lang="pt">Novidades</span><span lang="en">What's new</span></span>
-        <h2><span lang="pt">Chegando na próxima versão</span><span lang="en">Coming in the next version</span></h2>
-        <p lang="pt">Já está pronto e entra na próxima atualização. Quem tem o jogo instalado recebe sozinho.</p>
-        <p lang="en">Already done and shipping in the next update. If you have the game installed, it arrives on its own.</p>
+        <h2><span lang="pt" id="news-title-pt">Chegando na próxima versão</span><span lang="en" id="news-title-en">Coming in the next version</span></h2>
+        <p lang="pt" id="news-text-pt">Já está pronto e entra na próxima atualização. Quem tem o jogo instalado recebe sozinho.</p>
+        <p lang="en" id="news-text-en">Already done and shipping in the next update. If you have the game installed, it arrives on its own.</p>
       </div>
       <div class="news" id="news">
         <article>
@@ -658,6 +658,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         patches.appendChild(tape);
       });
     }
+    ["title_pt", "title_en", "text_pt", "text_en"].forEach(function (key) {
+      var node = document.getElementById("news-" + key.replace("_", "-"));
+      if (node && data["news_" + key]) node.textContent = data["news_" + key];
+    });
     var news = document.getElementById("news");
     var section = document.getElementById("novidades");
     if (news && data.news) {
