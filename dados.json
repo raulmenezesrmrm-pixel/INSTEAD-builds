@@ -1,7 +1,47 @@
 {
     "repo":  "raulmenezesrmrm-pixel/INSTEAD-builds",
-    "latest":  "1.31",
+    "latest":  "1.32",
     "versions":  [
+                     {
+                         "v":  "1.32",
+                         "date":  "2026-11-03",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.32/INSTEAD_1.32_windows.zip",
+                                         "mb":  1013
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.32/INSTEAD_1.32_mac.zip",
+                                     "mb":  1006
+                                 },
+                         "title_pt":  "Sala, cozinha e sobrevivência",
+                         "title_en":  "Living room, kitchen and survival",
+                         "notes_pt":  [
+                                          "Sala: o barulho da fita no videocassete chama baratas de todos os cantos.",
+                                          "Sala: o porta-retrato da prateleira do sofá agora dá para pegar e guardar na coleção.",
+                                          "Sala: o soldado caído em cima da estante da TV dá para revistar (bandagem e granada).",
+                                          "Sala: o vulto no alto da escada ficou mais escuro e mais difícil de encarar.",
+                                          "Cozinha: pão, fruteira, cereal e leite nas bancadas; a textura das frutas não tem mais falhas.",
+                                          "Soldado: pose de rapel nova, inclinado para trás com as mãos na corda.",
+                                          "Avião de papel: o ícone aparece também nas beiradas altas demais para a corda.",
+                                          "Gato: depois da primeira volta, a dica e um ícone perto das armas mostram como chamá-lo.",
+                                          "Banheiro: morrendo, a banheira volta vazia e sem vapor; o chefe rato também é vencido com o soldado no alto do patinho.",
+                                          "Sobrevivência: melhorias de cada arma na loja, com níveis, tiro rápido e recarga rápida.",
+                                          "Correções: a corda não sobe mais por dentro dos vidros da estante, a árvore de gato se sobe pela borda e a fenda atrás da pia foi fechada."
+                                      ],
+                         "notes_en":  [
+                                          "Living room: the noise from the tape in the VCR draws roaches from every corner.",
+                                          "Living room: the picture frame on the sofa shelf can now be picked up and kept in your collection.",
+                                          "Living room: the fallen soldier on top of the TV unit can be searched (bandage and grenade).",
+                                          "Living room: the figure at the top of the stairs is darker and harder to look at.",
+                                          "Kitchen: bread, a fruit bowl, cereal and milk on the counters; the fruit texture no longer has glitches.",
+                                          "Soldier: new rappelling pose, leaning back with both hands on the rope.",
+                                          "Paper plane: the icon also shows on ledges too high for the rope.",
+                                          "Cat: after your first ride, a hint and an icon next to your weapons show how to call him.",
+                                          "Bathroom: when you die, the bathtub comes back empty and steam-free; the rat boss can also be beaten while standing on top of the duck.",
+                                          "Survival: per-weapon upgrades in the shop, with levels, faster fire and faster reload.",
+                                          "Fixes: the rope no longer climbs through the TV unit glass, the cat tree is climbed by its edge, and the gap behind the sink is closed."
+                                      ]
+                     },
                      {
                          "v":  "1.31",
                          "date":  "2026-11-01",
@@ -101,6 +141,10 @@
                                       ]
                      }
                  ],
+    "news_title_pt":  "Novo na versão 1.32",
+    "news_title_en":  "New in version 1.32",
+    "news_text_pt":  "Já está no ar. Quem tem o jogo instalado recebe a atualização sozinho.",
+    "news_text_en":  "Out now. If you have the game installed, the update arrives on its own.",
     "news":  [
                  {
                      "tag_pt":  "SOBREVIVÊNCIA",
