@@ -1,0 +1,154 @@
+{
+    "repo":  "raulmenezesrmrm-pixel/INSTEAD-builds",
+    "latest":  "1.31",
+    "versions":  [
+                     {
+                         "v":  "1.31",
+                         "date":  "2026-11-01",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.31/INSTEAD_1.31_windows.zip",
+                                         "mb":  994
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.31/INSTEAD_1.31_mac.zip",
+                                     "mb":  987
+                                 },
+                         "title_pt":  "Sobrevivência com amigos",
+                         "title_en":  "Survival with friends",
+                         "notes_pt":  [
+                                          "Escolha do modo: 1 jogador, tela dividida ou online.",
+                                          "Online: o mapa é escolhido na sala, com a onda alcançada e o botão RESETAR CENÁRIO.",
+                                          "Placar no Tab, com abates, mortes e K/D.",
+                                          "Vida dos aliados embaixo de cada um; dá para reviver perto do cofrinho, que agora brilha.",
+                                          "A onda começa pulando no botão do chão. ESC fecha a loja.",
+                                          "Ajuda de mira do controle mais forte.",
+                                          "Ícones novos das armas, cantos da tela vermelhos com vida baixa e bichos espalhados pela sala."
+                                      ],
+                         "notes_en":  [
+                                          "Pick a mode: single player, split screen or online.",
+                                          "Online: the map is chosen in the lobby, with the wave reached and a RESET MAP button.",
+                                          "Scoreboard on Tab, with kills, deaths and K/D.",
+                                          "Allies\u0027 health under each of them; revive near the piggy bank, which now glows.",
+                                          "Jump on the floor button to start the wave. ESC closes the shop.",
+                                          "Stronger gamepad aim assist.",
+                                          "New weapon icons, red screen edges at low health and bugs scattered around the living room."
+                                      ]
+                     },
+                     {
+                         "v":  "1.30",
+                         "date":  "2026-11-01",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.30/INSTEAD_1.30_windows.zip",
+                                         "mb":  994
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.30/INSTEAD_1.30_mac.zip",
+                                     "mb":  987
+                                 },
+                         "title_pt":  "Teste de atualização",
+                         "title_en":  "Update test",
+                         "notes_pt":  [
+                                          "Versão de teste da atualização por dentro do jogo no Mac (conteúdo igual à 1.29)."
+                                      ],
+                         "notes_en":  [
+                                          "Test build for in-game updates on Mac (same content as 1.29)."
+                                      ]
+                     },
+                     {
+                         "v":  "1.29",
+                         "date":  "2026-11-01",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.29/INSTEAD_1.29_windows.zip",
+                                         "mb":  994
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.29/INSTEAD_1.29_mac.zip",
+                                     "mb":  987
+                                 },
+                         "title_pt":  "Atualização automática no Mac",
+                         "title_en":  "Auto-update on Mac",
+                         "notes_pt":  [
+                                          "Mac: o jogo se atualiza por dentro, a partir desta versão.",
+                                          "Windows: se faltar um pedaço da atualização, baixa o jogo inteiro em vez de parar.",
+                                          "As atualizações baixam só o que mudou."
+                                      ],
+                         "notes_en":  [
+                                          "Mac: the game updates itself from this version on.",
+                                          "Windows: if part of an update is missing, it downloads the full game instead of stopping.",
+                                          "Updates download only what changed."
+                                      ]
+                     },
+                     {
+                         "v":  "1.28",
+                         "date":  "2026-11-01",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.28/INSTEAD_1.28_windows.zip",
+                                         "mb":  994
+                                     },
+                         "title_pt":  "Online com até 4",
+                         "title_en":  "Online with up to 4",
+                         "notes_pt":  [
+                                          "Sobrevivência online com até 4 jogadores.",
+                                          "Nick na sala e em cima da cabeça de cada um.",
+                                          "Sala nova com 4 cartões; a dificuldade acompanha quantos estão jogando.",
+                                          "Convite para amigos da Steam pela lista do jogo, com foto."
+                                      ],
+                         "notes_en":  [
+                                          "Online survival with up to 4 players.",
+                                          "Nicknames in the lobby and above each player\u0027s head.",
+                                          "New lobby with 4 cards; difficulty scales with the number of players.",
+                                          "Invite Steam friends from the in-game list, with their picture."
+                                      ]
+                     }
+                 ],
+    "news":  [
+                 {
+                     "tag_pt":  "SOBREVIVÊNCIA",
+                     "tag_en":  "SURVIVAL",
+                     "title_pt":  "Armas com níveis",
+                     "title_en":  "Weapon levels",
+                     "text_pt":  "Cada arma tem as próprias melhorias na loja, com tiro rápido e recarga rápida. O preço sobe a cada nível.",
+                     "text_en":  "Each weapon has its own upgrades in the shop, including faster fire and faster reload. The price goes up with every level."
+                 },
+                 {
+                     "tag_pt":  "SALA",
+                     "tag_en":  "LIVING ROOM",
+                     "title_pt":  "A fita no videocassete",
+                     "title_en":  "The tape in the VCR",
+                     "text_pt":  "O barulho no fim da fita chama baratas de todos os cantos da sala.",
+                     "text_en":  "The noise at the end of the tape draws roaches from every corner of the room."
+                 },
+                 {
+                     "tag_pt":  "ESCADA",
+                     "tag_en":  "STAIRS",
+                     "title_pt":  "O vulto ficou mais escuro",
+                     "title_en":  "The figure got darker",
+                     "text_pt":  "O que espera no alto da escada ficou mais denso e mais difícil de encarar.",
+                     "text_en":  "Whatever waits at the top of the stairs is denser now, and harder to look at."
+                 },
+                 {
+                     "tag_pt":  "SOLDADO",
+                     "tag_en":  "SOLDIER",
+                     "title_pt":  "Rapel de verdade",
+                     "title_en":  "Proper rappelling",
+                     "text_pt":  "Na corda, o soldado sobe inclinado para trás, com as mãos na corda presa na cintura.",
+                     "text_en":  "On the rope, the soldier leans back with both hands on a line tied at the waist."
+                 },
+                 {
+                     "tag_pt":  "GATO",
+                     "tag_en":  "CAT",
+                     "title_pt":  "Chamar o gato",
+                     "title_en":  "Call the cat",
+                     "text_pt":  "Depois da primeira volta no gato, um ícone perto das armas mostra a tecla para chamá-lo.",
+                     "text_en":  "After your first ride, an icon next to your weapons shows the key that calls him."
+                 },
+                 {
+                     "tag_pt":  "COZINHA",
+                     "tag_en":  "KITCHEN",
+                     "title_pt":  "Bancadas com comida",
+                     "title_en":  "Food on the counters",
+                     "text_pt":  "Pão na tábua, fruteira, cereal e leite. Do tamanho de um soldadinho, um pão é um prédio.",
+                     "text_en":  "Bread on the board, a fruit bowl, cereal and milk. At toy size, a loaf of bread is a building."
+                 }
+             ]
+}
