@@ -284,6 +284,30 @@ h2 {
 .film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; }
 .film .stamp { top: 12px; bottom: auto; }
 .film .stamp b { color: var(--dot); text-shadow: 0 0 6px rgba(226, 67, 47, 0.6), 0 0 1px #000; }
+.film.playing .stamp { opacity: 0; transition: opacity 0.4s; }
+/* carrossel: cutscene de abertura <-> vídeo do jogo, um em cima do outro, troca com fade */
+.reel { position: relative; }
+.reel-track { display: grid; }
+.reel .slide { grid-area: 1 / 1; opacity: 0; visibility: hidden; transition: opacity 0.45s, visibility 0s 0.45s; }
+.reel .slide.is-on { opacity: 1; visibility: visible; transition: opacity 0.45s; }
+.reel-arrow {
+  position: absolute; top: 50%; z-index: 2; transform: translateY(-50%);
+  width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(236, 228, 214, 0.55); border-radius: 50%; cursor: pointer;
+  background: rgba(14, 12, 11, 0.6); color: var(--paper); backdrop-filter: blur(4px);
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.reel-arrow:hover { background: var(--lamp); border-color: var(--lamp); color: var(--night); }
+.reel-arrow svg { width: 20px; height: 20px; }
+.reel-arrow.prev { left: -24px; }
+.reel-arrow.next { right: -24px; }
+@media (max-width: 1180px) { .reel-arrow.prev { left: 10px; } .reel-arrow.next { right: 10px; } }
+@media (max-width: 620px) { .reel-arrow { width: 38px; height: 38px; top: 42%; } }
+.reel-foot { display: flex; align-items: flex-start; gap: 18px; margin-top: 14px; }
+.reel-dots { display: flex; gap: 8px; padding-top: 7px; flex: none; }
+.reel-dots button { width: 26px; height: 4px; padding: 0; border: 0; background: var(--line); cursor: pointer; }
+.reel-dots button[aria-current="true"] { background: var(--lamp); box-shadow: var(--glow); }
+.reel-cap { margin: 0; color: var(--dim); max-width: 70ch; }
 dialog.viewer { border: 0; padding: 0; background: transparent; max-width: min(1400px, 94vw); width: 100%; }
 dialog.viewer::backdrop { background: rgba(6, 5, 5, 0.92); }
 dialog.viewer img { width: 100%; height: auto; display: block; }
@@ -406,9 +430,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="missing">
         <figure class="poster">
           <p class="big" lang="pt">Desaparecido</p><p class="big" lang="en">Missing</p>
-          <img src="img/elias.jpg" alt="Foto de Elias, um menino de 9 anos, sorrindo e segurando um soldadinho de brinquedo" width="620" height="760" loading="lazy">
+          <img src="img/elias.jpg" alt="Foto de Elias, um menino de 8 anos, sorrindo e segurando um soldadinho de brinquedo" width="620" height="760" loading="lazy">
           <p class="name">ELIAS</p>
-          <p class="age" lang="pt">9 anos</p><p class="age" lang="en">Age 9</p>
+          <p class="age" lang="pt">8 anos</p><p class="age" lang="en">Age 8</p>
           <p class="facts" lang="pt">Visto pela última vez em casa, em 1993.<br>Cabelo castanho, camiseta branca.<br>Nunca dormia sem o soldadinho dele.</p>
           <p class="facts" lang="en">Last seen at home, in 1993.<br>Brown hair, white T-shirt.<br>Never slept without his toy soldier.</p>
           <div class="tabs" id="tabs">
@@ -422,8 +446,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <div class="missing-text">
           <span class="label">1993</span>
           <h2><span lang="pt">Onde está Elias?</span><span lang="en">Where is Elias?</span></h2>
-          <p lang="pt">Em 1993, Elias, de 9 anos, sumiu sem deixar rastro. O quarto dele ficou exatamente como estava: os brinquedos, as fitas, os desenhos.</p>
-          <p lang="en">In 1993, nine-year-old Elias vanished without a trace. His room was left exactly as it was: the toys, the tapes, the drawings.</p>
+          <p lang="pt">Em 1993, Elias, de 8 anos, sumiu sem deixar rastro. O quarto dele ficou exatamente como estava: os brinquedos, as fitas, os desenhos.</p>
+          <p lang="en">In 1993, eight-year-old Elias vanished without a trace. His room was left exactly as it was: the toys, the tapes, the drawings.</p>
           <p lang="pt">Quatro anos depois, o soldadinho dele se levanta da cama. O que aconteceu está espalhado pela casa, em fotos, fitas e bilhetes. Mas a casa lembra de tudo, e nem tudo quer ser lembrado.</p>
           <p lang="en">Four years later, his toy soldier gets out of bed. What happened is scattered around the house, in photos, tapes and notes. But the house remembers everything, and not everything wants to be remembered.</p>
           <p class="note-hand tab-note" id="tab-note" aria-live="polite"></p>
@@ -491,15 +515,35 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <section class="section" id="video">
     <div class="wrap">
       <div class="section-head">
-        <span class="label">Gameplay</span>
+        <span class="label"><span lang="pt">Vídeos</span><span lang="en">Videos</span></span>
         <h2><span lang="pt">Em movimento</span><span lang="en">In motion</span></h2>
-        <p lang="pt">Tiroteio na sala, voo de avião de papel, uma volta no gato, o chefe rato saindo do vaso e a cozinha. Clique no vídeo para ligar o som.</p>
-        <p lang="en">A firefight in the living room, a paper plane flight, a ride on the cat, the rat boss climbing out of the toilet and the kitchen. Click the video to turn the sound on.</p>
       </div>
-      <figure class="film">
-        <video id="gameplay" src="video/gameplay.mp4" poster="video/poster.jpg" autoplay muted loop playsinline controls preload="metadata"></video>
-        <figcaption class="stamp"><b>REC ●</b><span>INSTEAD <i class="data-ver">1.31</i></span></figcaption>
-      </figure>
+      <div class="reel" id="reel" role="region" aria-roledescription="carrossel" aria-label="Vídeos do jogo" tabindex="-1">
+        <div class="reel-track">
+          <figure class="film slide is-on" aria-label="Cutscene de abertura">
+            <video id="cutscene" data-src-pt="video/cutscene_pt.mp4" data-src-en="video/cutscene_en.mp4" poster="video/cutscene_poster.jpg" controls playsinline preload="none"></video>
+            <figcaption class="stamp"><b><span lang="pt">▶ ABERTURA</span><span lang="en">▶ OPENING</span></b><span>1:54</span></figcaption>
+          </figure>
+          <figure class="film slide" aria-label="Vídeo do jogo">
+            <video id="gameplay" src="video/gameplay.mp4" poster="video/poster.jpg" muted loop playsinline controls preload="metadata"></video>
+            <figcaption class="stamp"><b>REC ●</b><span>INSTEAD <i class="data-ver">1.31</i></span></figcaption>
+          </figure>
+        </div>
+        <button class="reel-arrow prev" type="button" aria-label="Vídeo anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="reel-arrow next" type="button" aria-label="Próximo vídeo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      <div class="reel-foot">
+        <div class="reel-dots" role="tablist" aria-label="Escolher vídeo">
+          <button type="button" role="tab" aria-current="true" aria-label="Cutscene de abertura"></button>
+          <button type="button" role="tab" aria-current="false" aria-label="Vídeo do jogo"></button>
+        </div>
+        <div>
+          <p class="reel-cap" data-cap="0" lang="pt">A cutscene de abertura do jogo. Clique para assistir com som.</p>
+          <p class="reel-cap" data-cap="0" lang="en">The game's opening cutscene. Click to watch with sound.</p>
+          <p class="reel-cap" data-cap="1" lang="pt" hidden>Tiroteio na sala, voo de avião de papel, uma volta no gato, o chefe rato saindo do vaso e a cozinha. Clique no vídeo para ligar o som.</p>
+          <p class="reel-cap" data-cap="1" lang="en" hidden>A firefight in the living room, a paper plane flight, a ride on the cat, the rat boss climbing out of the toilet and the kitchen. Click the video to turn the sound on.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -821,6 +865,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       b.setAttribute("aria-pressed", String(b.dataset.set === lang));
     });
     try { localStorage.setItem("instead-lang", lang); } catch (e) {}
+    document.dispatchEvent(new Event("instead-lang"));  // (a cutscene troca para a versão do idioma)
   }
   var saved = null;
   try { saved = localStorage.getItem("instead-lang"); } catch (e) {}
@@ -944,6 +989,61 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       }
     });
   });
+
+  // --- Carrossel de vídeos: cutscene de abertura (PT/EN conforme o idioma) <-> vídeo do jogo ---
+  var reel = document.getElementById("reel");
+  if (reel) {
+    var slides = reel.querySelectorAll(".slide");
+    var dots = document.querySelectorAll(".reel-dots button");
+    var caps = document.querySelectorAll(".reel-cap");
+    var cutscene = document.getElementById("cutscene");
+    var gameplay = document.getElementById("gameplay");
+    var current = 0;
+    function cutsceneSrc() {
+      var lang = root.getAttribute("data-lang") === "en" ? "en" : "pt";
+      var want = cutscene.dataset["src" + (lang === "en" ? "En" : "Pt")];
+      if (cutscene.getAttribute("src") === want) return;
+      // troca de idioma no meio do vídeo: continua do mesmo ponto
+      var t = cutscene.currentTime, playing = !cutscene.paused;
+      cutscene.setAttribute("src", want);
+      if (t > 0) cutscene.addEventListener("loadedmetadata", function once() {
+        cutscene.removeEventListener("loadedmetadata", once);
+        cutscene.currentTime = t;
+        if (playing) cutscene.play().catch(function () {});
+      });
+    }
+    cutsceneSrc();
+    document.addEventListener("instead-lang", cutsceneSrc);
+    function show(i) {
+      current = (i + slides.length) % slides.length;
+      slides.forEach(function (s, k) { s.classList.toggle("is-on", k === current); s.setAttribute("aria-hidden", String(k !== current)); });
+      dots.forEach(function (d, k) { d.setAttribute("aria-current", String(k === current)); });
+      caps.forEach(function (c) { c.hidden = c.dataset.cap !== String(current); });
+      // só o vídeo da frente toca: a cutscene pausa ao sair; o do jogo toca mudo em loop ao entrar
+      if (current !== 0) cutscene.pause();
+      if (current === 1) gameplay.play().catch(function () {}); else gameplay.pause();
+    }
+    reel.querySelector(".prev").addEventListener("click", function () { show(current - 1); });
+    reel.querySelector(".next").addEventListener("click", function () { show(current + 1); });
+    dots.forEach(function (d, k) { d.addEventListener("click", function () { show(k); }); });
+    reel.addEventListener("keydown", function (e) {
+      if (e.target.tagName === "VIDEO") return;  // (as setas no vídeo avançam/voltam o vídeo)
+      if (e.key === "ArrowLeft") show(current - 1);
+      if (e.key === "ArrowRight") show(current + 1);
+    });
+    var touchX = null;  // celular: arrastar o dedo para o lado troca o vídeo
+    reel.addEventListener("touchstart", function (e) { touchX = e.touches[0].clientX; }, { passive: true });
+    reel.addEventListener("touchend", function (e) {
+      if (touchX === null) return;
+      var dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) > 60) show(current + (dx < 0 ? 1 : -1));
+    });
+    // (a etiqueta "▶ ABERTURA" some enquanto a cutscene toca; o "REC" do vídeo do jogo fica)
+    cutscene.addEventListener("play", function () { cutscene.parentNode.classList.add("playing"); });
+    cutscene.addEventListener("pause", function () { cutscene.parentNode.classList.remove("playing"); });
+    show(0);
+  }
 
   // --- Caixa de sapato: arrastar as polaroids; clique (sem arrastar) vira a foto ---
   var desk = document.getElementById("desk");
