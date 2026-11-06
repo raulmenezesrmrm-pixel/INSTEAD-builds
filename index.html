@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="INSTEAD: um soldadinho de brinquedo numa casa em 1997. Tiro visto de cima, terror, campanha e sobrevivência com amigos. Baixe para Windows e Mac.">
+<meta name="description" content="INSTEAD: Elias sumiu em 1993. Quatro anos depois, o soldadinho dele acorda. Algumas memórias reagem. Tiro visto de cima, suspense, campanha e sobrevivência com amigos. Baixe para Windows e Mac.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="INSTEAD">
-<meta property="og:description" content="INSTEAD: um soldadinho de brinquedo numa casa em 1997. Tiro visto de cima, terror, campanha e sobrevivência com amigos. Baixe para Windows e Mac.">
+<meta property="og:description" content="INSTEAD: Elias sumiu em 1993. Quatro anos depois, o soldadinho dele acorda. Algumas memórias reagem. Tiro visto de cima, suspense, campanha e sobrevivência com amigos. Baixe para Windows e Mac.">
 <meta property="og:url" content="https://instead.pages.dev/">
 <meta property="og:image" content="https://instead.pages.dev/img/capa.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -162,6 +162,45 @@ h2 {
 .rooms .now { color: var(--paper); }
 .rooms .soon { opacity: 0.5; }
 
+/* ---------- onde está Elias: cartaz de desaparecido xerocado, preso com fita ---------- */
+.missing { display: grid; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
+@media (max-width: 820px) { .missing { grid-template-columns: minmax(0, 1fr); } .missing .poster { justify-self: center; width: min(84%, 330px); } }
+#elias { overflow-x: clip; }
+.poster {
+  position: relative; width: min(100%, 380px); margin: 18px 0 0;
+  background:
+    radial-gradient(120% 90% at 30% 20%, transparent 55%, rgba(90, 70, 40, 0.16)),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.025) 0 1px, transparent 1px 3px),
+    #ece6d8;
+  color: #151210; padding: 22px 22px 0; transform: rotate(-2deg);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 0 60px rgba(241, 179, 92, 0.06);
+  text-align: center;
+}
+.poster::before, .poster::after {
+  content: ""; position: absolute; top: -14px; width: 92px; height: 28px;
+  background: rgba(230, 220, 190, 0.55); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.poster::before { left: -18px; transform: rotate(-32deg); }
+.poster::after { right: -18px; transform: rotate(30deg); }
+.poster .big { margin: 0; font: 600 clamp(2.1rem, 6vw, 2.75rem)/1 var(--f-ui); letter-spacing: 0.06em; text-transform: uppercase; }
+.poster img {
+  display: block; width: 100%; height: auto; aspect-ratio: 620 / 760; object-fit: cover; margin: 14px 0 12px;
+  filter: grayscale(1) contrast(1.45) brightness(1.06); mix-blend-mode: multiply; border: 1px solid #151210;
+}
+.poster .name { margin: 0; font: 600 1.9rem/1 var(--f-ui); letter-spacing: 0.18em; }
+.poster .age { margin: 4px 0 10px; font: 500 0.9rem var(--f-ui); letter-spacing: 0.3em; text-transform: uppercase; }
+.poster .facts { margin: 0; font: 400 0.98rem/1.45 var(--f-body); }
+.poster .tabs { display: flex; margin: 16px -22px 0; border-top: 1px dashed #151210; overflow: hidden; }
+.poster .tabs span {
+  flex: 1; border-left: 1px dashed #151210; margin-left: -1px; padding: 10px 0 12px;
+  font: 500 0.56rem var(--f-ui); letter-spacing: 0.12em; text-transform: uppercase;
+  writing-mode: vertical-rl; transform: rotate(180deg); height: 104px; display: flex; align-items: center; justify-content: center;
+}
+.poster .tabs span.gone { opacity: 0; } /* alguém já levou essa tirinha */
+.missing-text { display: grid; gap: 18px; }
+.missing-text p { margin: 0; max-width: 58ch; }
+.missing-text h2 { font-size: clamp(2.3rem, 5.4vw, 3.6rem); }
+
 /* ---------- prints ---------- */
 .gallery { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(10px, 1.6vw, 18px); }
 .shot { position: relative; margin: 0; grid-column: span 2; background: var(--night-2); cursor: zoom-in; border: 0; padding: 0; display: block; text-align: left; color: inherit; }
@@ -251,6 +290,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <div class="wrap">
     <a href="#top" aria-label="INSTEAD"><img src="img/logo.png" alt="INSTEAD"></a>
     <nav class="topnav" aria-label="Seções">
+      <a href="#elias">Elias</a>
       <a href="#jogo"><span lang="pt">O jogo</span><span lang="en">The game</span></a>
       <a href="#video"><span lang="pt">Vídeo</span><span lang="en">Video</span></a>
       <a href="#prints"><span lang="pt">Prints</span><span lang="en">Screenshots</span></a>
@@ -271,13 +311,13 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="wrap">
       <div class="hero-inner">
         <span class="label">
-          <span lang="pt">Tiro visto de cima <span class="diamond"></span> Terror <span class="diamond"></span> 1997</span>
-          <span lang="en">Top-down shooter <span class="diamond"></span> Horror <span class="diamond"></span> 1997</span>
+          <span lang="pt">Tiro visto de cima <span class="diamond"></span> Suspense <span class="diamond"></span> 1997</span>
+          <span lang="en">Top-down shooter <span class="diamond"></span> Suspense <span class="diamond"></span> 1997</span>
         </span>
         <img class="hero-logo" src="img/logo.png" alt="INSTEAD" width="1463" height="594">
         <p class="tagline">
-          <span lang="pt">Um soldadinho de brinquedo. Uma casa em 1997. <em>E alguém que não deveria estar aqui.</em></span>
-          <span lang="en">A toy soldier. A house in 1997. <em>And someone who shouldn't be here.</em></span>
+          <span lang="pt">Elias sumiu em 1993. Quatro anos depois, o soldadinho dele acorda no quarto. <em>Algumas memórias reagem.</em></span>
+          <span lang="en">Elias vanished in 1993. Four years later, his toy soldier wakes up in his room. <em>Some memories fight back.</em></span>
         </p>
         <div class="dl">
           <a class="btn primary" data-dl="windows" href="https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.31/INSTEAD_1.31_windows.zip" target="_blank" rel="noopener">
@@ -295,6 +335,33 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <span lang="pt">Versão <i class="data-ver">1.31</i> · <i class="data-date-pt">01/11/2026</i></span><span lang="en">Version <i class="data-ver">1.31</i> · <i class="data-date-en">11/1/2026</i></span>
           <span lang="pt">Português e inglês</span><span lang="en">Portuguese and English</span>
           <span lang="pt">Teclado ou controle</span><span lang="en">Keyboard or gamepad</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="elias">
+    <div class="wrap">
+      <div class="missing">
+        <figure class="poster">
+          <p class="big" lang="pt">Desaparecido</p><p class="big" lang="en">Missing</p>
+          <img src="img/elias.jpg" alt="Foto de Elias, um menino de 9 anos, sorrindo e segurando um soldadinho de brinquedo" width="620" height="760" loading="lazy">
+          <p class="name">ELIAS</p>
+          <p class="age" lang="pt">9 anos</p><p class="age" lang="en">Age 9</p>
+          <p class="facts" lang="pt">Visto pela última vez em casa, em 1993.<br>Cabelo castanho, camiseta branca.<br>Nunca dormia sem o soldadinho dele.</p>
+          <p class="facts" lang="en">Last seen at home, in 1993.<br>Brown hair, white T-shirt.<br>Never slept without his toy soldier.</p>
+          <div class="tabs" aria-hidden="true">
+            <span lang="pt">Onde está Elias?</span><span lang="pt">Onde está Elias?</span><span lang="pt" class="gone">Onde está Elias?</span><span lang="pt">Onde está Elias?</span><span lang="pt">Onde está Elias?</span>
+            <span lang="en">Where is Elias?</span><span lang="en">Where is Elias?</span><span lang="en" class="gone">Where is Elias?</span><span lang="en">Where is Elias?</span><span lang="en">Where is Elias?</span>
+          </div>
+        </figure>
+        <div class="missing-text">
+          <span class="label">1993</span>
+          <h2><span lang="pt">Onde está Elias?</span><span lang="en">Where is Elias?</span></h2>
+          <p lang="pt">Em 1993, Elias, de 9 anos, sumiu sem deixar rastro. O quarto dele ficou exatamente como estava: os brinquedos, as fitas, os desenhos.</p>
+          <p lang="en">In 1993, nine-year-old Elias vanished without a trace. His room was left exactly as it was: the toys, the tapes, the drawings.</p>
+          <p lang="pt">Quatro anos depois, o soldadinho dele se levanta da cama. O que aconteceu está espalhado pela casa, em fotos, fitas e bilhetes. Mas a casa lembra de tudo, e nem tudo quer ser lembrado.</p>
+          <p lang="en">Four years later, his toy soldier gets out of bed. What happened is scattered around the house, in photos, tapes and notes. But the house remembers everything, and not everything wants to be remembered.</p>
         </div>
       </div>
     </div>
@@ -378,13 +445,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
       <div class="gallery">
         <button class="shot big" type="button" data-src="img/mesa.jpg"><img src="img/mesa.jpg" alt="O soldadinho em cima da escrivaninha do quarto, entre o Game Boy, o desenho a giz, o walkman e o videogame" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b><span>▶ PLAY</span></span></button>
-        <button class="shot" type="button" data-src="img/aviao.jpg"><img src="img/aviao.jpg" alt="O soldado planando num avião de papel por cima do sofá" loading="lazy"><span class="stamp"><b lang="pt">SALA</b><b lang="en">LIVING ROOM</b></span></button>
+        <button class="shot" type="button" data-src="img/quarto_porta.jpg"><img src="img/quarto_porta.jpg" alt="O soldadinho no chão do quarto, com a escrivaninha e a janela ao fundo e fitas de vídeo no chão" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b></span></button>
+        <button class="shot" type="button" data-src="img/quarto_cama.jpg"><img src="img/quarto_cama.jpg" alt="O soldadinho em cima da cama, com o ursinho de pelúcia e a luz da persiana" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b></span></button>
+        <button class="shot" type="button" data-src="img/quarto_tapete.jpg"><img src="img/quarto_tapete.jpg" alt="Baratas cercando o soldadinho no tapete listrado do quarto" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b></span></button>
         <button class="shot" type="button" data-src="img/rato_tiro.jpg"><img src="img/rato_tiro.jpg" alt="O soldado de escopeta na frente do rato de corda gigante, do lado do vaso" loading="lazy"><span class="stamp"><b lang="pt">BANHEIRO</b><b lang="en">BATHROOM</b></span></button>
-        <button class="shot" type="button" data-src="img/tiroteio.jpg"><img src="img/tiroteio.jpg" alt="O soldado atirando de fuzil numa aranha e em baratas no tapete da sala" loading="lazy"><span class="stamp"><b lang="pt">SALA</b><b lang="en">LIVING ROOM</b></span></button>
         <button class="shot" type="button" data-src="img/rato.jpg"><img src="img/rato.jpg" alt="O rato de corda acabou de sair do vaso e encara o soldado" loading="lazy"><span class="stamp"><b lang="pt">BANHEIRO</b><b lang="en">BATHROOM</b></span></button>
-        <button class="shot" type="button" data-src="img/gato.jpg"><img src="img/gato.jpg" alt="O soldado montado no gato, correndo pela sala" loading="lazy"><span class="stamp"><b lang="pt">SALA</b><b lang="en">LIVING ROOM</b></span></button>
-        <button class="shot half" type="button" data-src="img/cozinha.jpg"><img src="img/cozinha.jpg" alt="O soldado em cima da ilha da cozinha, ao lado da fruteira" loading="lazy"><span class="stamp"><b lang="pt">COZINHA</b><b lang="en">KITCHEN</b></span></button>
-        <button class="shot half" type="button" data-src="img/tecela.jpg"><img src="img/tecela.jpg" alt="A aranha Tecelã pendurada nas teias, em cima do soldado com a lanterna" loading="lazy"><span class="stamp"><b lang="pt">GUARDA-ROUPA</b><b lang="en">WARDROBE</b></span></button>      </div>
+      </div>
     </div>
   </section>
 
