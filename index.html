@@ -42,6 +42,7 @@ img { max-width: 100%; }
 html { background: var(--night); scroll-behavior: smooth; }
 section[id] { scroll-margin-top: 52px; } /* (o menu fixo não cobre o título ao rolar até a seção) */
 body {
+  overflow-x: clip; /* (polaroid arrastada para a borda não cria rolagem para o lado) */
   background: var(--night);
   color: var(--paper);
   font: 400 1.0625rem/1.65 var(--f-body);
@@ -82,7 +83,7 @@ h2 {
 
 /* ---------- topo ---------- */
 .topbar {
-  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 100;
   background: linear-gradient(var(--night), rgba(14, 12, 11, 0.86));
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(44, 38, 34, 0.7);
@@ -219,44 +220,13 @@ h2 {
 .searching { font: 400 1.25rem var(--f-cam); letter-spacing: 0.06em; color: var(--stamp); text-shadow: 0 0 6px rgba(255, 154, 60, 0.45); }
 .searching b { font-weight: 400; color: var(--paper); }
 
-/* ---------- o quarto no escuro: o mouse/dedo é a lanterna ---------- */
-.room {
-  --x: 50%; --y: 50%; --r: clamp(90px, 17vw, 220px);
-  position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #000;
-  border: 1px solid var(--line); touch-action: pan-y; cursor: none; user-select: none; -webkit-user-select: none;
-}
-@media (max-width: 620px) { .room { --r: 72px; } }
-.room img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-.room-dark { filter: brightness(0.06) saturate(0.3); }
-.room-lit {
-  position: absolute; inset: 0;
-  -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 0 30%, rgba(0, 0, 0, 0.55) 62%, transparent 100%);
-  mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 0 30%, rgba(0, 0, 0, 0.55) 62%, transparent 100%);
-}
-.room-lit img { filter: brightness(0.9) sepia(0.12); }
-.room-lit::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle var(--r) at var(--x) var(--y), rgba(255, 226, 160, 0.16), transparent 70%); }
-.scrawl {
-  position: absolute; font: 400 clamp(0.8rem, 1.7vw, 1.35rem)/1.15 var(--f-hand); color: rgba(28, 20, 16, 0.82);
-  transform: translate(-50%, -50%) rotate(var(--rot, -4deg)); white-space: nowrap; pointer-events: none;
-}
-.scrawl.light { color: rgba(236, 228, 214, 0.75); }
-.scrawl s { text-decoration-thickness: 2px; }
-.eyes { position: absolute; display: flex; gap: clamp(6px, 0.9vw, 11px); transform: translate(-50%, -50%); transition: opacity 0.18s; pointer-events: none; }
-.eyes i { width: clamp(5px, 0.7vw, 9px); height: clamp(3px, 0.45vw, 6px); border-radius: 50%; background: #ffd27a; box-shadow: 0 0 8px 2px rgba(255, 170, 60, 0.75); animation: blink 5.5s infinite; }
-.eyes.hide { opacity: 0; }
-@keyframes blink { 0%, 93%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
-.room-hint { margin: 12px 0 0; color: var(--dim); font: 400 1rem var(--f-cam); letter-spacing: 0.06em; }
-
-/* ---------- caixa de sapato: polaroids para arrastar e virar ---------- */
-.desk {
-  position: relative; height: clamp(440px, 46vw, 560px); overflow: hidden; border: 1px solid var(--line);
-  background:
-    radial-gradient(60% 70% at 50% 40%, rgba(241, 179, 92, 0.10), transparent 70%),
-    repeating-linear-gradient(92deg, rgba(0, 0, 0, 0.18) 0 2px, transparent 2px 38px),
-    linear-gradient(180deg, #2a1d14, #1a120c);
-}
-@media (max-width: 620px) { .desk { height: 430px; } .desk .pola { width: 43%; } }
-.pola { position: absolute; width: clamp(140px, 19vw, 220px); aspect-ratio: 0.84; perspective: 900px; touch-action: none; cursor: grab; transform: rotate(var(--rot, 0deg)); }
+/* ---------- caixa de sapato: polaroids soltas, arrastáveis pela página inteira ---------- */
+/* (sem fundo nem borda; z-index acima das outras seções e abaixo do menu fixo) */
+.desk { position: relative; z-index: 50; height: clamp(170px, 16vw, 225px); }
+#caixa { padding-bottom: clamp(36px, 5vw, 64px); }
+#caixa .section-head { margin-bottom: 18px; }
+@media (max-width: 620px) { .desk { height: 300px; } .desk .pola { width: 38%; } }
+.pola { position: absolute; width: clamp(115px, 13.5vw, 170px); aspect-ratio: 0.84; perspective: 900px; touch-action: none; cursor: grab; transform: rotate(var(--rot, 0deg)); }
 .pola.dragging { cursor: grabbing; }
 .pola .card { position: absolute; inset: 0; transition: transform 0.6s; transform-style: preserve-3d; }
 .pola.flipped .card { transform: rotateY(180deg); }
@@ -464,27 +434,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     </div>
   </section>
 
-  <section class="section" id="quarto">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="label"><span lang="pt">O quarto</span><span lang="en">The room</span></span>
-        <h2><span lang="pt">Ninguém mexeu no quarto dele</span><span lang="en">Nobody touched his room</span></h2>
-      </div>
-      <div class="room" id="room" role="img" aria-label="O quarto do Elias no escuro, iluminado só por uma lanterna">
-        <img class="room-dark" src="img/quarto_porta.jpg" alt="" loading="lazy">
-        <div class="room-lit">
-          <img src="img/quarto_porta.jpg" alt="" loading="lazy">
-          <span class="scrawl" style="left:71%;top:47%;--rot:-6deg"><span lang="pt">ele volta quando apaga a luz</span><span lang="en">he comes back when the light goes out</span></span>
-          <span class="scrawl" style="left:64%;top:27%;--rot:3deg"><s>93</s> <s>94</s> <s>95</s> <s>96</s> 97</span>
-          <span class="scrawl light" style="left:84%;top:80%;--rot:-2deg"><span lang="pt">não olhe embaixo da cama</span><span lang="en">don't look under the bed</span></span>
-          <span class="scrawl" style="left:22%;top:20%;--rot:-9deg">E.</span>
-        </div>
-        <span class="eyes" id="eyes" aria-hidden="true"><i></i><i></i></span>
-      </div>
-      <p class="room-hint"><span lang="pt">Passe a luz pelo quarto.</span><span lang="en">Sweep the light across the room.</span></p>
-    </div>
-  </section>
-
   <section class="section" id="jogo">
     <div class="wrap">
       <div class="about">
@@ -581,19 +530,19 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <p lang="en">Drag the photos around. Click one to see the back.</p>
       </div>
       <div class="desk" id="desk">
-        <div class="pola" tabindex="0" role="button" aria-label="Foto da escrivaninha" style="left:6%;top:10%;--rot:-7deg">
+        <div class="pola" tabindex="0" role="button" aria-label="Foto da escrivaninha" style="left:2%;top:4%;--rot:-7deg">
           <div class="card"><div class="face"><img src="img/polaroid_mesa.jpg" alt="O soldadinho na escrivaninha, entre o Game Boy e um desenho" loading="lazy"></div>
           <div class="back"><span lang="pt">a mesa dele. ninguém arrumou.</span><span lang="en">his desk. nobody tidied it up.</span></div></div>
         </div>
-        <div class="pola" tabindex="0" role="button" aria-label="Foto da cama" style="left:29%;top:30%;--rot:5deg">
+        <div class="pola" tabindex="0" role="button" aria-label="Foto da cama" style="left:25%;top:12%;--rot:5deg">
           <div class="card"><div class="face"><img src="img/polaroid_urso.jpg" alt="O ursinho de pelúcia na cama, com o soldadinho" loading="lazy"></div>
           <div class="back"><span lang="pt">o urso continua de guarda.</span><span lang="en">the bear is still on guard.</span></div></div>
         </div>
-        <div class="pola" tabindex="0" role="button" aria-label="Foto das fitas" style="left:53%;top:8%;--rot:-3deg">
+        <div class="pola" tabindex="0" role="button" aria-label="Foto das fitas" style="left:49%;top:0%;--rot:-3deg">
           <div class="card"><div class="face"><img src="img/polaroid_fitas.jpg" alt="Fitas de vídeo no chão do quarto e o guarda-roupa" loading="lazy"></div>
           <div class="back"><span lang="pt">as fitas dele, do jeito que deixou.</span><span lang="en">his tapes, right where he left them.</span></div></div>
         </div>
-        <div class="pola" tabindex="0" role="button" aria-label="Foto do banheiro" style="left:74%;top:34%;--rot:8deg">
+        <div class="pola" tabindex="0" role="button" aria-label="Foto do banheiro" style="left:73%;top:9%;--rot:8deg">
           <div class="card"><div class="face"><img src="img/polaroid_banheiro.jpg" alt="Um rato de corda gigante ao lado do vaso, encarando o soldadinho" loading="lazy"></div>
           <div class="back"><span lang="pt">o barulho vem do banheiro.</span><span lang="en">the noise comes from the bathroom.</span></div></div>
         </div>
@@ -964,7 +913,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       });
     }
   }
-  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // --- Tirinhas do cartaz: arranca (cai girando, som de papel) e mostra um bilhete ---
   var audioCtx = null;
@@ -998,58 +946,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     });
   });
 
-  // --- O quarto no escuro: o mouse (ou o dedo) é a lanterna; os olhos fogem da luz ---
-  var room = document.getElementById("room");
-  var eyes = document.getElementById("eyes");
-  if (room && eyes) {
-    var spots = [[20, 40], [92, 62], [4, 70], [47, 52]];  // cantos escuros (em % da foto)
-    var spot = 0, hiddenAt = 0, lastInput = 0, light = { x: 50, y: 50 };
-    function placeEyes() { eyes.style.left = spots[spot][0] + "%"; eyes.style.top = spots[spot][1] + "%"; }
-    placeEyes();
-    function setLight(px, py) {
-      var r = room.getBoundingClientRect();
-      light.x = (px - r.left) / r.width * 100;
-      light.y = (py - r.top) / r.height * 100;
-      room.style.setProperty("--x", light.x + "%");
-      room.style.setProperty("--y", light.y + "%");
-    }
-    room.addEventListener("pointermove", function (e) { lastInput = performance.now(); setLight(e.clientX, e.clientY); });
-    room.addEventListener("pointerdown", function (e) { lastInput = performance.now(); setLight(e.clientX, e.clientY); });
-    room.addEventListener("touchmove", function (e) { lastInput = performance.now(); setLight(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
-    function tick(now) {
-      var r = room.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < window.innerHeight) {
-        // sem ninguém mexendo há 3 s: a luz varre o quarto sozinha, devagar
-        if (!reduced && now - lastInput > 3000) {
-          var t = now / 1000;
-          setLight(r.left + r.width * (0.5 + 0.36 * Math.sin(t * 0.33)), r.top + r.height * (0.5 + 0.26 * Math.sin(t * 0.51 + 1)));
-        }
-        // (mesmo raio do CSS: 17% da largura da tela entre 90 e 220 px; 72 px no celular)
-        var radius = window.innerWidth <= 620 ? 72 : Math.min(220, Math.max(90, window.innerWidth * 0.17));
-        var dx = (spots[spot][0] - light.x) / 100 * r.width, dy = (spots[spot][1] - light.y) / 100 * r.height;
-        var lit = Math.sqrt(dx * dx + dy * dy) < radius * 0.95;
-        if (lit && !eyes.classList.contains("hide")) { eyes.classList.add("hide"); hiddenAt = now; }
-        // somem quando a luz chega e reaparecem em outro canto escuro, longe da luz
-        if (eyes.classList.contains("hide") && now - hiddenAt > 1600) {
-          var best = spot, bestD = -1;
-          spots.forEach(function (s, i) {
-            var d = Math.hypot((s[0] - light.x) / 100 * r.width, (s[1] - light.y) / 100 * r.height);
-            if (i !== spot && d > bestD) { bestD = d; best = i; }
-          });
-          if (bestD > radius * 1.2) { spot = best; placeEyes(); eyes.classList.remove("hide"); }
-        }
-      }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-
   // --- Caixa de sapato: arrastar as polaroids; clique (sem arrastar) vira a foto ---
   var desk = document.getElementById("desk");
   var topZ = 10;
   if (desk) {
     // (no celular a mesa é estreita: as fotos começam em 2x2 em vez de uma em cima da outra)
-    var narrow = [[3, 5], [51, 10], [5, 51], [52, 55]];
+    var narrow = [[3, 2], [52, 6], [6, 46], [54, 50]];
     desk.querySelectorAll(".pola").forEach(function (p, i) {
       if (window.innerWidth <= 620 && narrow[i]) { p.style.left = narrow[i][0] + "%"; p.style.top = narrow[i][1] + "%"; }
     });
@@ -1057,7 +959,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       var start = null;
       p.addEventListener("pointerdown", function (e) {
         var dr = desk.getBoundingClientRect();
-        start = { x: e.clientX, y: e.clientY, left: p.offsetLeft, top: p.offsetTop, w: dr.width, h: dr.height, moved: false };
+        // limites = a página inteira (não só a seção): da borda esquerda à direita da tela e do topo ao fim
+        var docH = document.documentElement.scrollHeight;
+        start = { x: e.clientX, y: e.clientY, left: p.offsetLeft, top: p.offsetTop, moved: false,
+          // (24 px de folga: a foto inclinada ocupa um pouco mais que a própria largura)
+          minX: 24 - dr.left, maxX: document.documentElement.clientWidth - dr.left - p.offsetWidth - 24,
+          minY: 24 - (dr.top + window.scrollY), maxY: docH - (dr.top + window.scrollY) - p.offsetHeight - 24 };
         p.style.zIndex = ++topZ;
         try { p.setPointerCapture(e.pointerId); } catch (err) {}
       });
@@ -1067,10 +974,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         if (!start.moved && Math.abs(dx) + Math.abs(dy) < 6) return;
         start.moved = true;
         p.classList.add("dragging");
-        var left = Math.min(Math.max(start.left + dx, -p.offsetWidth * 0.3), start.w - p.offsetWidth * 0.7);
-        var top = Math.min(Math.max(start.top + dy, -p.offsetHeight * 0.3), start.h - p.offsetHeight * 0.7);
-        p.style.left = (left / start.w * 100) + "%";
-        p.style.top = (top / start.h * 100) + "%";
+        p.style.left = Math.min(Math.max(start.left + dx, start.minX), start.maxX) + "px";
+        p.style.top = Math.min(Math.max(start.top + dy, start.minY), start.maxY) + "px";
       });
       function end() {
         if (start && !start.moved) p.classList.toggle("flipped");
