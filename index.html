@@ -39,7 +39,8 @@ img { max-width: 100%; }
   --glow: 0 0 14px rgba(241, 179, 92, 0.28);
   color-scheme: dark;
 }
-html { background: var(--night); }
+html { background: var(--night); scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 52px; } /* (o menu fixo não cobre o título ao rolar até a seção) */
 body {
   background: var(--night);
   color: var(--paper);
@@ -190,16 +191,104 @@ h2 {
 .poster .name { margin: 0; font: 600 1.9rem/1 var(--f-ui); letter-spacing: 0.18em; }
 .poster .age { margin: 4px 0 10px; font: 500 0.9rem var(--f-ui); letter-spacing: 0.3em; text-transform: uppercase; }
 .poster .facts { margin: 0; font: 400 0.98rem/1.45 var(--f-body); }
-.poster .tabs { display: flex; margin: 16px -22px 0; border-top: 1px dashed #151210; overflow: hidden; }
-.poster .tabs span {
-  flex: 1; border-left: 1px dashed #151210; margin-left: -1px; padding: 10px 0 12px;
-  font: 500 0.56rem var(--f-ui); letter-spacing: 0.12em; text-transform: uppercase;
-  writing-mode: vertical-rl; transform: rotate(180deg); height: 104px; display: flex; align-items: center; justify-content: center;
+.poster .tabs { display: flex; margin: 16px -22px 0; border-top: 1px dashed #151210; }
+/* tirinhas: clicar arranca (cai girando, som de papel) e aparece um bilhete ao lado */
+.poster .tab {
+  flex: 1; border: 0; border-left: 1px dashed #151210; margin-left: -1px; padding: 0; height: 104px;
+  background: transparent; color: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center;
 }
-.poster .tabs span.gone { opacity: 0; } /* alguém já levou essa tirinha */
+.poster .tab:first-child { border-left-color: transparent; }
+.poster .tab > span {
+  font: 500 0.56rem var(--f-ui); letter-spacing: 0.12em; text-transform: uppercase;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+}
+.poster .tab:hover { background: rgba(0, 0, 0, 0.05); }
+.poster .tab:focus-visible { outline-offset: -3px; }
+.poster .tab.gone { visibility: hidden; pointer-events: none; } /* alguém já levou essa tirinha */
+.poster .tab.torn { animation: tear 0.8s cubic-bezier(0.4, 0, 0.9, 0.6) forwards; pointer-events: none; background: #ece6d8; }
+@keyframes tear {
+  0% { transform: translateY(0) rotate(0); }
+  15% { transform: translateY(6px) rotate(-4deg); }
+  100% { transform: translateY(220px) rotate(38deg); opacity: 0; }
+}
 .missing-text { display: grid; gap: 18px; }
 .missing-text p { margin: 0; max-width: 58ch; }
 .missing-text h2 { font-size: clamp(2.3rem, 5.4vw, 3.6rem); }
+.tab-note { min-height: 1.6em; }
+.tab-note:empty { display: none; }
+.searching { font: 400 1.25rem var(--f-cam); letter-spacing: 0.06em; color: var(--stamp); text-shadow: 0 0 6px rgba(255, 154, 60, 0.45); }
+.searching b { font-weight: 400; color: var(--paper); }
+
+/* ---------- o quarto no escuro: o mouse/dedo é a lanterna ---------- */
+.room {
+  --x: 50%; --y: 50%; --r: clamp(90px, 17vw, 220px);
+  position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #000;
+  border: 1px solid var(--line); touch-action: pan-y; cursor: none; user-select: none; -webkit-user-select: none;
+}
+@media (max-width: 620px) { .room { --r: 72px; } }
+.room img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.room-dark { filter: brightness(0.06) saturate(0.3); }
+.room-lit {
+  position: absolute; inset: 0;
+  -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 0 30%, rgba(0, 0, 0, 0.55) 62%, transparent 100%);
+  mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 0 30%, rgba(0, 0, 0, 0.55) 62%, transparent 100%);
+}
+.room-lit img { filter: brightness(0.9) sepia(0.12); }
+.room-lit::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle var(--r) at var(--x) var(--y), rgba(255, 226, 160, 0.16), transparent 70%); }
+.scrawl {
+  position: absolute; font: 400 clamp(0.8rem, 1.7vw, 1.35rem)/1.15 var(--f-hand); color: rgba(28, 20, 16, 0.82);
+  transform: translate(-50%, -50%) rotate(var(--rot, -4deg)); white-space: nowrap; pointer-events: none;
+}
+.scrawl.light { color: rgba(236, 228, 214, 0.75); }
+.scrawl s { text-decoration-thickness: 2px; }
+.eyes { position: absolute; display: flex; gap: clamp(6px, 0.9vw, 11px); transform: translate(-50%, -50%); transition: opacity 0.18s; pointer-events: none; }
+.eyes i { width: clamp(5px, 0.7vw, 9px); height: clamp(3px, 0.45vw, 6px); border-radius: 50%; background: #ffd27a; box-shadow: 0 0 8px 2px rgba(255, 170, 60, 0.75); animation: blink 5.5s infinite; }
+.eyes.hide { opacity: 0; }
+@keyframes blink { 0%, 93%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+.room-hint { margin: 12px 0 0; color: var(--dim); font: 400 1rem var(--f-cam); letter-spacing: 0.06em; }
+
+/* ---------- caixa de sapato: polaroids para arrastar e virar ---------- */
+.desk {
+  position: relative; height: clamp(440px, 46vw, 560px); overflow: hidden; border: 1px solid var(--line);
+  background:
+    radial-gradient(60% 70% at 50% 40%, rgba(241, 179, 92, 0.10), transparent 70%),
+    repeating-linear-gradient(92deg, rgba(0, 0, 0, 0.18) 0 2px, transparent 2px 38px),
+    linear-gradient(180deg, #2a1d14, #1a120c);
+}
+@media (max-width: 620px) { .desk { height: 430px; } .desk .pola { width: 43%; } }
+.pola { position: absolute; width: clamp(140px, 19vw, 220px); aspect-ratio: 0.84; perspective: 900px; touch-action: none; cursor: grab; transform: rotate(var(--rot, 0deg)); }
+.pola.dragging { cursor: grabbing; }
+.pola .card { position: absolute; inset: 0; transition: transform 0.6s; transform-style: preserve-3d; }
+.pola.flipped .card { transform: rotateY(180deg); }
+.pola .face, .pola .back {
+  position: absolute; inset: 0; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  background: #f1ede3; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+}
+.pola .face { padding: 7% 7% 0; }
+.pola .face img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; pointer-events: none; filter: sepia(0.18) saturate(0.9); }
+.pola .back {
+  transform: rotateY(180deg); display: flex; align-items: center; justify-content: center; padding: 12%;
+  font: 400 clamp(0.85rem, 1.5vw, 1.1rem)/1.35 var(--f-hand); color: #3a3530; text-align: center;
+  background: repeating-linear-gradient(0deg, transparent 0 23px, rgba(60, 90, 150, 0.12) 23px 24px), #f1ede3;
+}
+.pola:focus-visible { outline: 2px solid var(--lamp); outline-offset: 4px; }
+
+/* ---------- perguntas ---------- */
+.faq { display: grid; border-top: 1px solid var(--line); max-width: 860px; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  list-style: none; cursor: pointer; padding: 18px 36px 18px 0; position: relative;
+  font: 500 1.02rem/1.35 var(--f-ui); letter-spacing: 0.05em; text-transform: uppercase;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 14px; font: 300 1.5rem var(--f-ui); color: var(--lamp); transition: transform 0.2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { margin: 0 0 18px; color: var(--dim); max-width: 64ch; }
+.faq details p b { color: var(--paper); font-weight: 500; }
+
+/* ---------- siga o jogo ---------- */
+.follow { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+.follow .btn svg { width: 20px; height: 20px; }
 
 /* ---------- prints ---------- */
 .gallery { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(10px, 1.6vw, 18px); }
@@ -280,7 +369,9 @@ footer { border-top: 1px solid var(--line); padding-block: 28px; color: var(--di
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   .hero-art { animation: none; }
+  .poster .tab.torn { animation-duration: 0.01s; }
   * { transition: none !important; }
 }
 </style>
@@ -296,6 +387,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <a href="#prints"><span lang="pt">Prints</span><span lang="en">Screenshots</span></a>
       <a href="#novidades"><span lang="pt">Novidades</span><span lang="en">What's new</span></a>
       <a href="#versoes"><span lang="pt">Notas de versão</span><span lang="en">Patch notes</span></a>
+      <a href="#perguntas"><span lang="pt">Perguntas</span><span lang="en">FAQ</span></a>
       <a href="#baixar" class="cta-mini"><span lang="pt">Baixar</span><span lang="en">Download</span></a>
       <div class="lang" role="group" aria-label="Idioma / Language">
         <button type="button" id="lang-pt" data-set="pt" aria-pressed="true">PT</button>
@@ -350,9 +442,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <p class="age" lang="pt">9 anos</p><p class="age" lang="en">Age 9</p>
           <p class="facts" lang="pt">Visto pela última vez em casa, em 1993.<br>Cabelo castanho, camiseta branca.<br>Nunca dormia sem o soldadinho dele.</p>
           <p class="facts" lang="en">Last seen at home, in 1993.<br>Brown hair, white T-shirt.<br>Never slept without his toy soldier.</p>
-          <div class="tabs" aria-hidden="true">
-            <span lang="pt">Onde está Elias?</span><span lang="pt">Onde está Elias?</span><span lang="pt" class="gone">Onde está Elias?</span><span lang="pt">Onde está Elias?</span><span lang="pt">Onde está Elias?</span>
-            <span lang="en">Where is Elias?</span><span lang="en">Where is Elias?</span><span lang="en" class="gone">Where is Elias?</span><span lang="en">Where is Elias?</span><span lang="en">Where is Elias?</span>
+          <div class="tabs" id="tabs">
+            <button class="tab" type="button" data-pt="Ele dormia com a luz acesa." data-en="He slept with the light on."><span><span lang="pt">Onde está Elias?</span><span lang="en">Where is Elias?</span></span></button>
+            <button class="tab" type="button" data-pt="Dizia que alguém olhava da porta." data-en="He said someone watched from the doorway."><span><span lang="pt">Onde está Elias?</span><span lang="en">Where is Elias?</span></span></button>
+            <button class="tab gone" type="button" tabindex="-1" aria-hidden="true"><span><span lang="pt">Onde está Elias?</span><span lang="en">Where is Elias?</span></span></button>
+            <button class="tab" type="button" data-pt="As fitas dele continuam no chão." data-en="His tapes are still on the floor."><span><span lang="pt">Onde está Elias?</span><span lang="en">Where is Elias?</span></span></button>
+            <button class="tab" type="button" data-pt="A casa nunca ficou em silêncio." data-en="The house was never quiet."><span><span lang="pt">Onde está Elias?</span><span lang="en">Where is Elias?</span></span></button>
           </div>
         </figure>
         <div class="missing-text">
@@ -362,8 +457,31 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <p lang="en">In 1993, nine-year-old Elias vanished without a trace. His room was left exactly as it was: the toys, the tapes, the drawings.</p>
           <p lang="pt">Quatro anos depois, o soldadinho dele se levanta da cama. O que aconteceu está espalhado pela casa, em fotos, fitas e bilhetes. Mas a casa lembra de tudo, e nem tudo quer ser lembrado.</p>
           <p lang="en">Four years later, his toy soldier gets out of bed. What happened is scattered around the house, in photos, tapes and notes. But the house remembers everything, and not everything wants to be remembered.</p>
+          <p class="note-hand tab-note" id="tab-note" aria-live="polite"></p>
+          <p class="searching" id="searching" hidden><span lang="pt">Pessoas procurando Elias:</span><span lang="en">People searching for Elias:</span> <b id="searching-count">0</b></p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section" id="quarto">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label"><span lang="pt">O quarto</span><span lang="en">The room</span></span>
+        <h2><span lang="pt">Ninguém mexeu no quarto dele</span><span lang="en">Nobody touched his room</span></h2>
+      </div>
+      <div class="room" id="room" role="img" aria-label="O quarto do Elias no escuro, iluminado só por uma lanterna">
+        <img class="room-dark" src="img/quarto_porta.jpg" alt="" loading="lazy">
+        <div class="room-lit">
+          <img src="img/quarto_porta.jpg" alt="" loading="lazy">
+          <span class="scrawl" style="left:71%;top:47%;--rot:-6deg"><span lang="pt">ele volta quando apaga a luz</span><span lang="en">he comes back when the light goes out</span></span>
+          <span class="scrawl" style="left:64%;top:27%;--rot:3deg"><s>93</s> <s>94</s> <s>95</s> <s>96</s> 97</span>
+          <span class="scrawl light" style="left:84%;top:80%;--rot:-2deg"><span lang="pt">não olhe embaixo da cama</span><span lang="en">don't look under the bed</span></span>
+          <span class="scrawl" style="left:22%;top:20%;--rot:-9deg">E.</span>
+        </div>
+        <span class="eyes" id="eyes" aria-hidden="true"><i></i><i></i></span>
+      </div>
+      <p class="room-hint"><span lang="pt">Passe a luz pelo quarto.</span><span lang="en">Sweep the light across the room.</span></p>
     </div>
   </section>
 
@@ -450,6 +568,35 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <button class="shot" type="button" data-src="img/quarto_tapete.jpg"><img src="img/quarto_tapete.jpg" alt="Baratas cercando o soldadinho no tapete listrado do quarto" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b></span></button>
         <button class="shot" type="button" data-src="img/rato_tiro.jpg"><img src="img/rato_tiro.jpg" alt="O soldado de escopeta na frente do rato de corda gigante, do lado do vaso" loading="lazy"><span class="stamp"><b lang="pt">BANHEIRO</b><b lang="en">BATHROOM</b></span></button>
         <button class="shot" type="button" data-src="img/rato.jpg"><img src="img/rato.jpg" alt="O rato de corda acabou de sair do vaso e encara o soldado" loading="lazy"><span class="stamp"><b lang="pt">BANHEIRO</b><b lang="en">BATHROOM</b></span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="caixa">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label"><span lang="pt">Caixa de sapato</span><span lang="en">Shoebox</span></span>
+        <h2><span lang="pt">Fotos que ficaram</span><span lang="en">Photos left behind</span></h2>
+        <p lang="pt">Arraste as fotos. Clique numa delas para ver o verso.</p>
+        <p lang="en">Drag the photos around. Click one to see the back.</p>
+      </div>
+      <div class="desk" id="desk">
+        <div class="pola" tabindex="0" role="button" aria-label="Foto da escrivaninha" style="left:6%;top:10%;--rot:-7deg">
+          <div class="card"><div class="face"><img src="img/polaroid_mesa.jpg" alt="O soldadinho na escrivaninha, entre o Game Boy e um desenho" loading="lazy"></div>
+          <div class="back"><span lang="pt">a mesa dele. ninguém arrumou.</span><span lang="en">his desk. nobody tidied it up.</span></div></div>
+        </div>
+        <div class="pola" tabindex="0" role="button" aria-label="Foto da cama" style="left:29%;top:30%;--rot:5deg">
+          <div class="card"><div class="face"><img src="img/polaroid_urso.jpg" alt="O ursinho de pelúcia na cama, com o soldadinho" loading="lazy"></div>
+          <div class="back"><span lang="pt">o urso continua de guarda.</span><span lang="en">the bear is still on guard.</span></div></div>
+        </div>
+        <div class="pola" tabindex="0" role="button" aria-label="Foto das fitas" style="left:53%;top:8%;--rot:-3deg">
+          <div class="card"><div class="face"><img src="img/polaroid_fitas.jpg" alt="Fitas de vídeo no chão do quarto e o guarda-roupa" loading="lazy"></div>
+          <div class="back"><span lang="pt">as fitas dele, do jeito que deixou.</span><span lang="en">his tapes, right where he left them.</span></div></div>
+        </div>
+        <div class="pola" tabindex="0" role="button" aria-label="Foto do banheiro" style="left:74%;top:34%;--rot:8deg">
+          <div class="card"><div class="face"><img src="img/polaroid_banheiro.jpg" alt="Um rato de corda gigante ao lado do vaso, encarando o soldadinho" loading="lazy"></div>
+          <div class="back"><span lang="pt">o barulho vem do banheiro.</span><span lang="en">the noise comes from the bathroom.</span></div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -594,6 +741,57 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     </div>
   </section>
 
+  <section class="section" id="perguntas">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label"><span lang="pt">Perguntas</span><span lang="en">FAQ</span></span>
+        <h2><span lang="pt">Antes de baixar</span><span lang="en">Before you download</span></h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary><span lang="pt">É de graça?</span><span lang="en">Is it free?</span></summary>
+          <p lang="pt">Sim. O INSTEAD está em desenvolvimento, e cada versão nova chega sozinha para quem já instalou.</p>
+          <p lang="en">Yes. INSTEAD is in development, and every new version reaches you on its own once it's installed.</p>
+        </details>
+        <details>
+          <summary><span lang="pt">O Windows mostrou um aviso azul. É vírus?</span><span lang="en">Windows showed a blue warning. Is it a virus?</span></summary>
+          <p lang="pt">Não. O aviso aparece porque o jogo ainda não tem uma assinatura digital paga. Clique em <b>Mais informações</b> e depois em <b>Executar assim mesmo</b>.</p>
+          <p lang="en">No. The warning shows up because the game doesn't have a paid digital signature yet. Click <b>More info</b>, then <b>Run anyway</b>.</p>
+        </details>
+        <details>
+          <summary><span lang="pt">No Mac, diz que o app não pode ser aberto</span><span lang="en">On Mac, it says the app can't be opened</span></summary>
+          <p lang="pt">Abra <b>Ajustes do Sistema</b> &gt; <b>Privacidade e Segurança</b>, desça até o aviso do INSTEAD e clique em <b>Abrir Mesmo Assim</b>. Só precisa fazer isso uma vez.</p>
+          <p lang="en">Open <b>System Settings</b> &gt; <b>Privacy &amp; Security</b>, scroll down to the INSTEAD notice and click <b>Open Anyway</b>. You only need to do it once.</p>
+        </details>
+        <details>
+          <summary><span lang="pt">Tem português?</span><span lang="en">What languages does it have?</span></summary>
+          <p lang="pt">Tem. Textos e legendas em português e inglês; dá para trocar nas configurações.</p>
+          <p lang="en">Portuguese and English, for text and subtitles. You can switch in the settings.</p>
+        </details>
+        <details>
+          <summary><span lang="pt">Dá para jogar com controle?</span><span lang="en">Can I play with a gamepad?</span></summary>
+          <p lang="pt">Dá. Controle de Xbox (ou compatível) ou teclado e mouse. As teclas podem ser trocadas nas configurações.</p>
+          <p lang="en">Yes. An Xbox controller (or compatible) or keyboard and mouse. Keys can be remapped in the settings.</p>
+        </details>
+        <details>
+          <summary><span lang="pt">Dá para jogar com amigos?</span><span lang="en">Can I play with friends?</span></summary>
+          <p lang="pt">No modo Sobrevivência: em tela dividida no mesmo PC ou online com até 4 pessoas. A história é para um jogador.</p>
+          <p lang="en">In Survival mode: split screen on one PC, or online with up to 4 people. The story is single player.</p>
+        </details>
+        <details>
+          <summary><span lang="pt">Como atualizo?</span><span lang="en">How do I update?</span></summary>
+          <p lang="pt">Não precisa fazer nada. Quando sai versão nova, o menu avisa e o jogo baixa só o que mudou.</p>
+          <p lang="en">You don't have to do anything. When a new version is out, the menu tells you and the game downloads only what changed.</p>
+        </details>
+        <details>
+          <summary><span lang="pt">É para crianças?</span><span lang="en">Is it for kids?</span></summary>
+          <p lang="pt">Não. O jogo tem violência e sangue, sustos, aranhas, violência doméstica, referências a suicídio e ao uso de drogas e temas pesados envolvendo o desaparecimento de uma criança.</p>
+          <p lang="en">No. The game has violence and blood, jump scares, spiders, domestic abuse, references to suicide and drug use, and heavy themes involving a missing child.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <section class="section final" id="baixar">
     <div class="wrap">
       <div class="final-grid">
@@ -604,9 +802,15 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <dt lang="pt">Versão</dt><dt lang="en">Version</dt>
             <dd class="data-ver">1.31</dd>
             <dt lang="pt">Sistemas</dt><dt lang="en">Systems</dt>
-            <dd>Windows 64-bit · macOS</dd>
-            <dt lang="pt">Tamanho</dt><dt lang="en">Size</dt>
-            <dd lang="pt">cerca de 1 GB (arquivo .zip)</dd><dd lang="en">about 1 GB (.zip file)</dd>
+            <dd lang="pt">Windows 10 ou 11 (64 bits) · macOS 13 ou mais novo</dd><dd lang="en">Windows 10 or 11 (64-bit) · macOS 13 or newer</dd>
+            <dt lang="pt">Vídeo</dt><dt lang="en">Graphics</dt>
+            <dd lang="pt">placa de vídeo com Vulkan (no Mac, qualquer um com macOS 13)</dd><dd lang="en">a Vulkan graphics card (on Mac, any with macOS 13)</dd>
+            <dt lang="pt">Memória</dt><dt lang="en">Memory</dt>
+            <dd lang="pt">8 GB recomendados</dd><dd lang="en">8 GB recommended</dd>
+            <dt lang="pt">Espaço</dt><dt lang="en">Storage</dt>
+            <dd lang="pt">3 GB livres (o .zip tem cerca de 1 GB)</dd><dd lang="en">3 GB free (the .zip is about 1 GB)</dd>
+            <dt lang="pt">Testado em</dt><dt lang="en">Tested on</dt>
+            <dd lang="pt">Windows 11 com GeForce RTX 3050</dd><dd lang="en">Windows 11 with a GeForce RTX 3050</dd>
             <dt lang="pt">Instalar</dt><dt lang="en">Install</dt>
             <dd lang="pt">Descompacte e abra o INSTEAD. Depois disso ele se atualiza sozinho.</dd>
             <dd lang="en">Unzip it and open INSTEAD. After that it updates itself.</dd>
@@ -620,6 +824,24 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <span>Mac</span><small>.zip</small>
           </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="siga">
+    <div class="wrap follow">
+      <div class="section-head" style="margin:0">
+        <span class="label"><span lang="pt">Siga o jogo</span><span lang="en">Follow the game</span></span>
+        <h2><span lang="pt">Acompanhe a busca</span><span lang="en">Follow the search</span></h2>
+        <p lang="pt">Vídeos novos, bastidores e o que vem na próxima versão.</p>
+        <p lang="en">New videos, behind the scenes and what's coming in the next version.</p>
+      </div>
+      <div class="dl">
+        <a class="btn primary" href="https://www.instagram.com/instead.game/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+          @instead.game
+        </a>
+        <a class="btn" href="https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases" target="_blank" rel="noopener"><span lang="pt">Todas as versões</span><span lang="en">All versions</span></a>
       </div>
     </div>
   </section>
@@ -742,6 +964,143 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       });
     }
   }
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // --- Tirinhas do cartaz: arranca (cai girando, som de papel) e mostra um bilhete ---
+  var audioCtx = null;
+  function paperSound() {
+    try {
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      var ctx = audioCtx, len = Math.floor(ctx.sampleRate * 0.45);
+      var buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0);
+      for (var i = 0; i < len; i++) {
+        var t = i / len;  // rasgo: estalos curtos que vão ficando fracos
+        d[i] = (Math.random() * 2 - 1) * Math.pow(1 - t, 1.6) * (Math.random() < 0.35 ? 1 : 0.25);
+      }
+      var src = ctx.createBufferSource(); src.buffer = buf;
+      var band = ctx.createBiquadFilter(); band.type = "bandpass"; band.frequency.value = 2600; band.Q.value = 0.7;
+      var gain = ctx.createGain(); gain.gain.value = 0.5;
+      src.connect(band); band.connect(gain); gain.connect(ctx.destination); src.start();
+    } catch (e) {}
+  }
+  var note = document.getElementById("tab-note");
+  document.querySelectorAll("#tabs .tab:not(.gone)").forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      if (tab.classList.contains("torn")) return;
+      tab.classList.add("torn");
+      tab.setAttribute("aria-hidden", "true");
+      paperSound();
+      if (note) {
+        note.textContent = "";
+        note.appendChild(el("span", null, tab.dataset.pt, "pt"));
+        note.appendChild(el("span", null, tab.dataset.en, "en"));
+      }
+    });
+  });
+
+  // --- O quarto no escuro: o mouse (ou o dedo) é a lanterna; os olhos fogem da luz ---
+  var room = document.getElementById("room");
+  var eyes = document.getElementById("eyes");
+  if (room && eyes) {
+    var spots = [[20, 40], [92, 62], [4, 70], [47, 52]];  // cantos escuros (em % da foto)
+    var spot = 0, hiddenAt = 0, lastInput = 0, light = { x: 50, y: 50 };
+    function placeEyes() { eyes.style.left = spots[spot][0] + "%"; eyes.style.top = spots[spot][1] + "%"; }
+    placeEyes();
+    function setLight(px, py) {
+      var r = room.getBoundingClientRect();
+      light.x = (px - r.left) / r.width * 100;
+      light.y = (py - r.top) / r.height * 100;
+      room.style.setProperty("--x", light.x + "%");
+      room.style.setProperty("--y", light.y + "%");
+    }
+    room.addEventListener("pointermove", function (e) { lastInput = performance.now(); setLight(e.clientX, e.clientY); });
+    room.addEventListener("pointerdown", function (e) { lastInput = performance.now(); setLight(e.clientX, e.clientY); });
+    room.addEventListener("touchmove", function (e) { lastInput = performance.now(); setLight(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+    function tick(now) {
+      var r = room.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < window.innerHeight) {
+        // sem ninguém mexendo há 3 s: a luz varre o quarto sozinha, devagar
+        if (!reduced && now - lastInput > 3000) {
+          var t = now / 1000;
+          setLight(r.left + r.width * (0.5 + 0.36 * Math.sin(t * 0.33)), r.top + r.height * (0.5 + 0.26 * Math.sin(t * 0.51 + 1)));
+        }
+        // (mesmo raio do CSS: 17% da largura da tela entre 90 e 220 px; 72 px no celular)
+        var radius = window.innerWidth <= 620 ? 72 : Math.min(220, Math.max(90, window.innerWidth * 0.17));
+        var dx = (spots[spot][0] - light.x) / 100 * r.width, dy = (spots[spot][1] - light.y) / 100 * r.height;
+        var lit = Math.sqrt(dx * dx + dy * dy) < radius * 0.95;
+        if (lit && !eyes.classList.contains("hide")) { eyes.classList.add("hide"); hiddenAt = now; }
+        // somem quando a luz chega e reaparecem em outro canto escuro, longe da luz
+        if (eyes.classList.contains("hide") && now - hiddenAt > 1600) {
+          var best = spot, bestD = -1;
+          spots.forEach(function (s, i) {
+            var d = Math.hypot((s[0] - light.x) / 100 * r.width, (s[1] - light.y) / 100 * r.height);
+            if (i !== spot && d > bestD) { bestD = d; best = i; }
+          });
+          if (bestD > radius * 1.2) { spot = best; placeEyes(); eyes.classList.remove("hide"); }
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // --- Caixa de sapato: arrastar as polaroids; clique (sem arrastar) vira a foto ---
+  var desk = document.getElementById("desk");
+  var topZ = 10;
+  if (desk) {
+    // (no celular a mesa é estreita: as fotos começam em 2x2 em vez de uma em cima da outra)
+    var narrow = [[3, 5], [51, 10], [5, 51], [52, 55]];
+    desk.querySelectorAll(".pola").forEach(function (p, i) {
+      if (window.innerWidth <= 620 && narrow[i]) { p.style.left = narrow[i][0] + "%"; p.style.top = narrow[i][1] + "%"; }
+    });
+    desk.querySelectorAll(".pola").forEach(function (p) {
+      var start = null;
+      p.addEventListener("pointerdown", function (e) {
+        var dr = desk.getBoundingClientRect();
+        start = { x: e.clientX, y: e.clientY, left: p.offsetLeft, top: p.offsetTop, w: dr.width, h: dr.height, moved: false };
+        p.style.zIndex = ++topZ;
+        try { p.setPointerCapture(e.pointerId); } catch (err) {}
+      });
+      p.addEventListener("pointermove", function (e) {
+        if (!start) return;
+        var dx = e.clientX - start.x, dy = e.clientY - start.y;
+        if (!start.moved && Math.abs(dx) + Math.abs(dy) < 6) return;
+        start.moved = true;
+        p.classList.add("dragging");
+        var left = Math.min(Math.max(start.left + dx, -p.offsetWidth * 0.3), start.w - p.offsetWidth * 0.7);
+        var top = Math.min(Math.max(start.top + dy, -p.offsetHeight * 0.3), start.h - p.offsetHeight * 0.7);
+        p.style.left = (left / start.w * 100) + "%";
+        p.style.top = (top / start.h * 100) + "%";
+      });
+      function end() {
+        if (start && !start.moved) p.classList.toggle("flipped");
+        start = null;
+        p.classList.remove("dragging");
+      }
+      p.addEventListener("pointerup", end);
+      p.addEventListener("pointercancel", function () { start = null; p.classList.remove("dragging"); });
+      p.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); p.classList.toggle("flipped"); }
+      });
+    });
+  }
+
+  // --- Contador "pessoas procurando Elias" (Cloudflare: functions/api/procurando.js + KV). Cada navegador
+  // conta uma vez. Sem o servidor (cópia do GitHub, arquivo local, KV não ligado), fica escondido. ---
+  var counted = null;
+  try { counted = localStorage.getItem("instead-procurou"); } catch (e) {}
+  fetch("api/procurando", { method: counted ? "GET" : "POST", cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (data) {
+      if (!data || typeof data.count !== "number") return;
+      try { localStorage.setItem("instead-procurou", "1"); } catch (e) {}
+      var box = document.getElementById("searching");
+      var num = document.getElementById("searching-count");
+      num.textContent = data.count.toLocaleString(root.getAttribute("data-lang") === "pt" ? "pt-BR" : "en-US");
+      box.hidden = false;
+    })
+    .catch(function () {});
+
   fetch("dados.json", { cache: "no-store" })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (data) { if (data) render(data); })
