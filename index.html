@@ -931,7 +931,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     } catch (e) {}
   }
   var note = document.getElementById("tab-note");
-  document.querySelectorAll("#tabs .tab:not(.gone)").forEach(function (tab) {
+  document.querySelectorAll("#tabs .tab").forEach(function (tab) {
     tab.addEventListener("click", function () {
       if (tab.classList.contains("torn")) return;
       tab.classList.add("torn");
