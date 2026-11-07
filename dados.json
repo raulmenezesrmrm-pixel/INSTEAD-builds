@@ -1,7 +1,31 @@
 {
     "repo":  "raulmenezesrmrm-pixel/INSTEAD-builds",
-    "latest":  "1.32",
+    "latest":  "1.33",
     "versions":  [
+                     {
+                         "v":  "1.33",
+                         "date":  "2026-11-07",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.33/INSTEAD_1.33_windows.zip",
+                                         "mb":  1064
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.33/INSTEAD_1.33_mac.zip",
+                                     "mb":  1084
+                                 },
+                         "notes_pt":  [
+                                          "Casa inteira numa cena só: quarto, guarda-roupa e o resto da casa sem telas de carregamento.",
+                                          "Entrada nova: corredor até a porta da frente em arco com vitral, escada de madeira, aparador, abajur, cabideiro, guarda-chuvas, plantas, quadros com fotos da família e sapatos no chão.",
+                                          "Sala: a TV está fora da tomada e há uma extensão enrolada no aparador da entrada, com um cabo que estica e se arrasta.",
+                                          "Online pela Epic: crie ou entre numa sala com código pela internet.",
+                                          "Menu principal: CAMPANHA, SURVIVAL, CONFIGURAÇÕES e SAIR.",
+                                          "Cutscene de introdução nova (português e inglês).",
+                                          "Sombra de contato no soldado, nos bichos, no gato e nos chefes.",
+                                          "Teia: quando a aranha acerta, fios prendem as pernas do soldado no chão.",
+                                          "Gato: o X chama e só manda embora depois que ele chega.",
+                                          "Correções: sem travadas ao entrar nos capítulos, sem lentidão ao encostar em objetos pequenos e colisão da sala, cozinha e entrada na forma dos objetos."
+                                      ]
+                     },
                      {
                          "v":  "1.32",
                          "date":  "2026-11-03",
