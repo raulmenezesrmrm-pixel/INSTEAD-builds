@@ -192,7 +192,7 @@ h2 {
 .poster .name { margin: 0; font: 600 1.9rem/1 var(--f-ui); letter-spacing: 0.18em; }
 .poster .age { margin: 4px 0 10px; font: 500 0.9rem var(--f-ui); letter-spacing: 0.3em; text-transform: uppercase; }
 .poster .facts { margin: 0; font: 400 0.98rem/1.45 var(--f-body); }
-.poster .tabs { display: flex; margin: 16px -22px 0; border-top: 1px dashed #151210; }
+.poster .tabs { position: relative; display: flex; margin: 16px -22px 0; border-top: 1px dashed #151210; }
 /* tirinhas: clicar arranca (cai girando, som de papel) e aparece um bilhete ao lado */
 .poster .tab {
   flex: 1; border: 0; border-left: 1px dashed #151210; margin-left: -1px; padding: 0; height: 104px;
@@ -205,7 +205,19 @@ h2 {
 }
 .poster .tab:hover { background: rgba(0, 0, 0, 0.05); }
 .poster .tab:focus-visible { outline-offset: -3px; }
-.poster .tab.torn { animation: tear 0.8s cubic-bezier(0.4, 0, 0.9, 0.6) forwards; pointer-events: none; background: #ece6d8; }
+/* arrancada: no lugar fica um buraco da cor do fundo do site; uma cópia de papel cai girando */
+.poster .tab.torn { pointer-events: none; background: var(--night); border-left-color: transparent; }
+.poster .tab.torn > span { visibility: hidden; }
+.poster .tab.torn + .tab { border-left-color: transparent; }
+.poster .tab-fall {
+  position: absolute; top: -1px; height: 105px; display: flex; align-items: center; justify-content: center;
+  background: #ece6d8; color: #151210; pointer-events: none; z-index: 1;
+  animation: tear 0.8s cubic-bezier(0.4, 0, 0.9, 0.6) forwards;
+}
+.poster .tab-fall > span {
+  font: 500 0.56rem var(--f-ui); letter-spacing: 0.12em; text-transform: uppercase;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+}
 @keyframes tear {
   0% { transform: translateY(0) rotate(0); }
   15% { transform: translateY(6px) rotate(-4deg); }
@@ -285,6 +297,19 @@ h2 {
 .film .stamp { top: 12px; bottom: auto; }
 .film .stamp b { color: var(--dot); text-shadow: 0 0 6px rgba(226, 67, 47, 0.6), 0 0 1px #000; }
 .film.playing .stamp { opacity: 0; transition: opacity 0.4s; }
+/* botão de play grande no meio do vídeo (some quando o vídeo está tocando) */
+.bigplay {
+  position: absolute; left: 50%; top: 50%; z-index: 1; transform: translate(-50%, -50%);
+  width: 92px; height: 92px; display: flex; align-items: center; justify-content: center;
+  border: 2px solid rgba(236, 228, 214, 0.85); border-radius: 50%; cursor: pointer;
+  background: rgba(14, 12, 11, 0.55); color: var(--paper); backdrop-filter: blur(4px);
+  box-shadow: 0 0 28px rgba(241, 179, 92, 0.35);
+  transition: background 0.18s, color 0.18s, border-color 0.18s, opacity 0.3s, transform 0.18s;
+}
+.bigplay:hover { background: var(--lamp); border-color: var(--lamp); color: var(--night); transform: translate(-50%, -50%) scale(1.06); }
+.bigplay svg { width: 38px; height: 38px; margin-left: 6px; }
+.film.rodando .bigplay { opacity: 0; pointer-events: none; }
+@media (max-width: 620px) { .bigplay { width: 66px; height: 66px; } .bigplay svg { width: 28px; height: 28px; } }
 /* carrossel: cutscene de abertura <-> vídeo do jogo, um em cima do outro, troca com fade */
 .reel { position: relative; }
 .reel-track { display: grid; }
@@ -364,7 +389,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero-art { animation: none; }
-  .poster .tab.torn { animation-duration: 0.01s; }
+  .poster .tab-fall { animation-duration: 0.01s; }
   * { transition: none !important; }
 }
 </style>
@@ -979,6 +1004,14 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   document.querySelectorAll("#tabs .tab").forEach(function (tab) {
     tab.addEventListener("click", function () {
       if (tab.classList.contains("torn")) return;
+      // cópia de papel que cai; o canhoto de verdade vira buraco (cor do fundo)
+      var fall = el("div", "tab-fall");
+      fall.setAttribute("aria-hidden", "true");
+      fall.innerHTML = tab.innerHTML;
+      fall.style.left = tab.offsetLeft + "px";
+      fall.style.width = tab.offsetWidth + "px";
+      tab.parentNode.appendChild(fall);
+      fall.addEventListener("animationend", function () { fall.remove(); });
       tab.classList.add("torn");
       tab.setAttribute("aria-hidden", "true");
       paperSound();
@@ -1042,6 +1075,22 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     // (a etiqueta "▶ ABERTURA" some enquanto a cutscene toca; o "REC" do vídeo do jogo fica)
     cutscene.addEventListener("play", function () { cutscene.parentNode.classList.add("playing"); });
     cutscene.addEventListener("pause", function () { cutscene.parentNode.classList.remove("playing"); });
+    // botão de play grande no meio de cada vídeo (sem ele parecia só uma foto)
+    [cutscene, gameplay].forEach(function (v) {
+      var fig = v.parentNode;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "bigplay";
+      btn.setAttribute("aria-label", "Play");
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4l15 8-15 8z"/></svg>';
+      btn.addEventListener("click", function () {
+        if (v === gameplay) v.muted = false;  // (clicar no play do vídeo do jogo já liga o som)
+        v.play().catch(function () {});
+      });
+      fig.appendChild(btn);
+      v.addEventListener("play", function () { fig.classList.add("rodando"); });
+      v.addEventListener("pause", function () { fig.classList.remove("rodando"); });
+    });
     show(0);
   }
 
