@@ -382,6 +382,21 @@ dialog.viewer img { width: 100%; height: auto; display: block; }
 .req { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 18px; margin: 18px 0 0; font-size: 0.95rem; }
 .req dt { font: 500 0.72rem/1.9 var(--f-ui); letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); }
 .req dd { margin: 0; }
+/* requisitos: mínimo | recomendado */
+.specs { width: 100%; max-width: 760px; margin: 22px 0 0; border-collapse: collapse; font-size: 0.95rem; }
+.specs th, .specs td { padding: 9px 18px 9px 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.specs thead th { font: 600 0.8rem var(--f-ui); letter-spacing: 0.22em; text-transform: uppercase; color: var(--lamp); padding-bottom: 10px; }
+.specs tbody th { font: 500 0.72rem/1.9 var(--f-ui); letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); white-space: nowrap; }
+.specs td small { color: var(--dim); font-size: 0.82rem; }
+@media (max-width: 620px) {
+  .specs, .specs tbody, .specs tr, .specs td, .specs th { display: block; }
+  .specs thead { display: none; }
+  .specs tr { padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .specs th, .specs td { border: 0; padding: 2px 0; }
+  .specs td:nth-of-type(1)::before { content: "Mín. · "; color: var(--dim); }
+  .specs td:nth-of-type(2)::before { content: "Rec. · "; color: var(--lamp); }
+  html[data-lang="en"] .specs td:nth-of-type(1)::before { content: "Min. · "; }
+}
 
 footer { border-top: 1px solid var(--line); padding-block: 28px; color: var(--dim); font-size: 0.88rem; }
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; }
@@ -814,20 +829,43 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="final-grid">
         <div>
           <span class="label"><span lang="pt">Baixar</span><span lang="en">Download</span></span>
-          <h2 style="margin-top:14px"><span lang="pt">Apague a luz e jogue</span><span lang="en">Turn off the lights and play</span></h2>
+          <h2 style="margin-top:14px"><span lang="pt">Requisitos do sistema</span><span lang="en">System requirements</span></h2>
+          <!-- mínimo de um lado, recomendado do outro (07/11/2026) -->
+          <table class="specs">
+            <thead>
+              <tr><th></th><th><span lang="pt">Mínimo</span><span lang="en">Minimum</span></th><th><span lang="pt">Recomendado</span><span lang="en">Recommended</span></th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"><span lang="pt">Sistema</span><span lang="en">OS</span></th>
+                <td><span lang="pt">Windows 10 (64 bits) · macOS 13</span><span lang="en">Windows 10 (64-bit) · macOS 13</span></td>
+                <td><span lang="pt">Windows 11 (64 bits) · macOS 14</span><span lang="en">Windows 11 (64-bit) · macOS 14</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span lang="pt">Processador</span><span lang="en">Processor</span></th>
+                <td>Intel Core i5-6400 / AMD Ryzen 3 1200</td>
+                <td>Intel Core i5-10400 / AMD Ryzen 5 3600</td>
+              </tr>
+              <tr>
+                <th scope="row"><span lang="pt">Memória</span><span lang="en">Memory</span></th>
+                <td>8 GB RAM</td>
+                <td>16 GB RAM</td>
+              </tr>
+              <tr>
+                <th scope="row"><span lang="pt">Vídeo</span><span lang="en">Graphics</span></th>
+                <td>NVIDIA GeForce GTX 1050 Ti / AMD Radeon RX 560<br><small><span lang="pt">Mac: Apple M1</span><span lang="en">Mac: Apple M1</span></small></td>
+                <td>NVIDIA GeForce RTX 3050 / AMD Radeon RX 6600<br><small><span lang="pt">Mac: Apple M2 ou mais novo</span><span lang="en">Mac: Apple M2 or newer</span></small></td>
+              </tr>
+              <tr>
+                <th scope="row"><span lang="pt">Espaço</span><span lang="en">Storage</span></th>
+                <td><span lang="pt">3 GB livres</span><span lang="en">3 GB free</span></td>
+                <td><span lang="pt">3 GB livres em SSD</span><span lang="en">3 GB free on an SSD</span></td>
+              </tr>
+            </tbody>
+          </table>
           <dl class="req">
             <dt lang="pt">Versão</dt><dt lang="en">Version</dt>
             <dd class="data-ver">1.31</dd>
-            <dt lang="pt">Sistemas</dt><dt lang="en">Systems</dt>
-            <dd lang="pt">Windows 10 ou 11 (64 bits) · macOS 13 ou mais novo</dd><dd lang="en">Windows 10 or 11 (64-bit) · macOS 13 or newer</dd>
-            <dt lang="pt">Vídeo</dt><dt lang="en">Graphics</dt>
-            <dd lang="pt">placa de vídeo com Vulkan (no Mac, qualquer um com macOS 13)</dd><dd lang="en">a Vulkan graphics card (on Mac, any with macOS 13)</dd>
-            <dt lang="pt">Memória</dt><dt lang="en">Memory</dt>
-            <dd lang="pt">8 GB recomendados</dd><dd lang="en">8 GB recommended</dd>
-            <dt lang="pt">Espaço</dt><dt lang="en">Storage</dt>
-            <dd lang="pt">3 GB livres (o .zip tem cerca de 1 GB)</dd><dd lang="en">3 GB free (the .zip is about 1 GB)</dd>
-            <dt lang="pt">Testado em</dt><dt lang="en">Tested on</dt>
-            <dd lang="pt">Windows 11 com GeForce RTX 3050</dd><dd lang="en">Windows 11 with a GeForce RTX 3050</dd>
             <dt lang="pt">Instalar</dt><dt lang="en">Install</dt>
             <dd lang="pt">Descompacte e abra o INSTEAD. Depois disso ele se atualiza sozinho.</dd>
             <dd lang="en">Unzip it and open INSTEAD. After that it updates itself.</dd>
