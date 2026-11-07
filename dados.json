@@ -24,6 +24,20 @@
                                           "Teia: quando a aranha acerta, fios prendem as pernas do soldado no chão.",
                                           "Gato: o X chama e só manda embora depois que ele chega.",
                                           "Correções: sem travadas ao entrar nos capítulos, sem lentidão ao encostar em objetos pequenos e colisão da sala, cozinha e entrada na forma dos objetos."
+                                      ],
+                         "title_pt":  "A casa inteira e a porta da frente",
+                         "title_en":  "The whole house and the front door",
+                         "notes_en":  [
+                                          "The whole house in one place: the bedroom, the wardrobe and the rest of the house with no loading screens.",
+                                          "New entrance: a hallway to an arched front door with stained glass, a wooden staircase, a console table, lamp, coat rack, umbrella stand, plants, framed family photos and shoes on the floor.",
+                                          "Living room: the TV is unplugged, and there is an extension cord coiled on the console table in the entrance, with a cable that stretches and drags.",
+                                          "Online through Epic: create or join a room with a code over the internet.",
+                                          "Main menu: CAMPAIGN, SURVIVAL, SETTINGS and QUIT.",
+                                          "New intro cutscene (Portuguese and English).",
+                                          "Contact shadows under the soldier, the bugs, the cat and the bosses.",
+                                          "Webs: when a spider hits, strands pin the soldier\u0027s legs to the floor.",
+                                          "Cat: X calls him, and only sends him away once he has arrived.",
+                                          "Fixes: no more freezes when entering chapters, no slowdown when touching small objects, and collision in the living room, kitchen and entrance follows the shape of the objects."
                                       ]
                      },
                      {
@@ -165,58 +179,58 @@
                                       ]
                      }
                  ],
-    "news_title_pt":  "Novo na versão 1.32",
-    "news_title_en":  "New in version 1.32",
+    "news_title_pt":  "Novo na versÃ£o 1.33",
+    "news_title_en":  "New in version 1.33",
     "news_text_pt":  "Já está no ar. Quem tem o jogo instalado recebe a atualização sozinho.",
     "news_text_en":  "Out now. If you have the game installed, the update arrives on its own.",
     "news":  [
                  {
-                     "tag_pt":  "SOBREVIVÊNCIA",
-                     "tag_en":  "SURVIVAL",
-                     "title_pt":  "Armas com níveis",
-                     "title_en":  "Weapon levels",
-                     "text_pt":  "Cada arma tem as próprias melhorias na loja, com tiro rápido e recarga rápida. O preço sobe a cada nível.",
-                     "text_en":  "Each weapon has its own upgrades in the shop, including faster fire and faster reload. The price goes up with every level."
+                     "tag_pt":  "CASA",
+                     "tag_en":  "HOUSE",
+                     "title_pt":  "Uma casa sÃ³",
+                     "title_en":  "One house",
+                     "text_pt":  "Quarto, guarda-roupa e o resto da casa agora sÃ£o um lugar sÃ³, sem telas de carregamento no caminho.",
+                     "text_en":  "The bedroom, the wardrobe and the rest of the house are now one place, with no loading screens in the way."
+                 },
+                 {
+                     "tag_pt":  "ENTRADA",
+                     "tag_en":  "ENTRANCE",
+                     "title_pt":  "A porta da frente",
+                     "title_en":  "The front door",
+                     "text_pt":  "Um corredor atÃ© a porta em arco com vitral, a escada de madeira e os sapatos da famÃ­lia no chÃ£o.",
+                     "text_en":  "A hallway to the arched stained-glass door, the wooden staircase and the family\u0027s shoes on the floor."
                  },
                  {
                      "tag_pt":  "SALA",
                      "tag_en":  "LIVING ROOM",
-                     "title_pt":  "A fita no videocassete",
-                     "title_en":  "The tape in the VCR",
-                     "text_pt":  "O barulho no fim da fita chama baratas de todos os cantos da sala.",
-                     "text_en":  "The noise at the end of the tape draws roaches from every corner of the room."
+                     "title_pt":  "A TV desligada",
+                     "title_en":  "The dead TV",
+                     "text_pt":  "AlguÃ©m tirou a TV da tomada. E o fio dela nÃ£o chega atÃ© a parede.",
+                     "text_en":  "Someone unplugged the TV. And its cord doesn\u0027t reach the wall."
                  },
                  {
-                     "tag_pt":  "ESCADA",
-                     "tag_en":  "STAIRS",
-                     "title_pt":  "O vulto ficou mais escuro",
-                     "title_en":  "The figure got darker",
-                     "text_pt":  "O que espera no alto da escada ficou mais denso e mais difícil de encarar.",
-                     "text_en":  "Whatever waits at the top of the stairs is denser now, and harder to look at."
+                     "tag_pt":  "ONLINE",
+                     "tag_en":  "ONLINE",
+                     "title_pt":  "Sala com cÃ³digo",
+                     "title_en":  "Rooms with a code",
+                     "text_pt":  "Crie uma sala pela Epic, passe o cÃ³digo e jogue junto pela internet.",
+                     "text_en":  "Create a room through Epic, share the code and play together over the internet."
                  },
                  {
-                     "tag_pt":  "SOLDADO",
-                     "tag_en":  "SOLDIER",
-                     "title_pt":  "Rapel de verdade",
-                     "title_en":  "Proper rappelling",
-                     "text_pt":  "Na corda, o soldado sobe inclinado para trás, com as mãos na corda presa na cintura.",
-                     "text_en":  "On the rope, the soldier leans back with both hands on a line tied at the waist."
+                     "tag_pt":  "ARANHAS",
+                     "tag_en":  "SPIDERS",
+                     "title_pt":  "Preso na teia",
+                     "title_en":  "Caught in the web",
+                     "text_pt":  "Quando a teia acerta, os fios prendem as pernas do soldado no chÃ£o.",
+                     "text_en":  "When the web hits, the strands pin the soldier\u0027s legs to the floor."
                  },
                  {
-                     "tag_pt":  "GATO",
-                     "tag_en":  "CAT",
-                     "title_pt":  "Chamar o gato",
-                     "title_en":  "Call the cat",
-                     "text_pt":  "Depois da primeira volta no gato, um ícone perto das armas mostra a tecla para chamá-lo.",
-                     "text_en":  "After your first ride, an icon next to your weapons shows the key that calls him."
-                 },
-                 {
-                     "tag_pt":  "COZINHA",
-                     "tag_en":  "KITCHEN",
-                     "title_pt":  "Bancadas com comida",
-                     "title_en":  "Food on the counters",
-                     "text_pt":  "Pão na tábua, fruteira, cereal e leite. Do tamanho de um soldadinho, um pão é um prédio.",
-                     "text_en":  "Bread on the board, a fruit bowl, cereal and milk. At toy size, a loaf of bread is a building."
+                     "tag_pt":  "ABERTURA",
+                     "tag_en":  "INTRO",
+                     "title_pt":  "Nova abertura",
+                     "title_en":  "New opening",
+                     "text_pt":  "A cutscene de introduÃ§Ã£o foi refeita, em portuguÃªs e em inglÃªs.",
+                     "text_en":  "The intro cutscene was remade, in Portuguese and English."
                  }
              ]
 }
