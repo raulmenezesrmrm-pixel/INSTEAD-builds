@@ -179,7 +179,7 @@
                                       ]
                      }
                  ],
-    "news_title_pt":  "Novo na versÃ£o 1.33",
+    "news_title_pt":  "Novo na versão 1.33",
     "news_title_en":  "New in version 1.33",
     "news_text_pt":  "Já está no ar. Quem tem o jogo instalado recebe a atualização sozinho.",
     "news_text_en":  "Out now. If you have the game installed, the update arrives on its own.",
@@ -187,9 +187,9 @@
                  {
                      "tag_pt":  "CASA",
                      "tag_en":  "HOUSE",
-                     "title_pt":  "Uma casa sÃ³",
+                     "title_pt":  "Uma casa só",
                      "title_en":  "One house",
-                     "text_pt":  "Quarto, guarda-roupa e o resto da casa agora sÃ£o um lugar sÃ³, sem telas de carregamento no caminho.",
+                     "text_pt":  "Quarto, guarda-roupa e o resto da casa agora são um lugar só, sem telas de carregamento no caminho.",
                      "text_en":  "The bedroom, the wardrobe and the rest of the house are now one place, with no loading screens in the way."
                  },
                  {
@@ -197,7 +197,7 @@
                      "tag_en":  "ENTRANCE",
                      "title_pt":  "A porta da frente",
                      "title_en":  "The front door",
-                     "text_pt":  "Um corredor atÃ© a porta em arco com vitral, a escada de madeira e os sapatos da famÃ­lia no chÃ£o.",
+                     "text_pt":  "Um corredor até a porta em arco com vitral, a escada de madeira e os sapatos da família no chão.",
                      "text_en":  "A hallway to the arched stained-glass door, the wooden staircase and the family\u0027s shoes on the floor."
                  },
                  {
@@ -205,15 +205,15 @@
                      "tag_en":  "LIVING ROOM",
                      "title_pt":  "A TV desligada",
                      "title_en":  "The dead TV",
-                     "text_pt":  "AlguÃ©m tirou a TV da tomada. E o fio dela nÃ£o chega atÃ© a parede.",
+                     "text_pt":  "Alguém tirou a TV da tomada. E o fio dela não chega até a parede.",
                      "text_en":  "Someone unplugged the TV. And its cord doesn\u0027t reach the wall."
                  },
                  {
                      "tag_pt":  "ONLINE",
                      "tag_en":  "ONLINE",
-                     "title_pt":  "Sala com cÃ³digo",
+                     "title_pt":  "Sala com código",
                      "title_en":  "Rooms with a code",
-                     "text_pt":  "Crie uma sala pela Epic, passe o cÃ³digo e jogue junto pela internet.",
+                     "text_pt":  "Crie uma sala pela Epic, passe o código e jogue junto pela internet.",
                      "text_en":  "Create a room through Epic, share the code and play together over the internet."
                  },
                  {
@@ -221,7 +221,7 @@
                      "tag_en":  "SPIDERS",
                      "title_pt":  "Preso na teia",
                      "title_en":  "Caught in the web",
-                     "text_pt":  "Quando a teia acerta, os fios prendem as pernas do soldado no chÃ£o.",
+                     "text_pt":  "Quando a teia acerta, os fios prendem as pernas do soldado no chão.",
                      "text_en":  "When the web hits, the strands pin the soldier\u0027s legs to the floor."
                  },
                  {
@@ -229,7 +229,7 @@
                      "tag_en":  "INTRO",
                      "title_pt":  "Nova abertura",
                      "title_en":  "New opening",
-                     "text_pt":  "A cutscene de introduÃ§Ã£o foi refeita, em portuguÃªs e em inglÃªs.",
+                     "text_pt":  "A cutscene de introdução foi refeita, em português e em inglês.",
                      "text_en":  "The intro cutscene was remade, in Portuguese and English."
                  }
              ]
