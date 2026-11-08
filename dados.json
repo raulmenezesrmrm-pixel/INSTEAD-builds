@@ -1,7 +1,30 @@
 {
     "repo":  "raulmenezesrmrm-pixel/INSTEAD-builds",
-    "latest":  "1.33",
+    "latest":  "1.34",
     "versions":  [
+                     {
+                         "v":  "1.34",
+                         "date":  "2026-11-08",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.34/INSTEAD_1.34_windows.zip",
+                                         "mb":  1066
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.34/INSTEAD_1.34_mac.zip",
+                                     "mb":  1086
+                                 },
+                         "notes_pt":  [
+                                          "Anoitecer: a casa escurece aos poucos na fase do banheiro.",
+                                          "A sala e a entrada são de noite, escuras e azul-esverdeadas, com abajures quentes, luar entrando pelas cortinas e feixes de luz no ar empoeirado.",
+                                          "Quarto de noite: a luz do poste entra pela janela e a rua lá fora fica escura.",
+                                          "Cozinha: luz quente da coifa em cima do fogão, que falha de vez em quando.",
+                                          "Faca: no faqueiro da cozinha, arma branca mais forte que o lápis.",
+                                          "Sombras de verdade: o soldado faz sombra vinda das luzes da casa e os bichos ganham sombra com a forma do corpo.",
+                                          "Configurações: SOMBRAS ALTAS/BAIXAS (para PC mais fraco) e MOSTRAR FPS.",
+                                          "Online: o dono da sala pode expulsar um jogador clicando no cartão.",
+                                          "Correções: a passadeira da entrada não prende mais o soldado nas dobras e o carregamento não trava mais na tela de loading."
+                                      ]
+                     },
                      {
                          "v":  "1.33",
                          "date":  "2026-11-07",
@@ -13,6 +36,8 @@
                                      "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.33/INSTEAD_1.33_mac.zip",
                                      "mb":  1084
                                  },
+                         "title_pt":  "A casa inteira e a porta da frente",
+                         "title_en":  "The whole house and the front door",
                          "notes_pt":  [
                                           "Casa inteira numa cena só: quarto, guarda-roupa e o resto da casa sem telas de carregamento.",
                                           "Entrada nova: corredor até a porta da frente em arco com vitral, escada de madeira, aparador, abajur, cabideiro, guarda-chuvas, plantas, quadros com fotos da família e sapatos no chão.",
@@ -25,8 +50,6 @@
                                           "Gato: o X chama e só manda embora depois que ele chega.",
                                           "Correções: sem travadas ao entrar nos capítulos, sem lentidão ao encostar em objetos pequenos e colisão da sala, cozinha e entrada na forma dos objetos."
                                       ],
-                         "title_pt":  "A casa inteira e a porta da frente",
-                         "title_en":  "The whole house and the front door",
                          "notes_en":  [
                                           "The whole house in one place: the bedroom, the wardrobe and the rest of the house with no loading screens.",
                                           "New entrance: a hallway to an arched front door with stained glass, a wooden staircase, a console table, lamp, coat rack, umbrella stand, plants, framed family photos and shoes on the floor.",
