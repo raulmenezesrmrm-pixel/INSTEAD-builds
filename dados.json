@@ -23,6 +23,18 @@
                                           "Configurações: SOMBRAS ALTAS/BAIXAS (para PC mais fraco) e MOSTRAR FPS.",
                                           "Online: o dono da sala pode expulsar um jogador clicando no cartão.",
                                           "Correções: a passadeira da entrada não prende mais o soldado nas dobras e o carregamento não trava mais na tela de loading."
+                                      ],
+                         "title_pt":  "Anoitece na casa",
+                         "title_en":  "Night falls on the house",
+                         "notes_en":  [
+                                          "Nightfall: the house slowly gets dark during the bathroom part; the living room and the entrance are at night, dark and blue-green, with warm lamps, moonlight coming through the curtains and beams of light in the dusty air.",
+                                          "Bedroom at night: the streetlight shines through the window and the street outside goes dark.",
+                                          "Kitchen: warm light from the range hood above the stove, which flickers now and then.",
+                                          "Knife: in the kitchen knife block, a melee weapon stronger than the pencil.",
+                                          "Real shadows: the soldier casts shadows from the house lights, and the pests get shadows shaped like their bodies.",
+                                          "Settings: SHADOWS HIGH/LOW (for weaker PCs) and SHOW FPS.",
+                                          "Online: the room host can kick a player by clicking their card.",
+                                          "Fixes: the entrance runner no longer catches the soldier in its folds, and loading no longer freezes on the loading screen."
                                       ]
                      },
                      {
@@ -202,58 +214,58 @@
                                       ]
                      }
                  ],
-    "news_title_pt":  "Novo na versão 1.33",
-    "news_title_en":  "New in version 1.33",
+    "news_title_pt":  "Novo na versão 1.34",
+    "news_title_en":  "New in version 1.34",
     "news_text_pt":  "Já está no ar. Quem tem o jogo instalado recebe a atualização sozinho.",
     "news_text_en":  "Out now. If you have the game installed, the update arrives on its own.",
     "news":  [
                  {
-                     "tag_pt":  "CASA",
-                     "tag_en":  "HOUSE",
-                     "title_pt":  "Uma casa só",
-                     "title_en":  "One house",
-                     "text_pt":  "Quarto, guarda-roupa e o resto da casa agora são um lugar só, sem telas de carregamento no caminho.",
-                     "text_en":  "The bedroom, the wardrobe and the rest of the house are now one place, with no loading screens in the way."
-                 },
-                 {
-                     "tag_pt":  "ENTRADA",
-                     "tag_en":  "ENTRANCE",
-                     "title_pt":  "A porta da frente",
-                     "title_en":  "The front door",
-                     "text_pt":  "Um corredor até a porta em arco com vitral, a escada de madeira e os sapatos da família no chão.",
-                     "text_en":  "A hallway to the arched stained-glass door, the wooden staircase and the family\u0027s shoes on the floor."
+                     "tag_pt":  "NOITE",
+                     "tag_en":  "NIGHT",
+                     "title_pt":  "Anoitece",
+                     "title_en":  "Night falls",
+                     "text_pt":  "Enquanto você está no banheiro, a casa escurece aos poucos. Quando chega na sala, já é noite.",
+                     "text_en":  "While you\u0027re in the bathroom, the house slowly gets dark. By the time you reach the living room, it\u0027s night."
                  },
                  {
                      "tag_pt":  "SALA",
                      "tag_en":  "LIVING ROOM",
-                     "title_pt":  "A TV desligada",
-                     "title_en":  "The dead TV",
-                     "text_pt":  "Alguém tirou a TV da tomada. E o fio dela não chega até a parede.",
-                     "text_en":  "Someone unplugged the TV. And its cord doesn\u0027t reach the wall."
+                     "title_pt":  "Luz no ar empoeirado",
+                     "title_en":  "Light in the dusty air",
+                     "text_pt":  "Abajures quentes, luar entrando pelas frestas das cortinas e feixes de luz na poeira.",
+                     "text_en":  "Warm lamps, moonlight slipping through the curtains and beams of light in the dust."
+                 },
+                 {
+                     "tag_pt":  "QUARTO",
+                     "tag_en":  "BEDROOM",
+                     "title_pt":  "A luz do poste",
+                     "title_en":  "The streetlight",
+                     "text_pt":  "De noite, o sol da janela vira a luz fraca e laranja do poste da rua.",
+                     "text_en":  "At night, the sun in the window becomes the dim orange glow of the streetlight."
+                 },
+                 {
+                     "tag_pt":  "COZINHA",
+                     "tag_en":  "KITCHEN",
+                     "title_pt":  "A faca",
+                     "title_en":  "The knife",
+                     "text_pt":  "No faqueiro, uma arma branca bem mais forte que o lápis. E a luz da coifa que falha.",
+                     "text_en":  "In the knife block, a melee weapon much stronger than the pencil. And the range hood light that keeps failing."
+                 },
+                 {
+                     "tag_pt":  "SOMBRAS",
+                     "tag_en":  "SHADOWS",
+                     "title_pt":  "Sombras de verdade",
+                     "title_en":  "Real shadows",
+                     "text_pt":  "O soldado faz sombra vinda das luzes da casa; os bichos, com a forma do corpo.",
+                     "text_en":  "The soldier casts shadows from the house lights; the pests get shadows shaped like their bodies."
                  },
                  {
                      "tag_pt":  "ONLINE",
                      "tag_en":  "ONLINE",
-                     "title_pt":  "Sala com código",
-                     "title_en":  "Rooms with a code",
-                     "text_pt":  "Crie uma sala pela Epic, passe o código e jogue junto pela internet.",
-                     "text_en":  "Create a room through Epic, share the code and play together over the internet."
-                 },
-                 {
-                     "tag_pt":  "ARANHAS",
-                     "tag_en":  "SPIDERS",
-                     "title_pt":  "Preso na teia",
-                     "title_en":  "Caught in the web",
-                     "text_pt":  "Quando a teia acerta, os fios prendem as pernas do soldado no chão.",
-                     "text_en":  "When the web hits, the strands pin the soldier\u0027s legs to the floor."
-                 },
-                 {
-                     "tag_pt":  "ABERTURA",
-                     "tag_en":  "INTRO",
-                     "title_pt":  "Nova abertura",
-                     "title_en":  "New opening",
-                     "text_pt":  "A cutscene de introdução foi refeita, em português e em inglês.",
-                     "text_en":  "The intro cutscene was remade, in Portuguese and English."
+                     "title_pt":  "Expulsar da sala",
+                     "title_en":  "Kick from the room",
+                     "text_pt":  "O dono da sala pode expulsar um jogador clicando no cartão dele.",
+                     "text_en":  "The room host can kick a player by clicking their card."
                  }
              ]
 }
