@@ -276,6 +276,7 @@ h2 {
 .shot { position: relative; margin: 0; grid-column: span 2; background: var(--night-2); cursor: zoom-in; border: 0; padding: 0; display: block; text-align: left; color: inherit; }
 .shot.big { grid-column: span 4; grid-row: span 2; }
 .shot.half { grid-column: span 3; }
+.lead-mp { max-width: 760px; margin: 0 0 clamp(18px, 2.4vw, 28px); line-height: 1.6; }
 .shot img { width: 100%; height: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; filter: saturate(0.95); transition: filter 0.25s; }
 .shot.big img { aspect-ratio: auto; }
 .shot:hover img { filter: saturate(1.08) brightness(1.08); }
@@ -418,6 +419,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <a href="#jogo"><span lang="pt">O jogo</span><span lang="en">The game</span></a>
       <a href="#video"><span lang="pt">Vídeo</span><span lang="en">Video</span></a>
       <a href="#prints"><span lang="pt">Prints</span><span lang="en">Screenshots</span></a>
+      <a href="#multiplayer">Multiplayer</a>
       <a href="#novidades"><span lang="pt">Novidades</span><span lang="en">What's new</span></a>
       <a href="#versoes"><span lang="pt">Notas de versão</span><span lang="en">Patch notes</span></a>
       <a href="#perguntas"><span lang="pt">Perguntas</span><span lang="en">FAQ</span></a>
@@ -536,8 +538,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <div class="mode">
             <h3><span lang="pt">Juntos</span><span lang="en">Together</span></h3>
             <div>
-              <p lang="pt">Sobrevivência sozinho, em tela dividida no mesmo PC ou online com até 4 amigos. <span class="d">Dá para convidar pela lista de amigos da Steam.</span></p>
-              <p lang="en">Survival solo, split screen on one PC, or online with up to 4 friends. <span class="d">Invite them from your Steam friends list.</span></p>
+              <p lang="pt">Sobrevivência em tela dividida no mesmo PC ou online com até 4 amigos, e a captura de cômodos: time contra time pela casa. <span class="d">Os amigos entram com um código de sala.</span></p>
+              <p lang="en">Survival split screen on one PC or online with up to 4 friends, plus room capture: team versus team across the house. <span class="d">Friends join with a room code.</span></p>
             </div>
           </div>
           <div class="mode">
@@ -600,6 +602,21 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <button class="shot" type="button" data-src="img/quarto_tapete.jpg"><img src="img/quarto_tapete.jpg" alt="Baratas cercando o soldadinho no tapete listrado do quarto" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b></span></button>
         <button class="shot" type="button" data-src="img/rato_tiro.jpg"><img src="img/rato_tiro.jpg" alt="O soldado de escopeta na frente do rato de corda gigante, do lado do vaso" loading="lazy"><span class="stamp"><b lang="pt">BANHEIRO</b><b lang="en">BATHROOM</b></span></button>
         <button class="shot" type="button" data-src="img/rato.jpg"><img src="img/rato.jpg" alt="O rato de corda acabou de sair do vaso e encara o soldado" loading="lazy"><span class="stamp"><b lang="pt">BANHEIRO</b><b lang="en">BATHROOM</b></span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="multiplayer">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Multiplayer</span>
+        <h2><span lang="pt">Captura de cômodos</span><span lang="en">Room capture</span></h2>
+      </div>
+      <p class="lead-mp" lang="pt">Dois times de soldadinhos disputam a casa inteira, bandeira por bandeira. Escolha a classe (assalto, escopeta, atirador ou granadeiro), segure os cômodos e renasça onde o seu time domina. Dá para jogar com amigos pela internet com um código de sala de 4 letras, completar os times com bots e escolher jogar de dia ou de noite.</p>
+      <p class="lead-mp" lang="en">Two teams of toy soldiers fight over the whole house, flag by flag. Pick a class (assault, shotgun, sniper or grenadier), hold the rooms and respawn where your team is in control. Play with friends over the internet with a 4-letter room code, fill the teams with bots and choose day or night.</p>
+      <div class="gallery">
+        <button class="shot half" type="button" data-src="img/multi_quarto.jpg"><img src="img/multi_quarto.jpg" alt="Tiroteio entre o time azul e o vermelho no tapete do quarto" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b><span>PvP</span></span></button>
+        <button class="shot half" type="button" data-src="img/multi_banheiro.jpg"><img src="img/multi_banheiro.jpg" alt="Os dois times disputando a bandeira A no chão do banheiro" loading="lazy"><span class="stamp"><b lang="pt">BANHEIRO</b><b lang="en">BATHROOM</b><span>PvP</span></span></button>
       </div>
     </div>
   </section>
