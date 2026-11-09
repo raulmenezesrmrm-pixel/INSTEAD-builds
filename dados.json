@@ -1,7 +1,29 @@
 {
     "repo":  "raulmenezesrmrm-pixel/INSTEAD-builds",
-    "latest":  "1.34",
+    "latest":  "1.35",
     "versions":  [
+                     {
+                         "v":  "1.35",
+                         "date":  "2026-11-09",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.35/INSTEAD_1.35_windows.zip",
+                                         "mb":  1091
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.35/INSTEAD_1.35_mac.zip",
+                                     "mb":  1111
+                                 },
+                         "notes_pt":  [
+                                          "Novo modo online: Captura de cômodos (time azul contra vermelho pela casa, bandeiras A a D).",
+                                          "Classes: assalto, escopeta, atirador e granadeiro.",
+                                          "Bots com nome para completar os times.",
+                                          "Minimapa na tecla M e na tela de renascer (clique para escolher onde nascer).",
+                                          "Partida de dia ou de noite.",
+                                          "Contorno na cor do time e vida do inimigo só depois do dano.",
+                                          "Salas pela internet com código de 4 letras.",
+                                          "Correções: ícone do rapel e do avião, ESC no carregamento não fecha mais a sala."
+                                      ]
+                     },
                      {
                          "v":  "1.34",
                          "date":  "2026-11-08",
@@ -13,6 +35,8 @@
                                      "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.34/INSTEAD_1.34_mac.zip",
                                      "mb":  1086
                                  },
+                         "title_pt":  "Anoitece na casa",
+                         "title_en":  "Night falls on the house",
                          "notes_pt":  [
                                           "Anoitecer: a casa escurece aos poucos na fase do banheiro.",
                                           "A sala e a entrada são de noite, escuras e azul-esverdeadas, com abajures quentes, luar entrando pelas cortinas e feixes de luz no ar empoeirado.",
@@ -24,8 +48,6 @@
                                           "Online: o dono da sala pode expulsar um jogador clicando no cartão.",
                                           "Correções: a passadeira da entrada não prende mais o soldado nas dobras e o carregamento não trava mais na tela de loading."
                                       ],
-                         "title_pt":  "Anoitece na casa",
-                         "title_en":  "Night falls on the house",
                          "notes_en":  [
                                           "Nightfall: the house slowly gets dark during the bathroom part.",
                                           "The living room and the entrance are at night, dark and blue-green, with warm lamps, moonlight coming through the curtains and beams of light in the dusty air.",
