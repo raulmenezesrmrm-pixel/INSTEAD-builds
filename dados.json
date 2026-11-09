@@ -22,6 +22,18 @@
                                           "Contorno na cor do time e vida do inimigo só depois do dano.",
                                           "Salas pela internet com código de 4 letras.",
                                           "Correções: ícone do rapel e do avião, ESC no carregamento não fecha mais a sala."
+                                      ],
+                         "title_pt":  "Captura de cômodos",
+                         "title_en":  "Room capture",
+                         "notes_en":  [
+                                          "New online mode: Room capture (blue team versus red across the house, flags A to D).",
+                                          "Classes: assault, shotgun, sniper and grenadier.",
+                                          "Named bots to fill the teams.",
+                                          "Minimap on the M key and on the respawn screen (click to choose where to spawn).",
+                                          "Play by day or by night.",
+                                          "Team-colored outlines, and enemy health only shows after they take damage.",
+                                          "Internet rooms with a 4-letter code.",
+                                          "Fixes: rappel and paper plane icons, ESC during loading no longer closes the room."
                                       ]
                      },
                      {
@@ -242,53 +254,6 @@
     "news_text_pt":  "Já está no ar. Quem tem o jogo instalado recebe a atualização sozinho.",
     "news_text_en":  "Out now. If you have the game installed, the update arrives on its own.",
     "news":  [
-                 {
-                     "tag_pt":  "NOITE",
-                     "tag_en":  "NIGHT",
-                     "title_pt":  "Anoitece",
-                     "title_en":  "Night falls",
-                     "text_pt":  "Enquanto você está no banheiro, a casa escurece aos poucos. Quando chega na sala, já é noite.",
-                     "text_en":  "While you\u0027re in the bathroom, the house slowly gets dark. By the time you reach the living room, it\u0027s night."
-                 },
-                 {
-                     "tag_pt":  "SALA",
-                     "tag_en":  "LIVING ROOM",
-                     "title_pt":  "Luz no ar empoeirado",
-                     "title_en":  "Light in the dusty air",
-                     "text_pt":  "Abajures quentes, luar entrando pelas frestas das cortinas e feixes de luz na poeira.",
-                     "text_en":  "Warm lamps, moonlight slipping through the curtains and beams of light in the dust."
-                 },
-                 {
-                     "tag_pt":  "QUARTO",
-                     "tag_en":  "BEDROOM",
-                     "title_pt":  "A luz do poste",
-                     "title_en":  "The streetlight",
-                     "text_pt":  "De noite, o sol da janela vira a luz fraca e laranja do poste da rua.",
-                     "text_en":  "At night, the sun in the window becomes the dim orange glow of the streetlight."
-                 },
-                 {
-                     "tag_pt":  "COZINHA",
-                     "tag_en":  "KITCHEN",
-                     "title_pt":  "A faca",
-                     "title_en":  "The knife",
-                     "text_pt":  "No faqueiro, uma arma branca bem mais forte que o lápis. E a luz da coifa que falha.",
-                     "text_en":  "In the knife block, a melee weapon much stronger than the pencil. And the range hood light that keeps failing."
-                 },
-                 {
-                     "tag_pt":  "SOMBRAS",
-                     "tag_en":  "SHADOWS",
-                     "title_pt":  "Sombras de verdade",
-                     "title_en":  "Real shadows",
-                     "text_pt":  "O soldado faz sombra vinda das luzes da casa; os bichos, com a forma do corpo.",
-                     "text_en":  "The soldier casts shadows from the house lights; the pests get shadows shaped like their bodies."
-                 },
-                 {
-                     "tag_pt":  "ONLINE",
-                     "tag_en":  "ONLINE",
-                     "title_pt":  "Expulsar da sala",
-                     "title_en":  "Kick from the room",
-                     "text_pt":  "O dono da sala pode expulsar um jogador clicando no cartão dele.",
-                     "text_en":  "The room host can kick a player by clicking their card."
-                 }
+
              ]
 }
