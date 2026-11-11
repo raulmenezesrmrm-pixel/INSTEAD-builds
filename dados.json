@@ -1,7 +1,29 @@
 {
     "repo":  "raulmenezesrmrm-pixel/INSTEAD-builds",
-    "latest":  "1.35",
+    "latest":  "1.36",
     "versions":  [
+                     {
+                         "v":  "1.36",
+                         "date":  "2026-11-11",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.36/INSTEAD_1.36_windows.zip",
+                                         "mb":  1099
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.36/INSTEAD_1.36_mac.zip",
+                                     "mb":  1119
+                                 },
+                         "notes_pt":  [
+                                          "Amigos da Epic: convidar para a sala direto do jogo.",
+                                          "Login com a conta Epic sincroniza nivel, chapeus e saves na nuvem.",
+                                          "Fotos de perfil novas (8), troca clicando na foto da conta.",
+                                          "PERSONALIZAR com entrada de cinema: holofote, poeira e a sala a noite ao fundo.",
+                                          "Sala online e configuracoes do jogo no visual do inventario.",
+                                          "Fim de partida suave: todos param e a tela escurece antes da vitoria.",
+                                          "Bots sobem de corda na bancada da cozinha.",
+                                          "Bola do ponto e mira da granada nao somem mais atras do tapete."
+                                      ]
+                     },
                      {
                          "v":  "1.35",
                          "date":  "2026-11-09",
@@ -13,6 +35,8 @@
                                      "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.35/INSTEAD_1.35_mac.zip",
                                      "mb":  1111
                                  },
+                         "title_pt":  "Captura de cômodos",
+                         "title_en":  "Room capture",
                          "notes_pt":  [
                                           "Novo modo online: Captura de cômodos (time azul contra vermelho pela casa, bandeiras A a D).",
                                           "Classes: assalto, escopeta, atirador e granadeiro.",
@@ -23,8 +47,6 @@
                                           "Salas pela internet com código de 4 letras.",
                                           "Correções: ícone do rapel e do avião, ESC no carregamento não fecha mais a sala."
                                       ],
-                         "title_pt":  "Captura de cômodos",
-                         "title_en":  "Room capture",
                          "notes_en":  [
                                           "New online mode: Room capture (blue team versus red across the house, flags A to D).",
                                           "Classes: assault, shotgun, sniper and grenadier.",
