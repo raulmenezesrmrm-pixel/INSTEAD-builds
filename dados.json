@@ -14,15 +14,27 @@
                                      "mb":  1119
                                  },
                          "notes_pt":  [
-                                          "Amigos da Epic: convidar para a sala direto do jogo.",
-                                          "Login com a conta Epic sincroniza nivel, chapeus e saves na nuvem.",
-                                          "Fotos de perfil novas (8), troca clicando na foto da conta.",
-                                          "PERSONALIZAR com entrada de cinema: holofote, poeira e a sala a noite ao fundo.",
-                                          "Sala online e configuracoes do jogo no visual do inventario.",
-                                          "Fim de partida suave: todos param e a tela escurece antes da vitoria.",
-                                          "Bots sobem de corda na bancada da cozinha.",
-                                          "Bola do ponto e mira da granada nao somem mais atras do tapete."
-                                      ]
+                                          "Amigos da Epic: convide para a sala direto do jogo.",
+                                          "Entrar com a conta Epic guarda nível, chapéus e saves na nuvem e leva para qualquer PC.",
+                                          "Fotos de perfil novas (8): troque clicando na foto do retângulo da conta.",
+                                          "PERSONALIZAR com entrada de cinema: holofote que pisca, poeira no feixe e a sala à noite ao fundo.",
+                                          "Sala online e configurações do jogo no visual do inventário.",
+                                          "Fim de partida suave: todos param e a tela escurece antes da vitória.",
+                                          "Bots agora sobem de corda na bancada da cozinha.",
+                                          "Correções: a bola do ponto e a mira da granada não somem mais atrás do tapete da sala."
+                                       ],
+                         "title_pt":  "Amigos, nuvem e cinema",
+                         "title_en":  "Friends, cloud and cinema",
+                         "notes_en":  [
+                                          "Epic friends: invite them to your room right from the game.",
+                                          "Signing in with your Epic account keeps your level, hats and saves in the cloud, on any PC.",
+                                          "New profile pictures (8): change it by clicking the picture on the account card.",
+                                          "CUSTOMIZE now opens like a film: a flickering spotlight, dust in the beam and the living room at night behind.",
+                                          "Online room and game settings restyled like the inventory.",
+                                          "Smooth match ending: everyone freezes and the screen fades out before the victory screen.",
+                                          "Bots now rappel up to the kitchen counter.",
+                                          "Fixes: the capture zone fill and the grenade aim no longer vanish behind the living room rug."
+                                       ]
                      },
                      {
                          "v":  "1.35",
