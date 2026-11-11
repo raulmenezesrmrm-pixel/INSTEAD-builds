@@ -277,6 +277,8 @@ h2 {
 .shot.big { grid-column: span 4; grid-row: span 2; }
 .shot.half { grid-column: span 3; }
 .lead-mp { max-width: 760px; margin: 0 0 clamp(18px, 2.4vw, 28px); line-height: 1.6; }
+.mp-videos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(10px, 1.6vw, 18px); margin-bottom: clamp(10px, 1.6vw, 18px); }
+.mp-videos figcaption.mp-cap { padding: 10px 12px; font-size: 0.92rem; line-height: 1.45; color: var(--paper); opacity: 0.85; background: var(--night-2); }
 .shot img { width: 100%; height: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; filter: saturate(0.95); transition: filter 0.25s; }
 .shot.big img { aspect-ratio: auto; }
 .shot:hover img { filter: saturate(1.08) brightness(1.08); }
@@ -292,6 +294,7 @@ h2 {
   .shot, .shot.big, .shot.half { grid-column: span 1; grid-row: auto; }
   .shot.big { grid-column: span 2; }
   .shot.big img { aspect-ratio: 16 / 9; }
+  .mp-videos { grid-template-columns: minmax(0, 1fr); }
 }
 .film { position: relative; margin: 0; background: #000; border: 1px solid var(--line); box-shadow: 0 0 60px rgba(241, 179, 92, 0.08); }
 .film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; }
@@ -598,9 +601,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="gallery">
         <button class="shot big" type="button" data-src="img/mesa.jpg"><img src="img/mesa.jpg" alt="O soldadinho em cima da escrivaninha do quarto, entre o Game Boy, o desenho a giz, o walkman e o videogame" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b><span>▶ PLAY</span></span></button>
         <button class="shot" type="button" data-src="img/quarto_porta.jpg"><img src="img/quarto_porta.jpg" alt="O soldadinho no chão do quarto, com a escrivaninha e a janela ao fundo e fitas de vídeo no chão" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b></span></button>
-        <button class="shot" type="button" data-src="img/quarto_cama.jpg"><img src="img/quarto_cama.jpg" alt="O soldadinho em cima da cama, com o ursinho de pelúcia e a luz da persiana" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b></span></button>
+        <button class="shot" type="button" data-src="img/quarto_cama.jpg"><img src="img/quarto_cama.jpg" alt="O soldadinho em cima da cama, com o ursinho de pelúcia e a luz da persiana na parede" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b></span></button>
         <button class="shot" type="button" data-src="img/quarto_tapete.jpg"><img src="img/quarto_tapete.jpg" alt="Baratas cercando o soldadinho no tapete listrado do quarto" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b></span></button>
-        <button class="shot" type="button" data-src="img/rato_tiro.jpg"><img src="img/rato_tiro.jpg" alt="O soldado de escopeta na frente do rato de corda gigante, do lado do vaso" loading="lazy"><span class="stamp"><b lang="pt">BANHEIRO</b><b lang="en">BATHROOM</b></span></button>
+        <button class="shot" type="button" data-src="img/rato_tiro.jpg"><img src="img/rato_tiro.jpg" alt="O rato de corda gigante no chão do banheiro, com um rastro escuro, e o soldado de lanterna acesa" loading="lazy"><span class="stamp"><b lang="pt">BANHEIRO</b><b lang="en">BATHROOM</b></span></button>
         <button class="shot" type="button" data-src="img/rato.jpg"><img src="img/rato.jpg" alt="O rato de corda acabou de sair do vaso e encara o soldado" loading="lazy"><span class="stamp"><b lang="pt">BANHEIRO</b><b lang="en">BATHROOM</b></span></button>
       </div>
     </div>
@@ -612,15 +615,28 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <span class="label">Multiplayer</span>
         <h2><span lang="pt">Captura de cômodos</span><span lang="en">Room capture</span></h2>
       </div>
-      <p class="lead-mp" lang="pt">Dois times de soldadinhos disputam a casa inteira, bandeira por bandeira. Escolha a classe (assalto, escopeta, atirador ou granadeiro), segure os cômodos e renasça onde o seu time domina. Dá para jogar com amigos pela internet com um código de sala de 4 letras, completar os times com bots e escolher jogar de dia ou de noite.</p>
-      <p class="lead-mp" lang="en">Two teams of toy soldiers fight over the whole house, flag by flag. Pick a class (assault, shotgun, sniper or grenadier), hold the rooms and respawn where your team is in control. Play with friends over the internet with a 4-letter room code, fill the teams with bots and choose day or night.</p>
+      <p class="lead-mp" lang="pt">Dois times de soldadinhos disputam a casa inteira, bandeira por bandeira. Escolha a classe (assalto, escopeta, atirador ou granadeiro), segure os cômodos e renasça onde o seu time domina. Pegue um jeep de brinquedo com um amigo: um dirige, o carona atira com o carro andando, e dá até para atropelar. Cada abate, captura e vitória dá pontos de nível. Jogue com amigos pela internet com um código de sala de 4 letras ou convide direto pela sua conta Epic, complete os times com bots e escolha jogar de dia ou de noite.</p>
+      <p class="lead-mp" lang="en">Two teams of toy soldiers fight over the whole house, flag by flag. Pick a class (assault, shotgun, sniper or grenadier), hold the rooms and respawn where your team is in control. Grab a toy jeep with a friend: one drives, the passenger shoots while it moves, and you can even run people over. Every kill, capture and win earns level points. Play with friends over the internet with a 4-letter room code or invite them straight from your Epic account, fill the teams with bots and choose day or night.</p>
+      <div class="mp-videos">
+        <figure class="film">
+          <video src="video/jeep_dirigindo.mp4" poster="video/jeep_dirigindo_poster.jpg" muted loop playsinline controls preload="none"></video>
+          <figcaption class="stamp"><b>REC ●</b><span>JEEP</span></figcaption>
+          <figcaption class="mp-cap"><span lang="pt">Dirigindo o jeep pela casa, de farol aceso.</span><span lang="en">Driving the jeep through the house, headlights on.</span></figcaption>
+        </figure>
+        <figure class="film">
+          <video src="video/jeep_carona.mp4" poster="video/jeep_carona_poster.jpg" muted loop playsinline controls preload="none"></video>
+          <figcaption class="stamp"><b>REC ●</b><span lang="pt">CARONA</span><span lang="en">PASSENGER</span></figcaption>
+          <figcaption class="mp-cap"><span lang="pt">O carona atirando enquanto o jeep anda.</span><span lang="en">The passenger shooting while the jeep moves.</span></figcaption>
+        </figure>
+      </div>
       <div class="gallery">
+        <button class="shot half" type="button" data-src="img/multi_jeep.jpg"><img src="img/multi_jeep.jpg" alt="Dois soldados do time azul no jeep, de farol aceso, cruzando a sala no escuro" loading="lazy"><span class="stamp"><b>JEEP</b><span>PvP</span></span></button>
+        <button class="shot half" type="button" data-src="img/multi_vitoria.jpg"><img src="img/multi_vitoria.jpg" alt="Tela de vitória do time azul, com o melhor soldado da partida e a barra de nível subindo" loading="lazy"><span class="stamp"><b lang="pt">VITÓRIA</b><b lang="en">VICTORY</b><span>PvP</span></span></button>
         <button class="shot half" type="button" data-src="img/multi_quarto.jpg"><img src="img/multi_quarto.jpg" alt="Tiroteio entre o time azul e o vermelho no tapete do quarto" loading="lazy"><span class="stamp"><b lang="pt">QUARTO</b><b lang="en">BEDROOM</b><span>PvP</span></span></button>
         <button class="shot half" type="button" data-src="img/multi_banheiro.jpg"><img src="img/multi_banheiro.jpg" alt="Os dois times disputando a bandeira A no chão do banheiro" loading="lazy"><span class="stamp"><b lang="pt">BANHEIRO</b><b lang="en">BATHROOM</b><span>PvP</span></span></button>
       </div>
     </div>
   </section>
-
   <section class="section" id="caixa">
     <div class="wrap">
       <div class="section-head">
