@@ -1,7 +1,32 @@
 {
     "repo":  "raulmenezesrmrm-pixel/INSTEAD-builds",
-    "latest":  "1.36",
+    "latest":  "1.37",
     "versions":  [
+                     {
+                         "v":  "1.37",
+                         "date":  "2026-11-12",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.37/INSTEAD_1.37_windows.zip",
+                                         "mb":  1114
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.37/INSTEAD_1.37_mac.zip",
+                                     "mb":  1133
+                                 },
+                         "notes_pt":  [
+                                          "Granada de fumaça (nível 3): tapa a visão por 20 s, quem está dentro vê o resto escuro, granada explosiva abre um buraco.",
+                                          "Granada de veneno (nível 7): névoa que tira vida de quem fica dentro.",
+                                          "SMG (nível 5): arma nova para qualquer classe, rápida e forte de perto.",
+                                          "Equipamento das classes: PERSONALIZAR CLASSES no menu e engrenagem na tela de renascer, salvo na conta.",
+                                          "Animação nova de arremesso das granadas.",
+                                          "9 chapéus novos de prêmio de nível (bandana, gorro, boina, capacete, coroa, bombeiro, pirata, chef, balde), também no gato.",
+                                          "Survival agora dá nível: pontos por bicho e por onda.",
+                                          "Sala do survival e sala online com o visual novo.",
+                                          "Botão AMIGOS no menu com convite para a sala.",
+                                          "Escopeta com dano forte até mais longe.",
+                                          "Tela de personalizar abre sem travar."
+                                      ]
+                     },
                      {
                          "v":  "1.36",
                          "date":  "2026-11-11",
@@ -13,6 +38,8 @@
                                      "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.36/INSTEAD_1.36_mac.zip",
                                      "mb":  1119
                                  },
+                         "title_pt":  "Amigos, nuvem e cinema",
+                         "title_en":  "Friends, cloud and cinema",
                          "notes_pt":  [
                                           "Amigos da Epic: convide para a sala direto do jogo.",
                                           "Entrar com a conta Epic guarda nível, chapéus e saves na nuvem e leva para qualquer PC.",
@@ -22,9 +49,7 @@
                                           "Fim de partida suave: todos param e a tela escurece antes da vitória.",
                                           "Bots agora sobem de corda na bancada da cozinha.",
                                           "Correções: a bola do ponto e a mira da granada não somem mais atrás do tapete da sala."
-                                       ],
-                         "title_pt":  "Amigos, nuvem e cinema",
-                         "title_en":  "Friends, cloud and cinema",
+                                      ],
                          "notes_en":  [
                                           "Epic friends: invite them to your room right from the game.",
                                           "Signing in with your Epic account keeps your level, hats and saves in the cloud, on any PC.",
@@ -34,7 +59,7 @@
                                           "Smooth match ending: everyone freezes and the screen fades out before the victory screen.",
                                           "Bots now rappel up to the kitchen counter.",
                                           "Fixes: the capture zone fill and the grenade aim no longer vanish behind the living room rug."
-                                       ]
+                                      ]
                      },
                      {
                          "v":  "1.35",
