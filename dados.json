@@ -25,6 +25,21 @@
                                           "Botão AMIGOS no menu com convite para a sala.",
                                           "Escopeta com dano forte até mais longe.",
                                           "Tela de personalizar abre sem travar."
+                                      ],
+                         "title_pt":  "Fumaça, veneno e SMG",
+                         "title_en":  "Smoke, poison and SMG",
+                         "notes_en":  [
+                                          "Smoke grenade (level 3): blocks sight for 20 s, anyone inside sees the rest dark, and a frag grenade blows a hole in it.",
+                                          "Poison grenade (level 7): a mist that drains the health of anyone who stays inside.",
+                                          "SMG (level 5): a new weapon for any class, fast and strong up close.",
+                                          "Class loadouts: CUSTOMIZE CLASSES in the menu and a gear on the respawn screen, saved to your account.",
+                                          "New grenade throwing animation.",
+                                          "9 new level-reward hats (bandana, beanie, beret, helmet, crown, firefighter, pirate, chef, bucket), on the cat too.",
+                                          "Survival now gives levels: points per bug and per wave.",
+                                          "Survival room and online room with the new look.",
+                                          "FRIENDS button in the menu with room invites.",
+                                          "Shotgun keeps its strong damage at a longer range.",
+                                          "The customize screen opens without freezing."
                                       ]
                      },
                      {
