@@ -39,7 +39,7 @@ button.on, button.prim { color: var(--night); background: var(--lamp); border-co
 .print { display: block; margin: 0 0 10px; color: var(--dim); font-size: 0.9rem; }
 .print img { display: block; max-width: 100%; max-height: 360px; border: 1px solid var(--line); }
 h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transform: uppercase; margin: 28px 0 12px; color: var(--lamp); }
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
 .card { border: 1px solid var(--line); background: var(--night-2); padding: 14px 16px; }
 .card b { display: block; font: 600 2.2rem/1.1 "Oswald", sans-serif; color: var(--paper); }
 .card small { color: var(--dim); }
@@ -47,6 +47,22 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
 .dias th, .dias td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); }
 .dias th { font: 500 0.72rem "Oswald", sans-serif; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
 .dias td.zero { color: #5a524b; }
+/* gráficos de barras por dia (17/11/2026): empilhadas por série, passar o mouse/tocar mostra o dia */
+.grafico { position: relative; margin-top: 16px; border: 1px solid var(--line); background: var(--night-2); padding: 12px 12px 4px; }
+.grafico svg { display: block; width: 100%; height: auto; overflow: visible; }
+.grafico .eixo { fill: var(--dim); font: 400 11px "Barlow", sans-serif; }
+.grafico .grade { stroke: #2c2622; stroke-width: 1; }
+.grafico .base { stroke: #4a423b; stroke-width: 1; }
+.grafico .alvo { fill: transparent; cursor: pointer; }
+.grafico .alvo:hover, .grafico .alvo.on { fill: rgba(236, 228, 214, 0.06); }
+.legenda { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 6px; font-size: 0.85rem; color: var(--dim); }
+.legenda i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.dica { position: absolute; pointer-events: none; background: #0e0c0b; border: 1px solid var(--line); padding: 8px 10px; font-size: 0.85rem;
+  line-height: 1.45; white-space: nowrap; z-index: 2; box-shadow: 0 4px 14px rgba(0,0,0,0.5); }
+.dica b { font: 500 0.8rem "Oswald", sans-serif; letter-spacing: 0.1em; display: block; margin-bottom: 2px; }
+.dica i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; }
+.vertabela { margin-top: 8px; }
+.vertabela summary { cursor: pointer; color: var(--dim); font: 500 0.72rem "Oswald", sans-serif; letter-spacing: 0.18em; text-transform: uppercase; }
 .aviso { color: var(--dim); }
 .erro { color: var(--bug); }
 </style>
@@ -62,18 +78,24 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
   <div id="painel" hidden>
     <h2>Acessos ao site</h2>
     <div class="cards" id="vis-cards"><p class="aviso">Carregando...</p></div>
+    <div class="grafico" id="vis-grafico"></div>
+    <details class="vertabela"><summary>Ver tabela</summary>
     <table class="dias" id="vis-dias" hidden>
       <thead><tr><th>Dia</th><th>Acessos</th><th>Pessoas</th><th>Pelo Instagram</th></tr></thead>
       <tbody></tbody>
     </table>
+    </details>
     <div id="vis-sites"></div>
     <p class="aviso" style="font-size:0.85rem;margin-top:8px">Acessos = cada vez que a página foi aberta. Pessoas = no máximo 1 por endereço de internet por dia (conta pela origem do 1º acesso do dia). Instagram = link da bio, navegador do app ou página do Instagram. Direto = digitou o endereço, WhatsApp ou apps que não dizem de onde vem. Suas próprias visitas também contam. A contagem começou em 17/11/2026.</p>
     <h2>Downloads (cliques no site)</h2>
     <div class="cards" id="dl-cards"><p class="aviso">Carregando...</p></div>
+    <div class="grafico" id="dl-grafico"></div>
+    <details class="vertabela"><summary>Ver tabela</summary>
     <table class="dias" id="dl-dias" hidden>
       <thead><tr><th>Dia</th><th>Windows</th><th>Mac</th></tr></thead>
       <tbody></tbody>
     </table>
+    </details>
     <p class="aviso" style="font-size:0.85rem;margin-top:8px">Cliques = toda vez que alguém clicou no botão. Pessoas = no máximo 1 por endereço de internet por dia. A contagem começou em 17/11/2026.</p>
     <h2>Mensagens</h2>
     <div class="barra">
@@ -155,6 +177,98 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
     });
   }
 
+  // Gráfico de barras empilhadas por dia (mais antigo à esquerda). series: [{chave, nome, cor}]; detalhe(l) = linhas
+  // extras da dica (ex.: pessoas). Barra fina, ponta de cima arredondada, 2 px de folga entre os pedaços.
+  var SVG = "http://www.w3.org/2000/svg";
+  function svg(tag, attrs) { var e = document.createElementNS(SVG, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+  var _graficos = [];
+  window.addEventListener("resize", function () { _graficos.forEach(function (a) { grafico.apply(null, a.concat([true])); }); });
+  function grafico(caixa, dias, series, detalhe, redesenho) {
+    if (!redesenho) { _graficos = _graficos.filter(function (a) { return a[0] !== caixa; }); _graficos.push([caixa, dias, series, detalhe]); }
+    caixa.textContent = "";
+    var lista = dias.slice().reverse();
+    var leg = el("div", "legenda");
+    series.forEach(function (s) { var sp = el("span"); var i = el("i"); i.style.background = s.cor; sp.appendChild(i); sp.appendChild(document.createTextNode(s.nome)); leg.appendChild(sp); });
+    caixa.appendChild(leg);
+    // (desenhado na largura de verdade da caixa: no celular não encolhe as letras)
+    var W = Math.max(280, caixa.clientWidth - 24), H = 220, L = 30, R = 6, T = 10, B = 26;
+    var max = 0;
+    lista.forEach(function (l) { var soma = 0; series.forEach(function (s) { soma += l[s.chave] || 0; }); max = Math.max(max, soma); });
+    // (topo "redondo": 1, 2, 5, 10, 20, 50... acima do maior dia)
+    var topo = 2;
+    if (max > 2) {
+      var e = Math.pow(10, Math.floor(Math.log10(max)));
+      topo = [1, 2, 5, 10].map(function (m) { return m * e; }).filter(function (v) { return v >= max; })[0];
+    }
+    var g = svg("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Gráfico por dia" });
+    var y = function (v) { return T + (H - T - B) * (1 - v / topo); };
+    [0, topo / 2, topo].forEach(function (v) {
+      g.appendChild(svg("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), "class": v === 0 ? "base" : "grade" }));
+      var tx = svg("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end", "class": "eixo" });
+      tx.textContent = (v % 1 ? v.toFixed(1) : v);
+      g.appendChild(tx);
+    });
+    var passo = (W - L - R) / lista.length;
+    var larg = Math.min(26, passo * 0.6);
+    var dica = el("div", "dica");
+    dica.hidden = true;
+    lista.forEach(function (l, i) {
+      var cx = L + passo * (i + 0.5);
+      var base = 0;
+      var pedacos = series.filter(function (s) { return (l[s.chave] || 0) > 0; });
+      pedacos.forEach(function (s, k) {
+        var v = l[s.chave];
+        var y0 = y(base), y1 = y(base + v);
+        var ultimo = k === pedacos.length - 1;
+        var h = Math.max(1, y0 - y1 - (k > 0 ? 2 : 0));
+        var top = y0 - (k > 0 ? 2 : 0) - h;
+        if (ultimo) {
+          var r = Math.min(4, h, larg / 2);
+          var x0 = cx - larg / 2, x1 = cx + larg / 2, yb = top + h;
+          g.appendChild(svg("path", { fill: s.cor, d: "M" + x0 + "," + yb + "V" + (top + r) + "Q" + x0 + "," + top + " " + (x0 + r) + "," + top +
+            "H" + (x1 - r) + "Q" + x1 + "," + top + " " + x1 + "," + (top + r) + "V" + yb + "Z" }));
+        } else {
+          g.appendChild(svg("rect", { x: cx - larg / 2, y: top, width: larg, height: h, fill: s.cor }));
+        }
+        base += v;
+      });
+      var p = l.dia.split("-");
+      if (i % 2 === (lista.length - 1) % 2) {
+        var tx = svg("text", { x: cx, y: H - 8, "text-anchor": "middle", "class": "eixo" });
+        tx.textContent = p[2] + "/" + p[1];
+        g.appendChild(tx);
+      }
+      // área de toque maior que a barra: a coluna inteira do dia
+      var alvo = svg("rect", { x: cx - passo / 2, y: T, width: passo, height: H - T - B, "class": "alvo" });
+      var mostrar = function () {
+        caixa.querySelectorAll(".alvo.on").forEach(function (a) { a.classList.remove("on"); });
+        alvo.classList.add("on");
+        dica.textContent = "";
+        dica.appendChild(el("b", null, p[2] + "/" + p[1] + "/" + p[0]));
+        series.forEach(function (s) {
+          var linha = el("div"); var i2 = el("i"); i2.style.background = s.cor; linha.appendChild(i2);
+          linha.appendChild(document.createTextNode(s.nome + ": " + (l[s.chave] || 0))); dica.appendChild(linha);
+        });
+        detalhe(l).forEach(function (t) { dica.appendChild(el("div", "aviso", t)); });
+        dica.hidden = false;
+        var bx = caixa.getBoundingClientRect(), sx = g.getBoundingClientRect();
+        var px = (sx.left - bx.left) + cx * sx.width / W;
+        // (ao lado da barra apontada, sem cobrir ela: à direita, ou à esquerda se não couber)
+        var lado = px + larg / 2 + 10;
+        if (lado + dica.offsetWidth > bx.width - 4) lado = px - larg / 2 - 10 - dica.offsetWidth;
+        dica.style.left = Math.max(4, lado) + "px";
+        dica.style.top = "34px";
+      };
+      alvo.addEventListener("mouseenter", mostrar);
+      alvo.addEventListener("click", mostrar);
+      g.appendChild(alvo);
+    });
+    g.addEventListener("mouseleave", function () { dica.hidden = true; caixa.querySelectorAll(".alvo.on").forEach(function (a) { a.classList.remove("on"); }); });
+    caixa.appendChild(g);
+    caixa.appendChild(dica);
+  }
+  var COR = { ambar: "#f1b35c", azul: "#6fa8dc", creme: "#b8ad9f" };
+
   // Acessos: por origem (mais acessos primeiro), últimos 14 dias e os outros sites.
   var NOMES = { instagram: "Instagram", google: "Google", facebook: "Facebook", youtube: "YouTube", tiktok: "TikTok",
     twitter: "X / Twitter", reddit: "Reddit", discord: "Discord", github: "GitHub", direto: "Direto", outros: "Outros sites" };
@@ -193,6 +307,10 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
           body.appendChild(tr);
         });
         tabela.hidden = false;
+        // (gráfico: cada dia = Instagram + o resto das origens)
+        grafico(document.getElementById("vis-grafico"), d.dias.map(function (l) { return { dia: l.dia, instagram: l.instagram, outras: l.acessos - l.instagram, pessoas: l.pessoas, acessos: l.acessos }; }),
+          [{ chave: "instagram", nome: "Instagram", cor: COR.ambar }, { chave: "outras", nome: "Outras origens", cor: COR.azul }],
+          function (l) { return ["Total: " + l.acessos + " acessos", gente(l.pessoas)]; });
         sites.textContent = "";
         if (d.sites && d.sites.length) {
           sites.appendChild(el("p", "rot", "Outros sites que trouxeram gente"));
@@ -237,6 +355,9 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
           body.appendChild(tr);
         });
         tabela.hidden = false;
+        grafico(document.getElementById("dl-grafico"), d.dias,
+          [{ chave: "windows", nome: "Windows", cor: COR.azul }, { chave: "mac", nome: "Mac", cor: COR.creme }],
+          function (l) { return ["Pessoas: Windows " + l.pessoas_windows + " · Mac " + l.pessoas_mac]; });
       })
       .catch(function () { cards.textContent = ""; cards.appendChild(el("p", "erro", "Não deu para carregar os downloads agora.")); });
   }
