@@ -268,6 +268,14 @@ h2 {
 .faq details p b { color: var(--paper); font-weight: 500; }
 
 /* ---------- siga o jogo ---------- */
+/* ---------- aviso de beta no topo (16/11/2026) ---------- */
+.beta { background: rgba(241, 179, 92, 0.08); border-bottom: 1px solid rgba(241, 179, 92, 0.35); }
+.beta .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding-block: 10px; }
+.beta-tag { font: 600 0.72rem var(--f-ui); letter-spacing: 0.24em; text-transform: uppercase; color: var(--lamp);
+  border: 1px solid var(--lamp); padding: 3px 9px; text-shadow: var(--glow); }
+.beta p { margin: 0; font-size: 0.95rem; color: var(--paper); }
+.beta a { color: var(--lamp); text-underline-offset: 3px; }
+
 /* ---------- feedback (16/11/2026): sugestões e bugs -> functions/api/feedback.js ---------- */
 .fb { display: grid; gap: 18px; max-width: 860px; }
 .fb-tipo { display: flex; gap: 10px; }
@@ -291,6 +299,13 @@ h2 {
 .fb-msg.ok { color: var(--lamp); text-shadow: var(--glow); }
 .fb-msg.erro { color: #e58a7a; }
 .fb button[disabled] { opacity: 0.6; cursor: default; }
+.fb-img { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.fb-img-btn { padding: 12px 18px; font-size: 0.78rem; }
+.fb-img-btn input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.fb-img-btn:focus-within { outline: 2px solid var(--lamp); outline-offset: 3px; }
+.fb-img-prev { max-height: 90px; max-width: 160px; border: 1px solid var(--line); }
+.fb-img-tirar { background: none; border: 0; color: var(--dim); cursor: pointer; font: 500 0.75rem var(--f-ui);
+  letter-spacing: 0.2em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 3px; }
 
 .follow { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
 .follow .btn svg { width: 20px; height: 20px; }
@@ -458,6 +473,17 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     </nav>
   </div>
 </header>
+
+<!-- aviso de beta (16/11/2026, pedido dele): leva ao formulário de feedback no fim da página -->
+<div class="beta" role="note">
+  <div class="wrap">
+    <span class="beta-tag"><span lang="pt">Atenção</span><span lang="en">Heads up</span></span>
+    <p>
+      <span lang="pt">O INSTEAD está em fase de testes (beta). Teve uma ideia ou passou por algum bug? Conte para a gente <a href="#feedback">no fim da página</a>.</span>
+      <span lang="en">INSTEAD is in testing (beta). Got an idea or ran into a bug? Let us know <a href="#feedback">at the end of the page</a>.</span>
+    </p>
+  </div>
+</div>
 
 <main id="top">
   <section class="hero">
@@ -971,6 +997,14 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <input type="text" name="versao" maxlength="20" class="fb-ver">
           </label>
         </div>
+        <div class="fb-campo">
+          <span class="fb-rot"><span lang="pt">Imagem (opcional, ex.: print do bug)</span><span lang="en">Image (optional, e.g. a screenshot of the bug)</span></span>
+          <div class="fb-img">
+            <label class="btn fb-img-btn"><input type="file" name="imagem" accept="image/png,image/jpeg,image/webp"><span lang="pt">Escolher imagem</span><span lang="en">Choose image</span></label>
+            <img class="fb-img-prev" alt="" hidden>
+            <button type="button" class="fb-img-tirar" hidden><span lang="pt">Tirar</span><span lang="en">Remove</span></button>
+          </div>
+        </div>
         <!-- (campo escondido: pessoas não veem; robôs preenchem e a mensagem é descartada) -->
         <label class="fb-mel" aria-hidden="true">Site <input type="text" name="site" tabindex="-1" autocomplete="off"></label>
         <div class="fb-fim">
@@ -1293,6 +1327,35 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     var dv = document.querySelector(".data-ver");
     setTimeout(function () { if (ver && !ver.value && dv) ver.value = dv.textContent.trim(); }, 1500);
     function show(key, cls) { msg.textContent = TXT[lang()][key]; msg.className = "fb-msg " + (cls || ""); }
+    // Imagem (print do bug): reduzida aqui mesmo para no máximo 1600 px, em JPEG, antes de enviar.
+    TXT.pt.img = "Não deu para usar essa imagem. Tente um PNG ou JPG."; TXT.en.img = "Couldn't use that image. Try a PNG or JPG.";
+    var imgData = "";
+    var fileIn = form.querySelector('input[name="imagem"]');
+    var prev = form.querySelector(".fb-img-prev");
+    var tirar = form.querySelector(".fb-img-tirar");
+    function semImagem() { imgData = ""; fileIn.value = ""; prev.hidden = true; prev.removeAttribute("src"); tirar.hidden = true; }
+    tirar.addEventListener("click", semImagem);
+    fileIn.addEventListener("change", function () {
+      var f = fileIn.files && fileIn.files[0];
+      if (!f) return;
+      if (!/^image\//.test(f.type) || f.size > 20 * 1024 * 1024) { semImagem(); show("img", "erro"); return; }
+      var url = URL.createObjectURL(f);
+      var im = new Image();
+      im.onload = function () {
+        var s = Math.min(1, 1600 / Math.max(im.naturalWidth, im.naturalHeight));
+        var c = document.createElement("canvas");
+        c.width = Math.round(im.naturalWidth * s); c.height = Math.round(im.naturalHeight * s);
+        c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        var q = 0.85;
+        imgData = c.toDataURL("image/jpeg", q);
+        while (imgData.length > 1900000 && q > 0.4) { q -= 0.15; imgData = c.toDataURL("image/jpeg", q); }
+        prev.src = imgData; prev.hidden = false; tirar.hidden = false;
+        msg.textContent = ""; msg.className = "fb-msg";
+      };
+      im.onerror = function () { URL.revokeObjectURL(url); semImagem(); show("img", "erro"); };
+      im.src = url;
+    });
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var texto = area.value.trim();
@@ -1302,12 +1365,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       show("enviando");
       var d = {
         tipo: form.tipo.value, texto: texto, email: form.email.value, sistema: form.sistema.value,
-        versao: form.versao.value, idioma: lang(), site: form.site.value
+        versao: form.versao.value, idioma: lang(), site: form.site.value, imagem: imgData
       };
       fetch("api/feedback", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(d) })
         .then(function (r) {
-          if (r.ok) { show("ok", "ok"); area.value = ""; return; }
-          show(r.status === 429 ? "limite" : r.status === 400 ? "curto" : "falha", "erro");
+          if (r.ok) { show("ok", "ok"); area.value = ""; semImagem(); return; }
+          show(r.status === 429 ? "limite" : r.status === 400 ? "curto" : r.status === 413 || r.status === 415 ? "img" : "falha", "erro");
         })
         .catch(function () { show("falha", "erro"); })
         .then(function () { btn.disabled = false; });
