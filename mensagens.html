@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mensagens · INSTEAD</title>
+<!-- Página escondida (16/11/2026): sugestões e bugs enviados pela página do jogo. Endereço:
+     https://instead.pages.dev/mensagens  — pede a senha (variável INSTEAD_FEEDBACK_SENHA do PC do Raul)
+     e conversa com functions/api/feedback.js (GET lista, DELETE apaga). Nenhum link no site aponta para cá. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Barlow:wght@400;500&display=swap">
+<style>
+:root { --night: #0e0c0b; --night-2: #171412; --line: #2c2622; --paper: #ece4d6; --dim: #9c9186; --lamp: #f1b35c; --bug: #e58a7a; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--night); color: var(--paper); font: 400 1rem/1.55 "Barlow", "Segoe UI", sans-serif; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 28px 16px 60px; }
+h1 { font: 500 1.6rem "Oswald", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 18px; }
+.rot { font: 500 0.72rem "Oswald", sans-serif; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); }
+input, button { font: inherit; }
+input[type="password"] { width: 100%; max-width: 360px; background: var(--night-2); color: var(--paper); border: 1px solid var(--line); padding: 12px 14px; }
+button { cursor: pointer; background: none; color: var(--paper); border: 1px solid var(--line); padding: 9px 14px;
+  font: 500 0.78rem "Oswald", sans-serif; letter-spacing: 0.18em; text-transform: uppercase; }
+button.on, button.prim { color: var(--night); background: var(--lamp); border-color: var(--lamp); }
+.entrar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.barra { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 4px 0 18px; }
+.barra .conta { margin-left: auto; color: var(--dim); }
+.item { border: 1px solid var(--line); background: var(--night-2); padding: 14px 16px; margin-bottom: 12px; }
+.topo { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 8px; }
+.tipo { font: 600 0.72rem "Oswald", sans-serif; letter-spacing: 0.2em; text-transform: uppercase; padding: 3px 9px; border: 1px solid var(--lamp); color: var(--lamp); }
+.tipo.bug { border-color: var(--bug); color: var(--bug); }
+.quando { color: var(--dim); font-size: 0.9rem; }
+.texto { white-space: pre-wrap; overflow-wrap: anywhere; margin: 0 0 10px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--dim); font-size: 0.88rem; }
+.meta a { color: var(--lamp); }
+.apagar { margin-left: auto; padding: 5px 10px; }
+.apagar.confirma { color: var(--night); background: var(--bug); border-color: var(--bug); }
+.aviso { color: var(--dim); }
+.erro { color: var(--bug); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Mensagens do INSTEAD</h1>
+  <form class="entrar" id="entrar">
+    <input type="password" id="senha" placeholder="Senha" autocomplete="current-password">
+    <button class="prim" type="submit">Entrar</button>
+    <span id="status" class="aviso"></span>
+  </form>
+  <div id="painel" hidden>
+    <div class="barra">
+      <button type="button" data-f="todos" class="on">Todas</button>
+      <button type="button" data-f="bug">Bugs</button>
+      <button type="button" data-f="sugestao">Sugestões</button>
+      <button type="button" id="recarregar">Atualizar</button>
+      <span class="conta" id="conta"></span>
+    </div>
+    <div id="lista"></div>
+  </div>
+</div>
+<script>
+(function () {
+  var senha = "";
+  var itens = [];
+  var filtro = "todos";
+  var status = document.getElementById("status");
+  var lista = document.getElementById("lista");
+  try { senha = sessionStorage.getItem("instead-fb-senha") || ""; } catch (e) {}
+
+  function data(iso) {
+    var d = new Date(iso);
+    function z(n) { return (n < 10 ? "0" : "") + n; }
+    return z(d.getDate()) + "/" + z(d.getMonth() + 1) + "/" + d.getFullYear() + " " + z(d.getHours()) + ":" + z(d.getMinutes());
+  }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  function desenhar() {
+    lista.textContent = "";
+    var vis = itens.filter(function (i) { return filtro === "todos" || i.tipo === filtro; });
+    var bugs = itens.filter(function (i) { return i.tipo === "bug"; }).length;
+    document.getElementById("conta").textContent = itens.length + " no total · " + bugs + " bugs · " + (itens.length - bugs) + " sugestões";
+    if (!vis.length) { lista.appendChild(el("p", "aviso", "Nenhuma mensagem aqui ainda.")); return; }
+    vis.forEach(function (i) {
+      var box = el("article", "item");
+      var topo = el("div", "topo");
+      topo.appendChild(el("span", "tipo" + (i.tipo === "bug" ? " bug" : ""), i.tipo === "bug" ? "Bug" : "Sugestão"));
+      topo.appendChild(el("span", "quando", data(i.quando)));
+      var apagar = el("button", "apagar", "Apagar");
+      apagar.type = "button";
+      apagar.addEventListener("click", function () {
+        if (!apagar.classList.contains("confirma")) { apagar.classList.add("confirma"); apagar.textContent = "Apagar mesmo?"; return; }
+        apagar.disabled = true;
+        fetch("api/feedback?id=" + encodeURIComponent(i.id), { method: "DELETE", headers: { "x-senha": senha } })
+          .then(function (r) { if (!r.ok) throw 0; itens = itens.filter(function (x) { return x.id !== i.id; }); desenhar(); })
+          .catch(function () { apagar.disabled = false; apagar.textContent = "Falhou"; });
+      });
+      topo.appendChild(apagar);
+      box.appendChild(topo);
+      box.appendChild(el("p", "texto", i.texto));
+      var meta = el("div", "meta");
+      if (i.email) { var a = el("a", null, i.email); a.href = "mailto:" + i.email; meta.appendChild(a); }
+      if (i.sistema) meta.appendChild(el("span", null, i.sistema));
+      if (i.versao) meta.appendChild(el("span", null, "versão " + i.versao));
+      if (i.idioma) meta.appendChild(el("span", null, i.idioma === "en" ? "inglês" : "português"));
+      if (i.pais) meta.appendChild(el("span", null, i.pais));
+      box.appendChild(meta);
+      lista.appendChild(box);
+    });
+  }
+
+  function carregar() {
+    status.className = "aviso";
+    status.textContent = "Carregando...";
+    fetch("api/feedback", { headers: { "x-senha": senha }, cache: "no-store" })
+      .then(function (r) {
+        if (r.status === 401) throw "senha";
+        if (!r.ok) throw "falha";
+        return r.json();
+      })
+      .then(function (d) {
+        try { sessionStorage.setItem("instead-fb-senha", senha); } catch (e) {}
+        itens = d.itens || [];
+        status.textContent = "";
+        document.getElementById("entrar").hidden = true;
+        document.getElementById("painel").hidden = false;
+        desenhar();
+      })
+      .catch(function (e) {
+        status.className = "erro";
+        status.textContent = e === "senha" ? "Senha errada." : "Não deu para carregar agora.";
+        try { sessionStorage.removeItem("instead-fb-senha"); } catch (x) {}
+      });
+  }
+
+  document.getElementById("entrar").addEventListener("submit", function (e) {
+    e.preventDefault();
+    senha = document.getElementById("senha").value.trim();
+    if (senha) carregar();
+  });
+  document.getElementById("recarregar").addEventListener("click", carregar);
+  document.querySelectorAll("[data-f]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      filtro = b.dataset.f;
+      document.querySelectorAll("[data-f]").forEach(function (x) { x.classList.toggle("on", x === b); });
+      desenhar();
+    });
+  });
+  if (senha) carregar();
+})();
+</script>
+</body>
+</html>
