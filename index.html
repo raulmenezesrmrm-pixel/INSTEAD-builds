@@ -268,6 +268,30 @@ h2 {
 .faq details p b { color: var(--paper); font-weight: 500; }
 
 /* ---------- siga o jogo ---------- */
+/* ---------- feedback (16/11/2026): sugestões e bugs -> functions/api/feedback.js ---------- */
+.fb { display: grid; gap: 18px; max-width: 860px; }
+.fb-tipo { display: flex; gap: 10px; }
+.fb-tipo input { position: absolute; opacity: 0; pointer-events: none; }
+.fb-tipo label > span { display: inline-block; cursor: pointer; padding: 10px 18px; border: 1px solid var(--line);
+  font: 500 0.8rem var(--f-ui); letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); }
+.fb-tipo input:checked + span { color: var(--lamp); border-color: var(--lamp); box-shadow: var(--glow); }
+.fb-tipo input:focus-visible + span { outline: 2px solid var(--lamp); outline-offset: 3px; }
+.fb-campo { display: grid; gap: 8px; min-width: 0; }
+.fb-rot { font: 500 0.72rem var(--f-ui); letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); }
+.fb textarea, .fb input[type="email"], .fb input[type="text"], .fb select {
+  width: 100%; box-sizing: border-box; background: var(--night-2); color: var(--paper);
+  border: 1px solid var(--line); padding: 12px 14px; font: 400 1rem/1.5 var(--f-body); border-radius: 0; }
+.fb textarea { resize: vertical; min-height: 130px; }
+.fb textarea:focus, .fb input:focus, .fb select:focus { outline: none; border-color: var(--lamp); box-shadow: var(--glow); }
+.fb-linha { display: grid; grid-template-columns: minmax(0, 1fr) 150px 130px; gap: 14px; }
+@media (max-width: 620px) { .fb-linha { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .fb-linha .fb-campo:first-child { grid-column: 1 / -1; } }
+.fb-mel { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.fb-fim { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+.fb-msg { margin: 0; color: var(--dim); }
+.fb-msg.ok { color: var(--lamp); text-shadow: var(--glow); }
+.fb-msg.erro { color: #e58a7a; }
+.fb button[disabled] { opacity: 0.6; cursor: default; }
+
 .follow { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
 .follow .btn svg { width: 20px; height: 20px; }
 
@@ -916,6 +940,47 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     </div>
   </section>
 
+  <section class="section" id="feedback">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Feedback</span>
+        <h2><span lang="pt">Achou um bug? Tem uma ideia?</span><span lang="en">Found a bug? Got an idea?</span></h2>
+        <p lang="pt">Conte aqui. Eu leio tudo, e muita coisa do jogo mudou por causa de quem jogou.</p>
+        <p lang="en">Tell me here. I read everything, and a lot of the game changed because of people who played it.</p>
+      </div>
+      <form class="fb" id="fb-form" novalidate>
+        <div class="fb-tipo" role="radiogroup">
+          <label><input type="radio" name="tipo" value="sugestao" checked><span><span lang="pt">Sugestão</span><span lang="en">Suggestion</span></span></label>
+          <label><input type="radio" name="tipo" value="bug"><span><span lang="pt">Bug</span><span lang="en">Bug</span></span></label>
+        </div>
+        <label class="fb-campo">
+          <span class="fb-rot"><span lang="pt">Mensagem</span><span lang="en">Message</span></span>
+          <textarea name="texto" rows="5" maxlength="2000" required data-ph-pt="O que você achou, o que mudaria, ou o que deu errado (e onde, no jogo)." data-ph-en="What you thought, what you'd change, or what went wrong (and where in the game)."></textarea>
+        </label>
+        <div class="fb-linha">
+          <label class="fb-campo">
+            <span class="fb-rot"><span lang="pt">E-mail (opcional, se quiser resposta)</span><span lang="en">Email (optional, if you want a reply)</span></span>
+            <input type="email" name="email" maxlength="120" autocomplete="email">
+          </label>
+          <label class="fb-campo fb-curto">
+            <span class="fb-rot"><span lang="pt">Sistema</span><span lang="en">System</span></span>
+            <select name="sistema"><option value="">—</option><option>Windows</option><option>Mac</option></select>
+          </label>
+          <label class="fb-campo fb-curto">
+            <span class="fb-rot"><span lang="pt">Versão</span><span lang="en">Version</span></span>
+            <input type="text" name="versao" maxlength="20" class="fb-ver">
+          </label>
+        </div>
+        <!-- (campo escondido: pessoas não veem; robôs preenchem e a mensagem é descartada) -->
+        <label class="fb-mel" aria-hidden="true">Site <input type="text" name="site" tabindex="-1" autocomplete="off"></label>
+        <div class="fb-fim">
+          <button class="btn primary" type="submit"><span lang="pt">Enviar</span><span lang="en">Send</span></button>
+          <p class="fb-msg" id="fb-msg" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
   <section class="section" id="siga">
     <div class="wrap follow">
       <div class="section-head" style="margin:0">
@@ -1208,6 +1273,46 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       });
     });
   }
+
+  // --- Feedback: sugestões e bugs (Cloudflare: functions/api/feedback.js; ele lê na página escondida /mensagens) ---
+  (function () {
+    var form = document.getElementById("fb-form");
+    if (!form) return;
+    var msg = document.getElementById("fb-msg");
+    var area = form.querySelector("textarea");
+    var TXT = {
+      pt: { ok: "Enviado. Obrigado! Eu leio tudo.", curto: "Escreva um pouco mais.", limite: "Muitas mensagens hoje deste endereço. Tente amanhã.", falha: "Não deu para enviar agora. Tente de novo mais tarde.", enviando: "Enviando..." },
+      en: { ok: "Sent. Thank you! I read everything.", curto: "Please write a bit more.", limite: "Too many messages from this address today. Try tomorrow.", falha: "Couldn't send it right now. Please try again later.", enviando: "Sending..." }
+    };
+    function lang() { return root.getAttribute("data-lang") === "en" ? "en" : "pt"; }
+    function ph() { area.placeholder = area.getAttribute("data-ph-" + lang()) || ""; }
+    ph();
+    document.addEventListener("instead-lang", ph);
+    // (versão do jogo já preenchida com a última; dados.json pode trocar depois)
+    var ver = form.querySelector(".fb-ver");
+    var dv = document.querySelector(".data-ver");
+    setTimeout(function () { if (ver && !ver.value && dv) ver.value = dv.textContent.trim(); }, 1500);
+    function show(key, cls) { msg.textContent = TXT[lang()][key]; msg.className = "fb-msg " + (cls || ""); }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var texto = area.value.trim();
+      if (texto.length < 5) { show("curto", "erro"); area.focus(); return; }
+      var btn = form.querySelector("button");
+      btn.disabled = true;
+      show("enviando");
+      var d = {
+        tipo: form.tipo.value, texto: texto, email: form.email.value, sistema: form.sistema.value,
+        versao: form.versao.value, idioma: lang(), site: form.site.value
+      };
+      fetch("api/feedback", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(d) })
+        .then(function (r) {
+          if (r.ok) { show("ok", "ok"); area.value = ""; return; }
+          show(r.status === 429 ? "limite" : r.status === 400 ? "curto" : "falha", "erro");
+        })
+        .catch(function () { show("falha", "erro"); })
+        .then(function () { btn.disabled = false; });
+    });
+  })();
 
   // --- Contador "pessoas procurando Elias" (Cloudflare: functions/api/procurando.js + KV). Cada navegador
   // conta uma vez. Sem o servidor (cópia do GitHub, arquivo local, KV não ligado), fica escondido. ---
