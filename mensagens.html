@@ -34,6 +34,8 @@ button.on, button.prim { color: var(--night); background: var(--lamp); border-co
 .meta a { color: var(--lamp); }
 .apagar { margin-left: auto; padding: 5px 10px; }
 .apagar.confirma { color: var(--night); background: var(--bug); border-color: var(--bug); }
+.print { display: block; margin: 0 0 10px; color: var(--dim); font-size: 0.9rem; }
+.print img { display: block; max-width: 100%; max-height: 360px; border: 1px solid var(--line); }
 .aviso { color: var(--dim); }
 .erro { color: var(--bug); }
 </style>
@@ -96,6 +98,24 @@ button.on, button.prim { color: var(--night); background: var(--lamp); border-co
       topo.appendChild(apagar);
       box.appendChild(topo);
       box.appendChild(el("p", "texto", i.texto));
+      if (i.imagem) {
+        // (a imagem só sai com a senha: busca com o cabeçalho e mostra; clicar abre grande em outra aba)
+        var link = el("a", "print", "Carregando imagem...");
+        link.target = "_blank";
+        box.appendChild(link);
+        fetch("api/feedback?img=" + encodeURIComponent(i.id), { headers: { "x-senha": senha }, cache: "no-store" })
+          .then(function (r) { if (!r.ok) throw 0; return r.blob(); })
+          .then(function (b) {
+            var u = URL.createObjectURL(b);
+            link.textContent = "";
+            link.href = u;
+            var im = el("img");
+            im.src = u;
+            im.alt = "Imagem enviada";
+            link.appendChild(im);
+          })
+          .catch(function () { link.textContent = "Não deu para carregar a imagem."; });
+      }
       var meta = el("div", "meta");
       if (i.email) { var a = el("a", null, i.email); a.href = "mailto:" + i.email; meta.appendChild(a); }
       if (i.sistema) meta.appendChild(el("span", null, i.sistema));
