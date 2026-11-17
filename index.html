@@ -1308,6 +1308,34 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     });
   }
 
+  // --- Acesso à página e de onde veio (Cloudflare: functions/api/visitas.js; ele vê no /admin). Instagram = link da bio
+  // (?src=ig), navegador de dentro do app ou página do Instagram; os outros pela página de onde a pessoa clicou; sem
+  // origem (digitou, WhatsApp, apps) = direto. Só o nome do site vai junto, nunca o endereço completo. ---
+  (function () {
+    var ref = "";
+    try { ref = document.referrer ? new URL(document.referrer).hostname.toLowerCase() : ""; } catch (e) {}
+    if (ref === location.hostname) ref = "";
+    var src = "";
+    try { src = (new URLSearchParams(location.search).get("src") || "").toLowerCase(); } catch (e) {}
+    var ua = navigator.userAgent || "";
+    var origem = "direto";
+    var tabela = [["instagram", /instagram/], ["facebook", /facebook|fb\.|fb$|messenger/], ["google", /google\./],
+      ["youtube", /youtube|youtu\.be/], ["tiktok", /tiktok/], ["twitter", /twitter|^t\.co$|^x\.com$/], ["reddit", /reddit/],
+      ["discord", /discord/], ["github", /github/]];
+    if (src === "ig" || src === "instagram" || /Instagram/.test(ua)) origem = "instagram";
+    else if (/FBAN|FBAV/.test(ua)) origem = "facebook";
+    else if (ref) {
+      origem = "outros";
+      tabela.forEach(function (t) { if (origem === "outros" && t[1].test(ref)) origem = t[0]; });
+    }
+    var body = JSON.stringify({ origem: origem, site: origem === "outros" ? ref : "" });
+    try {
+      if (!(navigator.sendBeacon && navigator.sendBeacon("api/visitas", body))) {
+        fetch("api/visitas", { method: "POST", body: body, keepalive: true }).catch(function () {});
+      }
+    } catch (e) {}
+  })();
+
   // --- Cliques nos botões de download (Cloudflare: functions/api/downloads.js; ele vê na página escondida /admin).
   // sendBeacon: o aviso sai mesmo com o navegador já indo para o download; sem servidor (cópia do GitHub), só falha quieto. ---
   document.querySelectorAll("[data-dl]").forEach(function (a) {
