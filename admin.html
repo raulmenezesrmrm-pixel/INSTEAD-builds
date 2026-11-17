@@ -6,12 +6,14 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Admin · INSTEAD</title>
 <!-- Página escondida do Raul: https://instead.pages.dev/admin (era /mensagens até 17/11/2026). Pede a senha (variável
-     INSTEAD_FEEDBACK_SENHA do PC dele). Mostra os cliques nos botões de download (functions/api/downloads.js, GET) e as
+     INSTEAD_FEEDBACK_SENHA do PC dele). Mostra os acessos por origem (functions/api/visitas.js, GET), os cliques nos
+     botões de download (functions/api/downloads.js, GET) e as
      sugestões e bugs (functions/api/feedback.js: GET lista, DELETE apaga). Nenhum link no site aponta para cá. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Barlow:wght@400;500&display=swap">
 <style>
 :root { --night: #0e0c0b; --night-2: #171412; --line: #2c2622; --paper: #ece4d6; --dim: #9c9186; --lamp: #f1b35c; --bug: #e58a7a; color-scheme: dark; }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }  /* (o .entrar com display:flex aparecia mesmo escondido depois de entrar) */
 body { margin: 0; background: var(--night); color: var(--paper); font: 400 1rem/1.55 "Barlow", "Segoe UI", sans-serif; }
 .wrap { max-width: 860px; margin: 0 auto; padding: 28px 16px 60px; }
 h1 { font: 500 1.6rem "Oswald", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 18px; }
@@ -58,6 +60,14 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
     <span id="status" class="aviso"></span>
   </form>
   <div id="painel" hidden>
+    <h2>Acessos ao site</h2>
+    <div class="cards" id="vis-cards"><p class="aviso">Carregando...</p></div>
+    <table class="dias" id="vis-dias" hidden>
+      <thead><tr><th>Dia</th><th>Acessos</th><th>Pessoas</th><th>Pelo Instagram</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div id="vis-sites"></div>
+    <p class="aviso" style="font-size:0.85rem;margin-top:8px">Acessos = cada vez que a página foi aberta. Pessoas = no máximo 1 por endereço de internet por dia (conta pela origem do 1º acesso do dia). Instagram = link da bio, navegador do app ou página do Instagram. Direto = digitou o endereço, WhatsApp ou apps que não dizem de onde vem. Suas próprias visitas também contam. A contagem começou em 17/11/2026.</p>
     <h2>Downloads (cliques no site)</h2>
     <div class="cards" id="dl-cards"><p class="aviso">Carregando...</p></div>
     <table class="dias" id="dl-dias" hidden>
@@ -90,6 +100,7 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
     function z(n) { return (n < 10 ? "0" : "") + n; }
     return z(d.getDate()) + "/" + z(d.getMonth() + 1) + "/" + d.getFullYear() + " " + z(d.getHours()) + ":" + z(d.getMinutes());
   }
+  function gente(n) { return n + (n === 1 ? " pessoa" : " pessoas"); }
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
   function desenhar() {
@@ -144,6 +155,55 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
     });
   }
 
+  // Acessos: por origem (mais acessos primeiro), últimos 14 dias e os outros sites.
+  var NOMES = { instagram: "Instagram", google: "Google", facebook: "Facebook", youtube: "YouTube", tiktok: "TikTok",
+    twitter: "X / Twitter", reddit: "Reddit", discord: "Discord", github: "GitHub", direto: "Direto", outros: "Outros sites" };
+  function carregarVisitas() {
+    var cards = document.getElementById("vis-cards");
+    var tabela = document.getElementById("vis-dias");
+    var sites = document.getElementById("vis-sites");
+    fetch("api/visitas", { headers: { "x-senha": senha }, cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (d) {
+        cards.textContent = "";
+        var total = { acessos: 0, pessoas: 0 };
+        Object.keys(d.origens).forEach(function (o) { total.acessos += d.origens[o].acessos; total.pessoas += d.origens[o].pessoas; });
+        var t = el("div", "card");
+        t.appendChild(el("span", "rot", "Total"));
+        t.appendChild(el("b", null, String(total.acessos)));
+        t.appendChild(el("small", null, "acessos · " + gente(total.pessoas)));
+        cards.appendChild(t);
+        Object.keys(d.origens).sort(function (a, b) { return d.origens[b].acessos - d.origens[a].acessos; }).forEach(function (o) {
+          var v = d.origens[o];
+          if (!v.acessos && o !== "instagram") return;  // (só mostra as origens que já trouxeram alguém; Instagram sempre)
+          var c = el("div", "card");
+          c.appendChild(el("span", "rot", NOMES[o] || o));
+          c.appendChild(el("b", null, String(v.acessos)));
+          var pct = total.acessos ? Math.round(v.acessos * 100 / total.acessos) : 0;
+          c.appendChild(el("small", null, "acessos · " + gente(v.pessoas) + " · " + pct + "%"));
+          cards.appendChild(c);
+        });
+        var body = tabela.querySelector("tbody");
+        body.textContent = "";
+        d.dias.forEach(function (l) {
+          var tr = el("tr");
+          var p = l.dia.split("-");
+          tr.appendChild(el("td", null, p[2] + "/" + p[1] + "/" + p[0]));
+          [l.acessos, l.pessoas, l.instagram].forEach(function (n) { tr.appendChild(el("td", n ? null : "zero", String(n))); });
+          body.appendChild(tr);
+        });
+        tabela.hidden = false;
+        sites.textContent = "";
+        if (d.sites && d.sites.length) {
+          sites.appendChild(el("p", "rot", "Outros sites que trouxeram gente"));
+          var ul = el("ul");
+          d.sites.forEach(function (s) { ul.appendChild(el("li", null, s.site + " — " + s.acessos)); });
+          sites.appendChild(ul);
+        }
+      })
+      .catch(function () { cards.textContent = ""; cards.appendChild(el("p", "erro", "Não deu para carregar os acessos agora.")); });
+  }
+
   // Downloads: totais (cliques e pessoas) e os últimos 14 dias.
   function carregarDownloads() {
     var cards = document.getElementById("dl-cards");
@@ -156,13 +216,13 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
           var c = el("div", "card");
           c.appendChild(el("span", "rot", s[1]));
           c.appendChild(el("b", null, String(d.total[s[0]])));
-          c.appendChild(el("small", null, "cliques · " + d.pessoas[s[0]] + " pessoas"));
+          c.appendChild(el("small", null, "cliques · " + gente(d.pessoas[s[0]])));
           cards.appendChild(c);
         });
         var t = el("div", "card");
         t.appendChild(el("span", "rot", "Total"));
         t.appendChild(el("b", null, String(d.total.windows + d.total.mac)));
-        t.appendChild(el("small", null, "cliques · " + (d.pessoas.windows + d.pessoas.mac) + " pessoas"));
+        t.appendChild(el("small", null, "cliques · " + gente(d.pessoas.windows + d.pessoas.mac)));
         cards.appendChild(t);
         var body = tabela.querySelector("tbody");
         body.textContent = "";
@@ -171,7 +231,7 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
           var p = l.dia.split("-");
           tr.appendChild(el("td", null, p[2] + "/" + p[1] + "/" + p[0]));
           ["windows", "mac"].forEach(function (so) {
-            var td = el("td", l[so] ? null : "zero", l[so] ? l[so] + " (" + l["pessoas_" + so] + " pessoas)" : "0");
+            var td = el("td", l[so] ? null : "zero", l[so] ? l[so] + " (" + gente(l["pessoas_" + so]) + ")" : "0");
             tr.appendChild(td);
           });
           body.appendChild(tr);
@@ -198,6 +258,7 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
         document.getElementById("painel").hidden = false;
         desenhar();
         carregarDownloads();
+        carregarVisitas();
       })
       .catch(function (e) {
         status.className = "erro";
