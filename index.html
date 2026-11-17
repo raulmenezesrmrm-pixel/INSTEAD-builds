@@ -1338,14 +1338,23 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
   // --- Cliques nos botões de download (Cloudflare: functions/api/downloads.js; ele vê na página escondida /admin).
   // sendBeacon: o aviso sai mesmo com o navegador já indo para o download; sem servidor (cópia do GitHub), só falha quieto. ---
+  // Depois do aviso, vai para a página "obrigado" (site/landing/obrigado.html, 17/11/2026): ela começa o download,
+  // avisa do beta e, no Mac, mostra como liberar o jogo. Só no site de verdade (no Artifact do Claude não existe a página);
+  // Ctrl/clique do meio continuam abrindo o link direto.
+  var temObrigado = /(^|\.)instead\.pages\.dev$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
   document.querySelectorAll("[data-dl]").forEach(function (a) {
-    a.addEventListener("click", function () {
-      var body = JSON.stringify({ so: a.getAttribute("data-dl") });
+    a.addEventListener("click", function (e) {
+      var so = a.getAttribute("data-dl");
+      var body = JSON.stringify({ so: so });
       try {
         if (!(navigator.sendBeacon && navigator.sendBeacon("api/downloads", body))) {
           fetch("api/downloads", { method: "POST", body: body, keepalive: true }).catch(function () {});
         }
-      } catch (e) {}
+      } catch (err) {}
+      if (!temObrigado || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      var pagina = /pages\.dev$/.test(location.hostname) ? "obrigado" : "obrigado.html";
+      location.href = pagina + "?so=" + so + "&u=" + encodeURIComponent(a.href);
     });
   });
 
