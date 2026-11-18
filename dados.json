@@ -13,7 +13,16 @@
                                      "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.39/INSTEAD_1.39_mac.zip",
                                      "mb":  1219
                                  },
-                         "notes_pt":  "Instalador para Windows: abra e siga os passos, com atalho na área de trabalho e no menu Iniciar (sem descompactar)."
+                         "title_pt":  "Instalador para Windows",
+    "title_en":  "Windows installer",
+    "notes_pt":  [
+                     "Windows: o download agora é um instalador. É só abrir e seguir os passos, sem descompactar.",
+                     "O instalador pergunta se você quer atalho na área de trabalho e no menu Iniciar, e aparece em Adicionar ou remover programas."
+                 ],
+    "notes_en":  [
+                     "Windows: the download is now an installer. Just run it and follow the steps, no unzipping.",
+                     "The installer asks if you want a desktop and Start menu shortcut, and shows up in Add or remove programs."
+                 ]
                      },
                      {
                          "v":  "1.38",
