@@ -13,12 +13,21 @@
                                      "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.40/INSTEAD_1.40_mac.zip",
                                      "mb":  1200
                                  },
-                         "notes_pt":  [
+                         "title_pt":  "Lista de partidas online",
+                     "title_en":  "Online match list",
+                     "notes_pt":  [
                                           "Online: lista de partidas (ONLINE abre a lista com nome do anfitrião, jogadores, modo e ping).",
                                           "Salas públicas ou privadas.",
                                           "Entrar no meio da partida.",
                                           "Sala mais compacta.",
                                           "Mac: corrigido o aviso de app danificado."
+                                      ],
+                     "notes_en":  [
+                                          "Online: match list (ONLINE opens the list with the host's name, players, mode and ping).",
+                                          "Public or private rooms.",
+                                          "Join a match in progress.",
+                                          "More compact room screen.",
+                                          "Mac: fixed the \"app is damaged\" warning."
                                       ]
                      },
                      {
