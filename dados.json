@@ -1,7 +1,35 @@
 {
     "repo":  "raulmenezesrmrm-pixel/INSTEAD-builds",
-    "latest":  "1.37",
+    "latest":  "1.38",
     "versions":  [
+                     {
+                         "v":  "1.38",
+                         "date":  "2026-11-18",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.38/INSTEAD_1.38_windows.zip",
+                                         "mb":  1191
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.38/INSTEAD_1.38_mac.zip",
+                                     "mb":  1218
+                                 },
+                         "notes_pt":  [
+                                          "Quarto dos pais mobiliado e de noite: luz do poste pela persiana, abajures, cômoda com gavetas e cadeado de segredo.",
+                                          "Granadas: segurar o clique mostra a parábola e joga bem mais longe.",
+                                          "Gato montado sobe e desce a escada liso e mais rápido.",
+                                          "Lixeira do banheiro dá para entrar, com uma página queimada do diário da mãe.",
+                                          "Nuvem de mosquitos na cozinha e lixo de comida na sala e na cozinha.",
+                                          "Poeira nos feixes de luz e no facho da lanterna.",
+                                          "Estrela de fogo e fumaça no cano a cada tiro.",
+                                          "Saves com nome (e lápis para trocar).",
+                                          "Corda alcança de mais longe.",
+                                          "Torneira da banheira pela borda.",
+                                          "Maçaneta do quarto antes da chave.",
+                                          "Plantas sem colisão nas folhas, geladeira fechada, bidê e fogão com colisão na forma.",
+                                          "Cama do Elias com colcha nova.",
+                                          "Bastão de luz saiu do jogo."
+                                      ]
+                     },
                      {
                          "v":  "1.37",
                          "date":  "2026-11-12",
@@ -13,6 +41,8 @@
                                      "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.37/INSTEAD_1.37_mac.zip",
                                      "mb":  1133
                                  },
+                         "title_pt":  "Fumaça, veneno e SMG",
+                         "title_en":  "Smoke, poison and SMG",
                          "notes_pt":  [
                                           "Granada de fumaça (nível 3): tapa a visão por 20 s, quem está dentro vê o resto escuro, granada explosiva abre um buraco.",
                                           "Granada de veneno (nível 7): névoa que tira vida de quem fica dentro.",
@@ -26,8 +56,6 @@
                                           "Escopeta com dano forte até mais longe.",
                                           "Tela de personalizar abre sem travar."
                                       ],
-                         "title_pt":  "Fumaça, veneno e SMG",
-                         "title_en":  "Smoke, poison and SMG",
                          "notes_en":  [
                                           "Smoke grenade (level 3): blocks sight for 20 s, anyone inside sees the rest dark, and a frag grenade blows a hole in it.",
                                           "Poison grenade (level 7): a mist that drains the health of anyone who stays inside.",
