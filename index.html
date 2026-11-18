@@ -59,6 +59,7 @@ a { color: inherit; }
 }
 /* idioma: só a língua escolhida aparece */
 html[data-lang="pt"] [lang="en"], html[data-lang="en"] [lang="pt"] { display: none !important; }
+.win-setup[hidden], .win-zip[hidden] { display: none !important; }
 
 /* rótulos do jogo: Oswald espaçada, branca, com brilho leve (sem sombra dura) */
 .label {
@@ -950,13 +951,15 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <dt lang="pt">Versão</dt><dt lang="en">Version</dt>
             <dd class="data-ver">1.31</dd>
             <dt lang="pt">Instalar</dt><dt lang="en">Install</dt>
-            <dd lang="pt">Descompacte e abra o INSTEAD. Depois disso ele se atualiza sozinho.</dd>
-            <dd lang="en">Unzip it and open INSTEAD. After that it updates itself.</dd>
+            <dd lang="pt" class="win-zip">Descompacte e abra o INSTEAD. Depois disso ele se atualiza sozinho.</dd>
+            <dd lang="en" class="win-zip">Unzip it and open INSTEAD. After that it updates itself.</dd>
+            <dd lang="pt" class="win-setup" hidden>Windows: abra o instalador e siga os passos (ele cria os atalhos). Mac: descompacte e abra. Depois disso o jogo se atualiza sozinho.</dd>
+            <dd lang="en" class="win-setup" hidden>Windows: run the installer and follow the steps (it makes the shortcuts). Mac: unzip it and open it. After that the game updates itself.</dd>
           </dl>
         </div>
         <div class="dl">
           <a class="btn primary" data-dl="windows" href="https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.31/INSTEAD_1.31_windows.zip" target="_blank" rel="noopener">
-            <span lang="pt">Windows</span><span lang="en">Windows</span><small>.zip</small>
+            <span lang="pt">Windows</span><span lang="en">Windows</span><small class="win-ext">.zip</small>
           </a>
           <a class="btn" data-dl="mac" href="https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.31/INSTEAD_1.31_mac.zip" target="_blank" rel="noopener">
             <span>Mac</span><small>.zip</small>
@@ -1108,6 +1111,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       if (!latest[os]) return;
       document.querySelectorAll('[data-dl="' + os + '"]').forEach(function (a) { a.href = latest[os].url; });
     });
+    // Windows com instalador (.exe): troca o ".zip" e o texto de como instalar.
+    if (latest.windows && /\.exe$/.test(latest.windows.url)) {
+      document.querySelectorAll(".win-ext").forEach(function (n) { n.textContent = ".exe"; });
+      document.querySelectorAll(".win-zip").forEach(function (n) { n.hidden = true; });
+      document.querySelectorAll(".win-setup").forEach(function (n) { n.hidden = false; });
+    }
     var patches = document.getElementById("patches");
     if (patches && versions.length) {
       patches.textContent = "";
