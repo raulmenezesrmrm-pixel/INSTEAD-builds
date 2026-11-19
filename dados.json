@@ -21,6 +21,17 @@
                                           "Bichos: olhos acendem de longe no escuro e a sombra deles respeita a névoa.",
                                           "Poeira mais suave.",
                                           "Correções: clarão do tiro e fogo por cima do tapete, estrela do tiro não atravessa mais o soldado, não dá mais para sair da casa pela janela do banheiro."
+                                      ],
+                         "title_pt":  "Jogo mais leve, luar na sala e vapor no banheiro",
+                         "title_en":  "Lighter game, moonlight in the living room and bathroom steam",
+                         "notes_en":  [
+                                          "Living room: moonlight from the window in stripes on the armchair, floor, sofa and wall.",
+                                          "Bathroom: steam in the air, halos around the lamps and light beams.",
+                                          "Much lighter game: only the nearest lights cast shadows (FPS almost doubled).",
+                                          "Video: just pick Low, Medium, High or Ultra.",
+                                          "Bugs: their eyes glow from afar in the dark and their shadows respect the fog.",
+                                          "Softer dust.",
+                                          "Fixes: muzzle flash and fire now show over the rug, the muzzle star no longer shows through the soldier, you can no longer leave the house through the bathroom window."
                                       ]
                      },
                      {
