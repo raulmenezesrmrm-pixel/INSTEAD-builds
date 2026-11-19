@@ -1,7 +1,25 @@
 {
     "repo":  "raulmenezesrmrm-pixel/INSTEAD-builds",
-    "latest":  "1.41",
+    "latest":  "1.42",
     "versions":  [
+                     {
+                         "v":  "1.42",
+                         "date":  "2026-11-19",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.42/INSTEAD_1.42_windows_setup.exe",
+                                         "mb":  1173
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.42/INSTEAD_1.42_mac.zip",
+                                     "mb":  1205
+                                 },
+                         "notes_pt":  [
+                                          "Quarto: cama encostada na parede e sem fitas no chão.",
+                                          "Corda pela lateral da cama para na beirada do colchão (não atravessa mais a cama).",
+                                          "Baratas e aranhas sem o retângulo branco no rosto.",
+                                          "Mac: fechar o jogo sem o aviso de erro."
+                                      ]
+                     },
                      {
                          "v":  "1.41",
                          "date":  "2026-11-19",
@@ -13,6 +31,8 @@
                                      "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.41/INSTEAD_1.41_mac.zip",
                                      "mb":  1205
                                  },
+                         "title_pt":  "Jogo mais leve, luar na sala e vapor no banheiro",
+                         "title_en":  "Lighter game, moonlight in the living room and bathroom steam",
                          "notes_pt":  [
                                           "Sala: luar da janela em listras na poltrona, no chão, no sofá e na parede.",
                                           "Banheiro: vapor no ar, halo nas lâmpadas e feixes de luz.",
@@ -22,8 +42,6 @@
                                           "Poeira mais suave.",
                                           "Correções: clarão do tiro e fogo por cima do tapete, estrela do tiro não atravessa mais o soldado, não dá mais para sair da casa pela janela do banheiro."
                                       ],
-                         "title_pt":  "Jogo mais leve, luar na sala e vapor no banheiro",
-                         "title_en":  "Lighter game, moonlight in the living room and bathroom steam",
                          "notes_en":  [
                                           "Living room: moonlight from the window in stripes on the armchair, floor, sofa and wall.",
                                           "Bathroom: steam in the air, halos around the lamps and light beams.",
