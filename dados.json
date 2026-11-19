@@ -18,6 +18,14 @@
                                           "Corda pela lateral da cama para na beirada do colchão (não atravessa mais a cama).",
                                           "Baratas e aranhas sem o retângulo branco no rosto.",
                                           "Mac: fechar o jogo sem o aviso de erro."
+                                      ],
+                         "title_pt":  "Cama na parede, corda certa e correções",
+                         "title_en":  "Bed against the wall, better rope and fixes",
+                         "notes_en":  [
+                                          "Bedroom: the bed now sits against the wall and the tapes are gone from the floor.",
+                                          "The rope on the side of the bed now stops at the edge of the mattress (no more going through the bed).",
+                                          "Roaches and spiders no longer show a white rectangle on their faces.",
+                                          "Mac: quitting the game no longer shows an error message."
                                       ]
                      },
                      {
