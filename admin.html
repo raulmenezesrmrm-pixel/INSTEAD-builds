@@ -233,7 +233,8 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
         base += v;
       });
       var p = l.dia.split("-");
-      if (i % 2 === (lista.length - 1) % 2) {
+      // (todo dia com a data quando cabe; só na tela estreita, sem espaço, vai um dia sim e outro não)
+      if (passo >= 36 || i % 2 === (lista.length - 1) % 2) {
         var tx = svg("text", { x: cx, y: H - 8, "text-anchor": "middle", "class": "eixo" });
         tx.textContent = p[2] + "/" + p[1];
         g.appendChild(tx);
