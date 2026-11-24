@@ -395,6 +395,7 @@ dialog.viewer img { width: 100%; height: auto; display: block; }
 
 /* ---------- notas de versão: etiquetas de fita ---------- */
 .patches { display: grid; gap: 18px; }
+.patches-more { margin-top: 22px; }
 .tape {
   display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 0;
   background: var(--night-2); border: 1px solid var(--line);
@@ -458,12 +459,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <div class="wrap">
     <a href="#top" aria-label="INSTEAD"><img src="img/logo.png" alt="INSTEAD"></a>
     <nav class="topnav" aria-label="Seções">
-      <a href="#elias">Elias</a>
+      <!-- (22/11/2026, pedido dele: só estas no menu; as outras seções continuam na página) -->
       <a href="#jogo"><span lang="pt">O jogo</span><span lang="en">The game</span></a>
-      <a href="#video"><span lang="pt">Vídeo</span><span lang="en">Video</span></a>
-      <a href="#prints"><span lang="pt">Prints</span><span lang="en">Screenshots</span></a>
       <a href="#multiplayer">Multiplayer</a>
-      <a href="#novidades"><span lang="pt">Novidades</span><span lang="en">What's new</span></a>
       <a href="#versoes"><span lang="pt">Notas de versão</span><span lang="en">Patch notes</span></a>
       <a href="#perguntas"><span lang="pt">Perguntas</span><span lang="en">FAQ</span></a>
       <a href="#baixar" class="cta-mini"><span lang="pt">Baixar</span><span lang="en">Download</span></a>
@@ -1118,6 +1116,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       document.querySelectorAll(".win-setup").forEach(function (n) { n.hidden = false; });
     }
     var patches = document.getElementById("patches");
+    var PATCHES_SHOWN = 4;
     if (patches && versions.length) {
       patches.textContent = "";
       versions.forEach(function (v, i) {
@@ -1140,8 +1139,24 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         });
         tape.appendChild(label);
         tape.appendChild(body);
+        if (i >= PATCHES_SHOWN) { tape.hidden = true; tape.classList.add("tape-extra"); }
         patches.appendChild(tape);
       });
+      // (22/11/2026) só as 4 mais novas; o resto aparece no botão "Ver mais"
+      var old = document.getElementById("patches-more");
+      if (old) old.remove();
+      if (versions.length > PATCHES_SHOWN) {
+        var more = el("button", "btn patches-more");
+        more.type = "button";
+        more.id = "patches-more";
+        more.appendChild(el("span", null, "Ver mais", "pt"));
+        more.appendChild(el("span", null, "See more", "en"));
+        more.addEventListener("click", function () {
+          patches.querySelectorAll(".tape-extra").forEach(function (t) { t.hidden = false; });
+          more.remove();
+        });
+        patches.insertAdjacentElement("afterend", more);
+      }
     }
     ["title_pt", "title_en", "text_pt", "text_en"].forEach(function (key) {
       var node = document.getElementById("news-" + key.replace("_", "-"));
