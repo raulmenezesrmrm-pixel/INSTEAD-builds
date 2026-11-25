@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>INSTEAD · Privacidade / Privacy</title>
+<meta name="description" content="Política de privacidade do jogo INSTEAD e do site. / Privacy policy for the game INSTEAD and its website.">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Política de privacidade (25/11/2026, pedido dele: exigida pela Epic na revisão da marca para qualquer pessoa poder
+   entrar com a conta Epic no jogo). Mesmo visual da página obrigado.html. PT e EN na mesma página (botão PT/EN). */
+:root {
+  --night: #0e0c0b; --night-2: #171412; --line: #2c2622; --paper: #ece4d6; --dim: #9c9186; --lamp: #f1b35c;
+  --f-ui: "Oswald", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Barlow", "Segoe UI", Helvetica, Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--night); }
+body { margin: 0; background: var(--night); color: var(--paper); font: 400 1.0625rem/1.7 var(--f-body); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+a { color: var(--lamp); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--lamp); outline-offset: 3px; }
+html[data-lang="pt"] [lang="en"], html[data-lang="en"] [lang="pt"] { display: none !important; }
+.wrap { max-width: 820px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.topbar { border-bottom: 1px solid var(--line); }
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.topbar img { height: 22px; width: auto; display: block; }
+.lang { display: flex; border: 1px solid var(--line); }
+.lang button { background: none; border: 0; color: var(--dim); cursor: pointer; font: 500 0.72rem var(--f-ui); letter-spacing: 0.18em; padding: 6px 9px; }
+.lang button[aria-pressed="true"] { color: var(--night); background: var(--paper); }
+main { padding-block: clamp(40px, 8vw, 80px); }
+h1, h2 { font-family: var(--f-ui); font-weight: 400; text-transform: uppercase; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; letter-spacing: 0.06em; text-shadow: 0 0 18px rgba(236, 228, 214, 0.18); }
+h2 { font-size: 1.25rem; letter-spacing: 0.1em; margin-top: 2.2em; color: var(--lamp); }
+.updated { color: var(--dim); font-size: 0.92rem; margin-top: 10px; }
+p, li { max-width: 68ch; }
+ul { padding-left: 1.2em; }
+li + li { margin-top: 0.4em; }
+b { font-weight: 600; }
+footer { border-top: 1px solid var(--line); padding-block: 28px; color: var(--dim); font-size: 0.88rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a href="./" aria-label="INSTEAD"><img src="img/logo.png" alt="INSTEAD"></a>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-set="pt" aria-pressed="true">PT</button>
+      <button type="button" data-set="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ===================== PORTUGUÊS ===================== -->
+<div lang="pt">
+  <h1>Política de privacidade</h1>
+  <p class="updated">INSTEAD (jogo para Windows e Mac) e o site instead.pages.dev · Atualizada em 25/11/2026</p>
+
+  <p>INSTEAD é um jogo independente feito por Raul Menezes, no Brasil. Esta página explica quais dados o jogo e o site
+  usam, para quê e como pedir para apagar. Nós não vendemos dados, não mostramos anúncios e não usamos ferramentas de
+  rastreamento de terceiros.</p>
+
+  <h2>1. Entrar com a conta Epic Games (opcional)</h2>
+  <p>O jogo funciona sem conta. Se você escolher <b>ENTRAR COM A EPIC</b>, o login é feito pela Epic Games no
+  navegador (nós nunca vemos sua senha) e o jogo recebe da Epic:</p>
+  <ul>
+    <li><b>seu ID de conta Epic e seu nome de exibição</b>, para mostrar quem está jogando e identificar seu progresso;</li>
+    <li><b>sua presença online e sua lista de amigos da Epic</b>, só para você ver quais amigos estão jogando e
+      convidá-los para partidas cooperativas e PvP;</li>
+  </ul>
+  <p>Com a conta conectada, o jogo guarda na nuvem da Epic (Epic Online Services) o <b>seu progresso</b>: nível,
+  chapéus e outros itens desbloqueados e os jogos salvos, para você continuar em outro computador. Esses arquivos são
+  criptografados antes de sair do seu computador.</p>
+  <p>Nas partidas online, o seu nome de exibição e as ações dentro da partida são enviados aos outros jogadores da
+  mesma partida, pelos serviços da Epic.</p>
+  <p>Esses dados são tratados também pela Epic Games, conforme a
+  <a href="https://legal.epicgames.com/epicgames/privacy-policy" rel="noopener">política de privacidade da Epic</a>.
+  Você pode sair da conta no jogo a qualquer momento e revogar o acesso do INSTEAD na sua conta Epic, em
+  <a href="https://www.epicgames.com/account/connections" rel="noopener">epicgames.com/account/connections</a>.</p>
+
+  <h2>2. O que fica só no seu computador</h2>
+  <p>Configurações, jogos salvos e registros de erro (logs) ficam numa pasta do jogo no seu computador e não são
+  enviados para ninguém.</p>
+
+  <h2>3. Atualizações automáticas</h2>
+  <p>Ao abrir, o jogo pergunta ao GitHub (onde ficam os arquivos do jogo) se existe versão nova e, se existir, baixa
+  a atualização de lá. Como em qualquer download, o GitHub recebe o seu endereço de internet
+  (<a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">política do GitHub</a>).
+  O jogo não envia nenhum outro dado nesse momento.</p>
+
+  <h2>4. O site instead.pages.dev</h2>
+  <ul>
+    <li><b>Contadores:</b> o site conta acessos, de onde veio o acesso (por exemplo, Instagram) e cliques nos botões
+      de download. Para contar cada pessoa uma vez por dia, guarda só um código embaralhado (SHA-256) do endereço de
+      internet com a data, nunca o endereço em si; esses códigos somem em até 2 dias e os totais por dia em 120 dias.</li>
+    <li><b>Sugestões e bugs:</b> se você mandar uma mensagem pelo formulário, guardamos o texto, o tipo, a imagem que
+      você anexar e, se você quiser informar, o seu e-mail para resposta, além da versão do jogo, sistema e idioma.
+      Só o desenvolvedor lê essas mensagens.</li>
+    <li>O site guarda no seu navegador apenas o idioma escolhido (PT/EN).</li>
+    <li>O site é hospedado pela Cloudflare, que processa os acessos para entregar a página
+      (<a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">política da Cloudflare</a>).</li>
+  </ul>
+
+  <h2>5. Crianças</h2>
+  <p>Não pedimos nem guardamos de propósito dados de crianças além do que está descrito acima. A conta Epic segue as
+  regras de idade da própria Epic Games.</p>
+
+  <h2>6. Seus direitos e como apagar seus dados</h2>
+  <p>Você pode pedir para ver, corrigir ou apagar os dados ligados à sua conta no INSTEAD (por exemplo, o progresso
+  na nuvem) ou uma mensagem que você mandou pelo site, conforme a LGPD (Lei 13.709/2018) e leis parecidas do seu
+  país. Para isso, use o formulário de <a href="./#feedback">sugestões e bugs</a> do site ou fale com a gente no
+  Instagram <a href="https://www.instagram.com/instead.game/" rel="noopener">@instead.game</a>, informando o seu nome
+  de exibição da Epic.</p>
+
+  <h2>7. Mudanças</h2>
+  <p>Se esta política mudar, a data acima será atualizada nesta mesma página.</p>
+</div>
+
+<!-- ===================== ENGLISH ===================== -->
+<div lang="en">
+  <h1>Privacy policy</h1>
+  <p class="updated">INSTEAD (game for Windows and Mac) and the instead.pages.dev website · Last updated November 25, 2026</p>
+
+  <p>INSTEAD is an independent game made by Raul Menezes in Brazil. This page explains what data the game and the
+  website use, why, and how to ask for it to be deleted. We do not sell data, show ads or use third-party tracking
+  tools.</p>
+
+  <h2>1. Signing in with an Epic Games account (optional)</h2>
+  <p>The game works without an account. If you choose <b>SIGN IN WITH EPIC</b>, sign-in is handled by Epic Games in
+  your browser (we never see your password) and the game receives from Epic:</p>
+  <ul>
+    <li><b>your Epic account ID and display name</b>, to show who is playing and identify your progress;</li>
+    <li><b>your online presence and your Epic friends list</b>, only so you can see which friends are playing and
+      invite them to co-op and PvP matches;</li>
+  </ul>
+  <p>With an account connected, the game stores <b>your progress</b> in Epic's cloud (Epic Online Services): level,
+  hats and other unlocked items and saved games, so you can continue on another computer. These files are encrypted
+  before they leave your computer.</p>
+  <p>In online matches, your display name and your in-match actions are sent to the other players in the same match
+  through Epic's services.</p>
+  <p>This data is also processed by Epic Games under the
+  <a href="https://legal.epicgames.com/epicgames/privacy-policy" rel="noopener">Epic Games privacy policy</a>. You can
+  sign out in the game at any time and revoke INSTEAD's access in your Epic account at
+  <a href="https://www.epicgames.com/account/connections" rel="noopener">epicgames.com/account/connections</a>.</p>
+
+  <h2>2. What stays on your computer</h2>
+  <p>Settings, saved games and error logs are kept in a game folder on your computer and are not sent to anyone.</p>
+
+  <h2>3. Automatic updates</h2>
+  <p>When it starts, the game asks GitHub (where the game files are hosted) whether there is a new version and, if
+  there is, downloads the update from there. As with any download, GitHub receives your internet address
+  (<a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub's policy</a>).
+  The game sends no other data at that moment.</p>
+
+  <h2>4. The instead.pages.dev website</h2>
+  <ul>
+    <li><b>Counters:</b> the site counts visits, where the visit came from (for example, Instagram) and clicks on the
+      download buttons. To count each person once per day it stores only a scrambled code (SHA-256) of the internet
+      address plus the date, never the address itself; these codes are deleted within 2 days and the daily totals
+      within 120 days.</li>
+    <li><b>Suggestions and bug reports:</b> if you send a message through the form, we store the text, its type, any
+      image you attach and, if you choose to give it, your e-mail for a reply, plus the game version, system and
+      language. Only the developer reads these messages.</li>
+    <li>The site stores only your chosen language (PT/EN) in your browser.</li>
+    <li>The site is hosted by Cloudflare, which processes visits to deliver the page
+      (<a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Cloudflare's policy</a>).</li>
+  </ul>
+
+  <h2>5. Children</h2>
+  <p>We do not knowingly ask for or store children's data beyond what is described above. Epic accounts follow Epic
+  Games' own age rules.</p>
+
+  <h2>6. Your rights and deleting your data</h2>
+  <p>You can ask to see, correct or delete the data linked to your account in INSTEAD (for example, your cloud
+  progress) or a message you sent through the website, under Brazil's LGPD (Law 13.709/2018), the GDPR and similar
+  laws in your country. To do so, use the website's <a href="./#feedback">suggestions and bugs</a> form or contact us
+  on Instagram <a href="https://www.instagram.com/instead.game/" rel="noopener">@instead.game</a>, including your Epic
+  display name.</p>
+
+  <h2>7. Changes</h2>
+  <p>If this policy changes, the date above will be updated on this same page.</p>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>INSTEAD © 2026 Raul Menezes</span>
+    <a href="./" lang="pt">Voltar para a página do jogo</a>
+    <a href="./" lang="en">Back to the game page</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  function setLang(lang) {
+    root.setAttribute("data-lang", lang);
+    root.setAttribute("lang", lang === "pt" ? "pt-BR" : "en");
+    document.querySelectorAll(".lang button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.set === lang)); });
+    try { localStorage.setItem("instead-lang", lang); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem("instead-lang"); } catch (e) {}
+  // (?lang=en força o inglês: o link que vai para a Epic pode apontar direto para a versão em inglês)
+  var q = new URLSearchParams(location.search).get("lang");
+  var nav = (navigator.language || "pt").toLowerCase();
+  setLang(q === "en" || q === "pt" ? q : (saved || (nav.indexOf("pt") === 0 ? "pt" : "en")));
+  document.querySelectorAll(".lang button").forEach(function (b) { b.addEventListener("click", function () { setLang(b.dataset.set); }); });
+})();
+</script>
+</body>
+</html>
