@@ -1,7 +1,30 @@
 {
     "repo":  "raulmenezesrmrm-pixel/INSTEAD-builds",
-    "latest":  "1.42",
+    "latest":  "1.43",
     "versions":  [
+                     {
+                         "v":  "1.43",
+                         "date":  "2026-11-25",
+                         "windows":  {
+                                         "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.43/INSTEAD_1.43_windows_setup.exe",
+                                         "mb":  1314
+                                     },
+                         "mac":  {
+                                     "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.43/INSTEAD_1.43_mac.zip",
+                                     "mb":  1345
+                                 },
+                         "notes_pt":  [
+                                          "Mais da casa: novas áreas depois da cozinha, com novos segredos para descobrir.",
+                                          "Cozinha: mosquitos voando em volta da comida velha.",
+                                          "Configurações: VSYNC de volta, lista de resoluções do seu monitor e suavização da câmera.",
+                                          "Menu: fundo novo e aviso de versão nova mais claro.",
+                                          "Instalador: sempre pergunta a pasta de instalação.",
+                                          "PvP: jeep quebrado solta fumaça e some.",
+                                          "Jeep vazio qualquer um entra.",
+                                          "Online: bots se mexem mais suave para quem entrou na partida.",
+                                          "Correções: corda sobe uma prateleira por vez nas estantes, atalhos indevidos fechados."
+                                      ]
+                     },
                      {
                          "v":  "1.42",
                          "date":  "2026-11-19",
@@ -13,14 +36,14 @@
                                      "url":  "https://github.com/raulmenezesrmrm-pixel/INSTEAD-builds/releases/download/v1.42/INSTEAD_1.42_mac.zip",
                                      "mb":  1205
                                  },
+                         "title_pt":  "Cama na parede, corda certa e correções",
+                         "title_en":  "Bed against the wall, better rope and fixes",
                          "notes_pt":  [
                                           "Quarto: cama encostada na parede e sem fitas no chão.",
                                           "Corda pela lateral da cama para na beirada do colchão (não atravessa mais a cama).",
                                           "Baratas e aranhas sem o retângulo branco no rosto.",
                                           "Mac: fechar o jogo sem o aviso de erro."
                                       ],
-                         "title_pt":  "Cama na parede, corda certa e correções",
-                         "title_en":  "Bed against the wall, better rope and fixes",
                          "notes_en":  [
                                           "Bedroom: the bed now sits against the wall and the tapes are gone from the floor.",
                                           "The rope on the side of the bed now stops at the edge of the mattress (no more going through the bed).",
