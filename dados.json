@@ -19,10 +19,21 @@
                                           "Configurações: VSYNC de volta, lista de resoluções do seu monitor e suavização da câmera.",
                                           "Menu: fundo novo e aviso de versão nova mais claro.",
                                           "Instalador: sempre pergunta a pasta de instalação.",
-                                          "PvP: jeep quebrado solta fumaça e some.",
-                                          "Jeep vazio qualquer um entra.",
+                                          "PvP: jeep quebrado solta fumaça e some; qualquer um entra no jeep vazio.",
                                           "Online: bots se mexem mais suave para quem entrou na partida.",
                                           "Correções: corda sobe uma prateleira por vez nas estantes, atalhos indevidos fechados."
+                                      ],
+                         "title_pt":  "Mais da casa, mosquitos na cozinha e menu novo",
+                         "title_en":  "More of the house, kitchen flies and a new menu",
+                         "notes_en":  [
+                                          "More of the house: new areas past the kitchen, with new secrets to find.",
+                                          "Kitchen: flies buzzing around the old food.",
+                                          "Settings: VSYNC is back, resolution list from your monitor and camera smoothing.",
+                                          "Menu: new background and a clearer new-version notice.",
+                                          "Installer: always asks for the install folder.",
+                                          "PvP: a broken jeep smokes and disappears; anyone can get into an empty jeep.",
+                                          "Online: bots move more smoothly for players who joined the match.",
+                                          "Fixes: the rope climbs shelves one at a time, unintended shortcuts closed."
                                       ]
                      },
                      {
