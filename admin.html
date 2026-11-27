@@ -84,12 +84,12 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
     <div class="grafico" id="vis-grafico"></div>
     <details class="vertabela"><summary>Ver tabela</summary>
     <table class="dias" id="vis-dias" hidden>
-      <thead><tr><th>Dia</th><th>Acessos</th><th>Pessoas</th><th>Pelo Instagram</th></tr></thead>
+      <thead><tr><th>Dia</th><th>Acessos</th><th>Pessoas</th><th>Pelo Instagram</th><th>Robôs ignorados</th></tr></thead>
       <tbody></tbody>
     </table>
     </details>
     <div id="vis-sites"></div>
-    <p class="aviso" style="font-size:0.85rem;margin-top:8px">Acessos = cada vez que a página foi aberta. Pessoas = no máximo 1 por endereço de internet por dia (conta pela origem do 1º acesso do dia). Instagram = link da bio, navegador do app ou página do Instagram. Direto = digitou o endereço, WhatsApp ou apps que não dizem de onde vem. Suas próprias visitas também contam. A contagem começou em 17/11/2026.</p>
+    <p class="aviso" style="font-size:0.85rem;margin-top:8px">Acessos = cada vez que a página foi aberta. Pessoas = no máximo 1 por endereço de internet por dia (conta pela origem do 1º acesso do dia). Instagram = link da bio, navegador do app ou página do Instagram. Direto = digitou o endereço, WhatsApp ou apps que não dizem de onde vem. Suas próprias visitas também contam. A contagem começou em 17/11/2026. Desde 27/11/2026 o acesso só conta depois de a página ficar 2 segundos visível, e robôs (buscadores, verificadores de site, navegadores controlados por programa) vão para "Robôs ignorados".</p>
     <h2>Downloads (cliques no site)</h2>
     <div class="cards" id="dl-cards"><p class="aviso">Carregando...</p></div>
     <div class="grafico" id="dl-grafico"></div>
@@ -301,13 +301,19 @@ h2 { font: 500 1.1rem "Oswald", sans-serif; letter-spacing: 0.16em; text-transfo
           c.appendChild(el("small", null, "acessos · " + gente(v.pessoas) + " · " + pct + "%"));
           cards.appendChild(c);
         });
+        // (27/11/2026) robôs que o filtro barrou: não entram em nenhum número acima
+        var r = el("div", "card");
+        r.appendChild(el("span", "rot", "Robôs ignorados"));
+        r.appendChild(el("b", null, String(d.robos || 0)));
+        r.appendChild(el("small", null, "não contam nos acessos · desde 27/11/2026"));
+        cards.appendChild(r);
         var body = tabela.querySelector("tbody");
         body.textContent = "";
         d.dias.forEach(function (l) {
           var tr = el("tr");
           var p = l.dia.split("-");
           tr.appendChild(el("td", null, p[2] + "/" + p[1] + "/" + p[0]));
-          [l.acessos, l.pessoas, l.instagram].forEach(function (n) { tr.appendChild(el("td", n ? null : "zero", String(n))); });
+          [l.acessos, l.pessoas, l.instagram, l.robos || 0].forEach(function (n) { tr.appendChild(el("td", n ? null : "zero", String(n))); });
           body.appendChild(tr);
         });
         tabela.hidden = false;
