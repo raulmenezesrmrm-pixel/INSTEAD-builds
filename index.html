@@ -1380,7 +1380,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   // Depois do aviso, vai para a página "obrigado" (site/landing/obrigado.html, 17/11/2026): ela começa o download,
   // avisa do beta e, no Mac, mostra como liberar o jogo. Só no site de verdade (no Artifact do Claude não existe a página);
   // Ctrl/clique do meio continuam abrindo o link direto.
-  var temObrigado = /(^|\.)instead\.pages\.dev$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
+  // (27/11/2026: com o domínio próprio insteadgame.com o botão ia direto para o download, sem a página "obrigado")
+  var temObrigado = /(^|\.)insteadgame\.com$|(^|\.)instead\.pages\.dev$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
   document.querySelectorAll("[data-dl]").forEach(function (a) {
     a.addEventListener("click", function (e) {
       var so = a.getAttribute("data-dl");
@@ -1392,7 +1393,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       } catch (err) {}
       if (!temObrigado || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
       e.preventDefault();
-      var pagina = /pages\.dev$/.test(location.hostname) ? "obrigado" : "obrigado.html";
+      var pagina = /pages\.dev$|insteadgame\.com$/.test(location.hostname) ? "obrigado" : "obrigado.html";  // (Cloudflare: sem o .html)
       location.href = pagina + "?so=" + so + "&u=" + encodeURIComponent(a.href);
     });
   });
